@@ -82,7 +82,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 2. Create or go to `dev` branch
 - `git checkout dev`
 
-<a><img src="./docs/assests/images/git1.png"/></a>
+<a><img src="./docs/assets/images/git1.png"/></a>
 
 3. Create or go to your branch
 - `git checkout -b [your-name/feature]`
@@ -90,7 +90,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 4. Check what branch you are currently on
 - `git branch`
 
-<a><img src="./docs/assests/images/git3.png"/></a>
+<a><img src="./docs/assets/images/git3.png"/></a>
 
 ## Starting Workflow
 
@@ -104,10 +104,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 2. Create or go to your branch. PRO TIP: Use tab to autofill
 - `git checkout -b [your-name/feature]`
 
-<a><img src="./docs/assests/images/git2.png"/></a>
+<a><img src="./docs/assets/images/git2.png"/></a>
 
 3. Use `git branch` to make sure you are on the correct branch
-<a><img src="./docs/assests/images/git4.png"/></a>
+<a><img src="./docs/assets/images/git4.png"/></a>
 
 ## Saving and Uploading Code
 1. Before pushing code to GitHub. Merge any updates from `dev`. Solve any conflicts (aka differences) between `dev` and your local branch 
@@ -130,6 +130,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
   - add reviewers (on the right sidebar)
   - click create pull request
 
-<a><img src="./docs/assests/images/git6.png"/></a>
+<a><img src="./docs/assets/images/git6.png"/></a>
 
 5. Review, Approve and Merge pull request to `dev` branch
