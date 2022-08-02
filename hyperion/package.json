@@ -1,0 +1,31 @@
+{
+  "name": "hyperion",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development node server/server.js",
+    "build": " webpack",
+    "dev": "NODE_ENV=development nodemon server/server.js & NODE_ENV=development webpack serve --open",
+    "windows-dev": "concurrently \"NODE_ENV=development node server/server.js\" \"NODE_ENV=development webpack serve --open\""
+  },
+  "author": "Team jakaL",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/preset-env": "^7.18.10",
+    "@babel/preset-react": "^7.18.6",
+    "axios": "^0.27.2",
+    "css-loader": "^6.7.1",
+    "eslint": "^8.21.0",
+    "express": "^4.18.1",
+    "file-loader": "^6.2.0",
+    "mongodb": "^4.8.1",
+    "mongoose": "^6.5.0",
+    "nodemon": "^2.0.19",
+    "passport": "^0.6.0",
+    "react-chartjs-2": "^4.3.1",
+    "react-dom": "^18.2.0",
+    "sass": "^1.54.0",
+    "sass-loader": "^13.0.2"
+  }
+}
