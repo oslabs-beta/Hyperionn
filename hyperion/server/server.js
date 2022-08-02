@@ -9,14 +9,16 @@ const PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use('/', express.static(path.resolve(__dirname,'../src')));
+app.use('/', express.static(path.resolve(__dirname,'../dist')));
 
 //Serve index.html file from src
 app.get('/', (req, res) => {
   return res.sendFile(path.resolve(__dirname, '../src/index.html'));
 });
 
-
+app.get('/hi', (req, res) => {
+  return res.send('hi');
+})
 
 
 
