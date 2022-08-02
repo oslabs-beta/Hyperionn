@@ -29,14 +29,12 @@ const config = {
     ],
   },
   devServer: {
-    host: 'localhost',
-    port: 8080,
-    // enable HMR on the devServer
-    hot: true,
-    // fallback to root for other urls
-    historyApiFallback: true,
+    static: {
+      publicPath: '/',
+      directory: path.resolve(__dirname, 'src'),
+    },
     proxy: {
-      '/api': {
+      '/hi': {
         target: 'http://localhost:3000',
         secure: false,
       },
@@ -44,8 +42,8 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      templateContent: ({ htmlWebpackPlugin }) => '<!DOCTYPE html><html><head><meta charset=\"utf-8\"><title>' + htmlWebpackPlugin.options.title + '</title></head><body><div id=\"app\"></div></body></html>',
       filename: 'index.html',
+      template: path.resolve(__dirname, './src/index.html')
     })
   ],
   resolve: {
