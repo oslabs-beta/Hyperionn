@@ -1,14 +1,10 @@
-import './app.css';
+import './app.scss';
 import React from 'react'
 import MainDisplay from './Containers/MainDisplay.jsx'
       
 function App() {
   return (
-    <div className="App">
-
-      <div>
-        hello WORLD!!!
-      </div>
+    <div className="MainDisplay">
       <MainDisplay/>
     </div>
   );

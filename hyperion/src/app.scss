@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+$white: #ffffff;
+$lightGrey: #f6f6f6;
+$mediumGrey: #ececec;
+$darkGrey: #d0d0d0;
+$textGrey: #2d2d2d;
+$logoOrange: #f3be66;
+$logoMidOrange: #f39566;
+$logoMidPink: #f366dc;
+$logoPurple: #ce10fa;
+$dustyPurple: #63489b;
+$darkPurple: #120a27;
+
+
+body {
+  margin: 0;
+  padding: 0;
+  color: $white;
+  font-family: "Nanum Gothic", sans-serif;
+  box-sizing: border-box;
+}
+
+
+#NavBar {
+  grid-area: NavBar;
+  height:60px;
+  background-color: #63489b;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-content: right;
+}
+
+#paper {
+  padding: 10px;
+}
+  
+.DataContainer {
+  grid-area: DataContainer;
+  display: flex;
+  color: $textGrey;
+  height:100%;
+  align-items: center;
+  justify-content: center;
+  background-color: $white;
+}
+
+// .SimpleMetric {
+//   background-color : green
+// }
