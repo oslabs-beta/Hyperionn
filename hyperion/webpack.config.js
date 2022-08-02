@@ -34,7 +34,7 @@ const config = {
       directory: path.resolve(__dirname, 'src'),
     },
     proxy: {
-      '/hi': {
+      '/server': {
         target: 'http://localhost:3000',
         secure: false,
       },
