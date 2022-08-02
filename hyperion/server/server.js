@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const metricsRouter = require('./routers/metricsRouter');
-const PORT = 3000;
+const PORT = 3001;
 
 //Boiler plate for parsing incoming json and requests with urlencoded payloads
 app.use(express.urlencoded({ extended: true }));
