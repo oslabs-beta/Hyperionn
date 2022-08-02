@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development node server/server.js",
-    "build": " webpack",
-    "dev": "NODE_ENV=development nodemon server/server.js & NODE_ENV=development webpack serve --open",
-    "windows-dev": "concurrently \"NODE_ENV=development node server/server.js\" \"NODE_ENV=development webpack serve --open\""
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=production node server/server.js",
+    "build": "webpack",
+    "dev": "NODE_ENV=development nodemon server/server.js & NODE_ENV=development webpack serve --open"
   },
   "author": "Team jakaL",
   "license": "ISC",
