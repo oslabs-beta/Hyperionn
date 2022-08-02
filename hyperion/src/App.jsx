@@ -1,4 +1,4 @@
-//import './App.css';
+import './app.css';
 import React from 'react'
 import MainDisplay from './Containers/MainDisplay.jsx'
       
