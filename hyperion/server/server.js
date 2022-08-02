@@ -2,7 +2,7 @@ const { urlencoded } = require('express');
 const express = require('express');
 const path = require('path');
 const app = express();
-const metricsRouter = require('./routers/metricsRouter');
+const router = require('./routers/Router');
 const PORT = 3001;
 
 //Boiler plate for parsing incoming json and requests with urlencoded payloads
@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
   return res.sendFile(path.resolve(__dirname, '../src/index.html'));
 });
 
-app.use('/server/metrics', metricsRouter)
+app.use('/server', router)
 
 
 
