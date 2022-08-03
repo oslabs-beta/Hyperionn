@@ -24,11 +24,13 @@ const metricController = require('../Controllers/metricController');
 //   }
 // }
 
-//Handle get requests for under replicated partitions
-router.get('/metrics/underReplicated', metricController.underReplicatedPartitions, 
-(req, res) => {
-  return res.status(200).json(res.locals.underReplicatedPartitions);
-}
+//Handle get requests for metricData
+router.get('/metrics', 
+  metricController.getMetricData, 
+  metricController.parseData,
+  (req, res) => {
+    return res.status(200).json(res.locals.metricData);
+  }
 )
 
 module.exports = router;
