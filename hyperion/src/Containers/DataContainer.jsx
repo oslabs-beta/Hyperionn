@@ -7,7 +7,7 @@ import SimpleKeyMetrics from '../Components/SimpleKeyMetrics.jsx'
 const DataContainer = (props) => {
 
 const dataGrid = {
-  padding: "15px",
+  padding: "20px",
   display: "grid", 
   gridTemplateColumns: "1fr 1fr 1fr", 
   gridTemplateRows: "1fr 1fr",
