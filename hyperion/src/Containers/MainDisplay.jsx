@@ -5,23 +5,6 @@ export const InfoContext = createContext();
 import DataContainer from './DataContainer.jsx'
 
 export function MainDisplay () {
-      
-    // const [kafkaData, setKafkaData] = useState({
-    //     numberOfActivePartitions : 0,
-    //     numberOfActiveControllers : 0,
-    //     underReplicatedPartitions : 0
-    // })
-    
-    // useEffect(()=> {
-    //   console.log('prefetch')
-    //   const fetchData = async () => {
-    //     const response = await fetch('/server/metrics');
-    //     const data = await response.json()
-    //     setKafkaData(data)
-    //   }
-    //   fetchData()
-    //   .catch(console.log('error in fetchData' ))
-    // },[])
 
     const outerGridContainer = {
         display: "grid",
