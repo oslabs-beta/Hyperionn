@@ -16,6 +16,7 @@ app.get('/', (req, res) => {
   return res.sendFile(path.resolve(__dirname, '../src/index.html'));
 });
 
+//use router for requets to server endpoint
 app.use('/server', router)
 
 

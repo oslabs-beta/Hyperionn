@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Box } from '@mui/material';
 
-
+const pollingInterval = 5000;
 const SimpleKeyMetrics = (props) => {
  
   const [kafkaData, setKafkaData] = useState({
@@ -9,19 +9,20 @@ const SimpleKeyMetrics = (props) => {
     activeControllers : [],
     underReplicated : []
   })
-
-  useEffect(() =>{
-    getSimpleKeyMetrics()
-    .catch(console.log('error in fetchData' ))
-  }, []) 
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getSimpleKeyMetrics();
+    }, pollingInterval);
+    return () => clearInterval(interval);
+  }, []);
 
   async function getSimpleKeyMetrics() {
+    
+    let offlinePartSum = 0;
+    let activeContSum = 0;
+    let underRepSum = 0;
 
-    const offlinePartArray = [];
-    const activeContArray = [];
-    const underRepArray = [];
-
-    console.log('prefetch')
     //fetch number of offline partition data //sum of values
     const responseOfflinePart = await fetch('/server/metrics?metric=offlinePartitions');
     const dataOfflinePart = await responseOfflinePart.json();
@@ -32,45 +33,45 @@ const SimpleKeyMetrics = (props) => {
     const dataActiveCont = await responseActiveCont.json();
     console.log('Active Controllers', dataActiveCont);
 
-  //fetch under replicated partition data
+    //fetch under replicated partition data
     const responseUnderReplicated = await fetch('/server/metrics?metric=underReplicated');
     const dataUnderReplicated = await responseUnderReplicated.json();
     console.log('UnderReplicate', dataUnderReplicated);
 
-  //loop through data which is an array to pull metrics out of array and evaluate if metrics are off
-    for (let value in dataUnderReplicated) {
-      underRepArray.push(value.metrics[1]);
+    //loop through data and sum all values
+    for (const metricChunk of dataUnderReplicated) {
+      underRepSum += Number(metricChunk.value[1]);
     }
 
-    for (let value in dataUnderReplicated) {
-      underRepArray.push(value.metrics[1]);
+    for (const metricChunk of dataActiveCont) {
+      activeContSum += Number(metricChunk.value[1]);
     }
 
-    for (let value in dataUnderReplicated) {
-      underRepArray.push(value.metrics[1]);
+    for (const metricChunk of dataOfflinePart) {
+      offlinePartSum += Number(metricChunk.value[1]);
     }
-    
+
   //set state of kafkaData
     setKafkaData({
-        offlinePartitions: dataOfflinePart,
-        activeControllers: dataActiveCont,
-        underReplicated: dataUnderReplicated,
+        offlinePartitions: offlinePartSum,
+        activeControllers: activeContSum,
+        underReplicated: underRepSum,
     })
-
   }
 
-  //setInterval(getSimpleKeyMetrics, 5000)
-
-
+  //destructure state
+  const { offlinePartitions, activeControllers, underReplicated } = kafkaData;
 
   return (
     <div>
         <Box>
-          Number of Offline Partitions:
+          Number of Offline Partitions: {offlinePartitions}
         </Box>
         <Box>
+          Number of Active Controllers: {activeControllers}
         </Box>
         <Box>
+          Number of Underreplicated Partitions: {underReplicated}
         </Box>
     </div>
   )

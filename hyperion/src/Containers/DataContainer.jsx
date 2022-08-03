@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper } from '@mui/material';
+import { Grid, Paper } from '@mui/material';
 import SimpleKeyMetrics from '../Components/SimpleKeyMetrics.jsx'
 
 
@@ -7,6 +7,7 @@ import SimpleKeyMetrics from '../Components/SimpleKeyMetrics.jsx'
 const DataContainer = (props) => {
 
 const dataGrid = {
+  padding: "20px",
   display: "grid", 
   gridTemplateColumns: "1fr 1fr 1fr", 
   gridTemplateRows: "1fr 1fr",
