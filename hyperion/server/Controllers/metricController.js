@@ -7,13 +7,14 @@ const prometheusServerHostname = 'http://localhost:';
 const prometheusPort = '9090';
 const url = prometheusServerHostname + prometheusPort;
 
+//kafka_cluster_partition_underreplicated
 //Create a dictionary of all needed query strings, representing metrics to send to prometheus
 const queryStringDictionary = {
-    underReplicated: '/api/v1/query?query=kafka_cluster_partition_underreplicated',
+    underReplicated: '/api/v1/query?query=kafka_server_replicamanager_underreplicatedpartitions',
     offlinePartitions: '/api/v1/query?query=kafka_controller_kafkacontroller_offlinepartitionscount',
+    activeControllers: '/api/v1/query?query=kafka_controller_kafkacontroller_activecontrollercount',
     responseRate: '/api/v1/query?query=kafka_connect_connect_metrics_response_rate',
     requestRate: '/api/v1/query?query=kafka_connect_connect_metrics_request_rate',
-    activeController: '/api/v1/query?query=kafka_controller_kafkacontroller_activecontrollercount',
     avgReqLatency: '/api/v1/query?query=zookeeper_avgrequestlatency',
 };
 

@@ -1,15 +1,13 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Box } from '@mui/material';
 
 
 const SimpleKeyMetrics = (props) => {
-  // const {numberOfActivePartitions,
-  //   numberOfActiveControllers,
-  //   underReplicatedPartitions} = props
+ 
   const [kafkaData, setKafkaData] = useState({
-    offlinePartitions : 0,
-    activeControllers : 0,
-    underReplicated : 0
+    offlinePartitions : [],
+    activeControllers : [],
+    underReplicated : []
   })
 
   useEffect(() =>{
@@ -18,42 +16,44 @@ const SimpleKeyMetrics = (props) => {
   }, []) 
 
   async function getSimpleKeyMetrics() {
+
     console.log('prefetch')
-    //fetch number of active partition data
+    //fetch number of offline partition data //sum of values
     const responseOfflinePart = await fetch('/server/metrics?metric=offlinePartitions');
     const dataOfflinePart = await responseOfflinePart.json();
+    console.log('Offline Part', dataOfflinePart)
 
-    //fetch number of active controllers
-    const responseActiveCont = await fetch('/server/metrics?metric=activeController');
+    //fetch number of active controllers //sum of values should be 1
+    const responseActiveCont = await fetch('/server/metrics?metric=activeControllers');
     const dataActiveCont = await responseActiveCont.json();
+    console.log('Active Controllers', dataActiveCont);
 
   //fetch under replicated partition data
     const responseUnderReplicated = await fetch('/server/metrics?metric=underReplicated');
     const dataUnderReplicated = await responseUnderReplicated.json();
+    console.log('UnderReplicate', dataUnderReplicated);
 
   //set state of kafkaData
     setKafkaData({
-        offlinePartitions: dataOfflinePart.offlinePartitions,
-        activeControllers: dataActiveCont.activeControllers,
-        underReplicated: dataUnderReplicated.underReplicatedPartitions,
+        offlinePartitions: dataOfflinePart,
+        activeControllers: dataActiveCont,
+        underReplicated: dataUnderReplicated,
     })
 
   }
 
-  setInterval(getSimpleKeyMetrics, 5000)
+  //setInterval(getSimpleKeyMetrics, 5000)
 
 
 
   return (
     <div>
         <Box>
-         <NumberOfActiveControllers/>
+          Number of Offline Partitions:
         </Box>
         <Box>
-          <NumberOfOfflinePartitions/>
         </Box>
         <Box>
-          <UnderReplicatedPartitions/>
         </Box>
     </div>
   )
