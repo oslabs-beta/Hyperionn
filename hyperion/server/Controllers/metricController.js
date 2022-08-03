@@ -11,9 +11,10 @@ const url = prometheusServerHostname + prometheusPort;
 const queryStringDictionary = {
     underReplicated: '/api/v1/query?query=kafka_cluster_partition_underreplicated',
     offlinePartitions: '/api/v1/query?query=kafka_controller_kafkacontroller_offlinepartitionscount',
-    avgReqLatency: '/api/v1/query?query=zookeeper_avgrequestlatency',
     responseRate: '/api/v1/query?query=kafka_connect_connect_metrics_response_rate',
-    requestRate: '/api/v1/query?query=kafka_connect_connect_metrics_request_rate'
+    requestRate: '/api/v1/query?query=kafka_connect_connect_metrics_request_rate',
+    activeController: '/api/v1/query?query=kafka_controller_kafkacontroller_activecontrollercount',
+    avgReqLatency: '/api/v1/query?query=zookeeper_avgrequestlatency',
 };
 
 const metricController = {};
