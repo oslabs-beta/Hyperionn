@@ -2,8 +2,8 @@
 
 $white: #ffffff;
 $lightGrey: #f6f6f6;
-$mediumGrey: #ececec;
-$darkGrey: #d0d0d0;
+$mediumGrey: #d8d8d8;
+$darkGrey: #9d9d9d;
 $textGrey: #2d2d2d;
 $logoOrange: #f3be66;
 $logoMidOrange: #f39566;
@@ -18,23 +18,28 @@ body {
   padding: 0;
   color: $white;
   font-family: "Nanum Gothic", sans-serif;
-  box-sizing: border-box;
 }
 
 
 #NavBar {
   grid-area: NavBar;
   height:60px;
-  background-color: #63489b;
+  background-color: $dustyPurple;
   display: flex;
   flex-direction: row;
   justify-content: right;
   align-content: right;
 }
 
-.paper {
-  padding: 10px;
+.big-number {
+  font-size: 2rem;
+  color: $dustyPurple;
 }
+
+.data-label {
+  color: $darkGrey;
+}
+
   
 .DataContainer {
   grid-area: DataContainer;
