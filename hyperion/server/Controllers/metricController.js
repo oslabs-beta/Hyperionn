@@ -43,7 +43,13 @@ metricController.getMetricData = async (req, res, next) => {
  }
  //parse out the requested data for the client
  metricController.parseData =  (req, res, next) => {
-    return next();
+    const { metric } = req.query;
+    if(metric === 'underReplicated' || metric === 'offlinePartitions' || metric === 'activeControllers'){
+        return next();
+    }
+    // parse out data to conform to an object with an x value (timestamp) and a y value (data value)
+    // res.locals.metricData = 
+    return next()
  }
 
 module.exports = metricController;
