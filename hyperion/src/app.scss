@@ -2,7 +2,7 @@
 
 $white: #ffffff;
 $lightGrey: #f6f6f6;
-$mediumGrey: #d8d8d8;
+$mediumGrey: #c4c4c4;
 $darkGrey: #9d9d9d;
 $textGrey: #2d2d2d;
 $logoOrange: #f3be66;
@@ -24,11 +24,21 @@ body {
 #NavBar {
   grid-area: NavBar;
   height:60px;
-  background-color: $dustyPurple;
+  background-color: $mediumGrey;
   display: flex;
   flex-direction: row;
   justify-content: right;
   align-content: right;
+  box-shadow: none;
+}
+
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $lightGrey;
+  height: 100%;
+  padding-top: 150px;
 }
 
 .big-number {

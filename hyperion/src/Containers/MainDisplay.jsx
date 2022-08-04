@@ -22,7 +22,7 @@ export function MainDisplay () {
         <>
           <Grid container sx={outerGridContainer}>
             {/* <InfoContext.Provider value={[kafkaData, setKafkaData]}> */}
-            <Box sx={{gridArea:"SideNav", backgroundColor: "#63489b"}}>
+            <Box sx={{gridArea:"SideNav"}}>
                 <SideNav />
             </Box>
             <Box item sx={{ gridArea: "NavBar"}}>

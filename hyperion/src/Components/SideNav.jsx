@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { Button } from '@mui/material';
+import { Button, Box } from '@mui/material';
 
 const SideNav = () => {
 
+const button = {
+  color: "$lightGrey",
+}
+
     return (
-        <div>
-          <Button variant="text">Connect</Button>
-          <Button variant="text">Error Logs</Button>
-          <Button variant="text">Topics</Button>
+        <div className="side-nav">
+          <Button variant="text" color="secondary">Connect</Button>
+          <Button variant="text" sx={button}>Error Logs</Button>
+          <Button variant="text" sx={button}>Topics</Button>
         </div>
     )
 };
