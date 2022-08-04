@@ -43,7 +43,26 @@ metricController.getMetricData = async (req, res, next) => {
  }
  //parse out the requested data for the client
  metricController.parseData =  (req, res, next) => {
-    return next();
+    const { metric } = req.query;
+    if(metric === 'underReplicated' || metric === 'offlinePartitions' || metric === 'activeControllers'){
+        return next();
+    }
+    const tempMetricData = res.locals.metricData;
+    let sum = 0;
+    tempMetricData.forEach(zookeeperObj => {
+        sum += Number(zookeeperObj.value[1]);
+    });
+    const averageLatency = sum / tempMetricData.length;
+    const today = new Date();
+    const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    // const objWithDataForAnish = {'x': Math.floor(Date.now() / 1000), 'y': averageLatency};
+    const objWithDataForAnish = {'x': time, 'y': averageLatency};
+    console.log(objWithDataForAnish);
+
+    res.locals.metricData = objWithDataForAnish;
+    // parse out data to conform to an object with an x value (timestamp) and a y value (data value)
+    // res.locals.metricData = 
+    return next()
  }
 
 module.exports = metricController;
