@@ -4,8 +4,11 @@ import NavBar from '../Components/NavBar.jsx';
 export const InfoContext = createContext();
 import DataContainer from './DataContainer.jsx';
 import SideNav from '../Components/SideNav.jsx';
+import LoginPage from './LoginPage.jsx';
 
 export function MainDisplay () {
+
+  const [loggedIn, setLoggedIn] = useState(true);
 
     const outerGridContainer = {
         display: "grid",
@@ -20,19 +23,24 @@ export function MainDisplay () {
 
     return (
         <>
-          <Grid container sx={outerGridContainer}>
+          {!loggedIn && (
+            <LoginPage />
+          )}
+          {loggedIn && (
+            <Grid container sx={outerGridContainer}>
             {/* <InfoContext.Provider value={[kafkaData, setKafkaData]}> */}
-            <Box sx={{gridArea:"SideNav"}}>
+              <Box sx={{gridArea:"SideNav"}}>
                 <SideNav />
-            </Box>
-            <Box item sx={{ gridArea: "NavBar"}}>
-              <NavBar />
-            </Box>
-            <Box item sx={{gridArea:"DataContainer"}}>
-              <DataContainer />
-            </Box>
+              </Box>
+              <Box item sx={{ gridArea: "NavBar"}}>
+                <NavBar />
+              </Box>
+              <Box item sx={{gridArea:"DataContainer"}}>
+                <DataContainer />
+              </Box>
             {/* </InfoContext.Provider> */}
-          </Grid> 
+            </Grid>
+          )} 
         </>
     )
 }

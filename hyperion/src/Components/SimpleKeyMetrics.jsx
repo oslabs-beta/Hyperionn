@@ -20,11 +20,14 @@ const SimpleKeyMetrics = (props) => {
   const stylingBox = {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
+    height: "25%",
+    justifyContent: "space-evenly",
     alignItems: "center",
-    margin: "10px",
+    alignContent: "center",
+    paddingTop: "15px",
+    border: "1px solid #d0d0d0",
     // borderRadius: "10px",
-    // boxShadow: "rgb(0, 149, 255) 0px 5px 10px -5px;",
+    boxShadow: "none",
   }
 
   async function getSimpleKeyMetrics() {
@@ -73,19 +76,19 @@ const SimpleKeyMetrics = (props) => {
   const { offlinePartitions, activeControllers, underReplicated } = kafkaData;
 
   return (
-    <div>
+    <div className="key-metrics">
         <Paper sx={stylingBox}>
-          <Typography className="data-label">Offline Partitions</Typography>
+          <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase' }}>Offline Partitions</Typography>
           {/* <Typography>{offlinePartitions}</Typography> */}
           <Typography className="big-number" sx={{ fontSize: '3rem'}}>0</Typography>
         </Paper>
         <Paper sx={stylingBox}>
-          <Typography className="data-label">Active Controllers</Typography>
+          <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Active Controllers</Typography>
           {/* <Typography>{activeControllers}</Typography> */}
           <Typography className="big-number" sx={{ fontSize: '3rem'}}>1</Typography>
         </Paper>
         <Paper sx={stylingBox}>
-          <Typography className="data-label">Underreplicated Partitions</Typography>
+          <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Underreplicated Partitions</Typography>
           {/* <Typography>{underReplicated}</Typography> */}
           <Typography className="big-number" sx={{ fontSize: '3rem'}}>0</Typography>
         </Paper>

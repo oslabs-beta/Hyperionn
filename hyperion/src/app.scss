@@ -2,8 +2,8 @@
 
 $white: #ffffff;
 $lightGrey: #f6f6f6;
-$mediumGrey: #c4c4c4;
-$darkGrey: #9d9d9d;
+$mediumGrey: #ececec;
+$darkGrey: #a4a4a4;
 $textGrey: #2d2d2d;
 $logoOrange: #f3be66;
 $logoMidOrange: #f39566;
@@ -18,39 +18,66 @@ body {
   padding: 0;
   color: $white;
   font-family: "Nanum Gothic", sans-serif;
+  box-sizing: border-box;
 }
 
 
 #NavBar {
   grid-area: NavBar;
   height:60px;
-  background-color: $mediumGrey;
+  background-color: $darkGrey;
   display: flex;
   flex-direction: row;
-  justify-content: right;
-  align-content: right;
+  justify-content: flex-end;
+  align-items: center;
   box-shadow: none;
+  padding: 5px;
 }
 
 .side-nav {
+  grid-area: SideNav;
+  height: 100%;
+  background-color: $mediumGrey;
   display: flex;
   flex-direction: column;
+  justify-content: left;
   align-items: center;
-  background-color: $lightGrey;
-  height: 100%;
   padding-top: 150px;
+  width: 100%;
+  align-content: center;
 }
 
-.big-number {
-  font-size: 2rem;
-  color: $dustyPurple;
+.key-metrics {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
-.data-label {
-  color: $darkGrey;
+.login-page {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgb(18,10,39);
+  background: linear-gradient(249deg, rgba(18,10,39,1) 0%, rgba(206,16,250,1) 51%, rgba(243,190,102,1) 100%);
 }
 
-  
+.login-box {
+  background-color: white;
+  border-radius: 5px;
+  color: $textGrey;
+  height: 70vh;
+  width: 70vw;
+  box-shadow: 0px 0px 34px -12px $textGrey;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+
 .DataContainer {
   grid-area: DataContainer;
   display: flex;
@@ -61,6 +88,33 @@ body {
   background-color: $white;
 }
 
-// .SimpleMetric {
-//   background-color : green
-// }
+.paper {
+  box-shadow: none;
+  padding: 5px;
+  border: 1px solid #d0d0d0;
+}
+
+.logo {
+  animation: bounce 1s;
+  animation-direction: alternate;
+  // animation-timing-function: cubic-bezier(.5, 0.05, 1, .5);
+  animation-iteration-count: infinite;
+}
+          
+@keyframes bounce {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 10px, 0);
+  }
+}
+
+.data-label {
+  color: $darkGrey;
+  letter-spacing: 2px;
+}
+
+.big-number {
+  color: $logoMidOrange;
+}
