@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Box } from '@mui/material';
+import { Paper, Box, Typography } from '@mui/material';
 
 const pollingInterval = 5000;
 const SimpleKeyMetrics = (props) => {
@@ -16,6 +16,16 @@ const SimpleKeyMetrics = (props) => {
     }, pollingInterval);
     return () => clearInterval(interval);
   }, []);
+
+  const stylingBox = {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
+    margin: "10px",
+    // borderRadius: "10px",
+    // boxShadow: "rgb(0, 149, 255) 0px 5px 10px -5px;",
+  }
 
   async function getSimpleKeyMetrics() {
     
@@ -64,15 +74,21 @@ const SimpleKeyMetrics = (props) => {
 
   return (
     <div>
-        <Box>
-          Number of Offline Partitions: {offlinePartitions}
-        </Box>
-        <Box>
-          Number of Active Controllers: {activeControllers}
-        </Box>
-        <Box>
-          Number of Underreplicated Partitions: {underReplicated}
-        </Box>
+        <Paper sx={stylingBox}>
+          <Typography className="data-label">Offline Partitions</Typography>
+          {/* <Typography>{offlinePartitions}</Typography> */}
+          <Typography className="big-number" sx={{ fontSize: '3rem'}}>0</Typography>
+        </Paper>
+        <Paper sx={stylingBox}>
+          <Typography className="data-label">Active Controllers</Typography>
+          {/* <Typography>{activeControllers}</Typography> */}
+          <Typography className="big-number" sx={{ fontSize: '3rem'}}>1</Typography>
+        </Paper>
+        <Paper sx={stylingBox}>
+          <Typography className="data-label">Underreplicated Partitions</Typography>
+          {/* <Typography>{underReplicated}</Typography> */}
+          <Typography className="big-number" sx={{ fontSize: '3rem'}}>0</Typography>
+        </Paper>
     </div>
   )
 

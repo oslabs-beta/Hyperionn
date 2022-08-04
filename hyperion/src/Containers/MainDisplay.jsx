@@ -2,33 +2,37 @@ import React,{useEffect, useContext, useState, createContext} from "react";
 import { Grid, Box } from '@mui/material';
 import NavBar from '../Components/NavBar.jsx';
 export const InfoContext = createContext();
-import DataContainer from './DataContainer.jsx'
+import DataContainer from './DataContainer.jsx';
+import SideNav from '../Components/SideNav.jsx';
 
 export function MainDisplay () {
 
     const outerGridContainer = {
         display: "grid",
-        gridTemplateColumns: "1fr",
+        gridTemplateColumns: "200px 1fr",
         gridTemplateRows: "60px 1fr",
-        height: "100vh",
+        height: "90vh",
         gap: "0px 0px",
         gridTemplateAreas: `
-        "NavBar"
-        "DataContainer"`
+        "SideNav NavBar"
+        "SideNav DataContainer"`
     };
 
     return (
         <>
-           <Grid container sx={outerGridContainer}>
+          <Grid container sx={outerGridContainer}>
             {/* <InfoContext.Provider value={[kafkaData, setKafkaData]}> */}
-                <Box item sx={{ gridArea: "NavBar"}}>
-                    <NavBar />
-                </Box>
-                <Box item sx={{gridArea:"DataContainer"}}>
-                    <DataContainer />
-                </Box>
+            <Box sx={{gridArea:"SideNav"}}>
+                <SideNav />
+            </Box>
+            <Box item sx={{ gridArea: "NavBar"}}>
+              <NavBar />
+            </Box>
+            <Box item sx={{gridArea:"DataContainer"}}>
+              <DataContainer />
+            </Box>
             {/* </InfoContext.Provider> */}
-           </Grid> 
+          </Grid> 
         </>
     )
 }
