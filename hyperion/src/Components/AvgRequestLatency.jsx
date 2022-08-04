@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -71,7 +71,7 @@ const AvgRequestLatency = () => {
 
   return (
     <Box>
-        Average Request Latency
+        <Typography className="data-label" sx={{ fontSize: '1.2rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Average Request Latency</Typography>
     </Box>
   )
 }

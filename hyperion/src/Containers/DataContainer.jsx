@@ -24,6 +24,8 @@ const dataGrid = {
 }
 
 
+
+
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const Metrics = [
 
@@ -36,25 +38,25 @@ const Metrics = [
 
   return(
     <>
-      <Autocomplete
+      {/* <Autocomplete
       disablePortal
       id="combo-box-demo"
       options={Metrics}
-      sx={{ width: 300, padding: "30px"}}
+      sx={{ width: 200, padding: "30px"}}
       renderInput={(params) => <TextField {...params} label="Metrics" />}
-      />
+      /> */}
       <Grid container sx={dataGrid}>
-        <SimpleKeyMetrics sx={{gridArea:"SimpleKeyMetrics"}}/>
-        <Paper sx={{gridArea:"AvgRequestLatency"}}>
+        <SimpleKeyMetrics sx={{gridArea:"SimpleKeyMetrics", height: "100%"}}/>
+        <Paper className="paper"  sx={{gridArea:"AvgRequestLatency", boxShadow:"none"}}>
           <AvgRequestLatency/>
         </Paper>
-        <Paper sx={{gridArea:"FirstGraph"}}>
+        <Paper className="paper" sx={{gridArea:"FirstGraph", boxShadow:"none"}}>
           <FirstGraph/>
         </Paper>
-        <Paper sx={{gridArea:"SecondGraph"}}>
+        <Paper className="paper" sx={{gridArea:"SecondGraph", boxShadow:"none"}}>
           <SecondGraph/>
         </Paper>
-        <Paper sx={{gridArea:"ThirdGraph"}}>
+        <Paper className="paper" sx={{gridArea:"ThirdGraph", boxShadow:"none"}}>
           <ThirdGraph/>
         </Paper>
       </Grid>

@@ -4,7 +4,9 @@ import { Paper, Box, Typography } from '@mui/material';
 const FirstGraph = () => {
 
     return (
-        <div>First Graph</div>
+        <div>
+            <Typography className="data-label" sx={{ fontSize: '1.2rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>First Graph</Typography>
+        </div>
     )
 };
 
