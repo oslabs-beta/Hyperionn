@@ -41,6 +41,44 @@ import StreamingPlugin from 'chartjs-plugin-streaming';
 
 const AvgRequestLatency = () => {
 
+  let count = 0; 
+  [Zookeepers, setZookeepers] = useState([])
+  [LatencyHistory, setLatencyHistory] = useState({})
+  
+  useEffect(()=> {
+    // make Initial Fetch on Component Did Mount
+  }, [])
+  
+  const initialFetch = async () => {
+    //checks how many zookeepers there are.
+    const makeDataSets = array => {
+      const output = [];
+      for (let i = 0; i < array.length; i++){
+        let colorVal = Math.floor(Math.random() * 255)
+        const obj = {
+          label: `Dataset${i}`,
+          backgroundColor: `rgba(${colorVal}, ${colorVal}, ${colorVal}, 0.5)`,
+          borderColor: `rgb(${colorVal}, ${colorVal}, ${colorVal})`,
+          fill: false,
+          data: [],
+          //zookeeperId : ''
+         }
+        output.push(obj);
+      }
+      await setZookeepers(output);
+      count++;
+    }
+  }
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchLatency();
+    }, pollingInterval);
+    return () => clearInterval(interval);
+  },[count])
+  
+  const fetchLatency = async () =>  {
+    // where we make every fetch request after the 1st one
+  }
 
   return (
     <Box>
