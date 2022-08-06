@@ -78,7 +78,7 @@ const SimpleKeyMetrics = (props) => {
     })
   }
 
-  //destructure state
+  //deconstruct state
   const { offlinePartitions, activeControllers, underReplicated } = kafkaData;
 
   return (
