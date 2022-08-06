@@ -5,6 +5,9 @@ import Chart from 'chart.js/auto';
 import { Line} from "react-chartjs-2";
 import 'chartjs-adapter-luxon';
 import StreamingPlugin from 'chartjs-plugin-streaming';
+// import { queryDictionary } from '../Containers/DataContainer.jsx';
+
+//const { avgReqLatencyQuery } = queryDictionary;
 
 
  Chart.register(StreamingPlugin);
@@ -38,46 +41,62 @@ import StreamingPlugin from 'chartjs-plugin-streaming';
 //  }
 
 
+const pollingInterval = 10000;
 
 const AvgRequestLatency = () => {
-
   let count = 0; 
-  [Zookeepers, setZookeepers] = useState([])
-  [LatencyHistory, setLatencyHistory] = useState({})
+  const [zookeepers, setZookeepers] = useState([])
+  //const [latencyHistory, setLatencyHistory] = useState({})
   
   useEffect(()=> {
     // make Initial Fetch on Component Did Mount
+    initialFetch();
   }, [])
   
-  const initialFetch = async () => {
-    //checks how many zookeepers there are.
-    const makeDataSets = array => {
-      const output = [];
-      for (let i = 0; i < array.length; i++){
-        let colorVal = Math.floor(Math.random() * 255)
-        const obj = {
-          label: `Dataset${i}`,
-          backgroundColor: `rgba(${colorVal}, ${colorVal}, ${colorVal}, 0.5)`,
-          borderColor: `rgb(${colorVal}, ${colorVal}, ${colorVal})`,
-          fill: false,
-          data: [],
-          //zookeeperId : ''
-         }
-        output.push(obj);
-      }
-      await setZookeepers(output);
-      count++;
+  // const initialFetch = async () => {
+  //   //checks how many zookeepers there are.
+
+  const output = [];
+  const makeDataSets = zooData => {
+    for (let i = 0; i < zooData.length; i++){
+      let colorVal = Math.floor(Math.random() * 255)
+      const obj = {
+        label: zooData[i].instance, //make more specific by pulling the actual name
+        backgroundColor: `rgba(${colorVal}, ${colorVal}, ${colorVal}, 0.5)`,
+        borderColor: `rgb(${colorVal}, ${colorVal}, ${colorVal})`,
+        fill: false,
+        data: [{x: zooData[i].x, y: zooData[i].y}],
+       }
+      output.push(obj);
     }
+    setZookeepers(output);
+    count++;
+    console.log('output', output);
   }
+
+  
+  const initialFetch = async () => {
+    const response = await fetch('/server/metrics?metric=avgReqLatency');
+    const data = await response.json();
+    console.log('Avg request latency: ', data);
+    makeDataSets(data);
+  }
+
   useEffect(() => {
     const interval = setInterval(() => {
       fetchLatency();
     }, pollingInterval);
     return () => clearInterval(interval);
   },[count])
-  
+
   const fetchLatency = async () =>  {
-    // where we make every fetch request after the 1st one
+    const response = await fetch('/server/metrics?metric=avgReqLatency');
+    const newData = await response.json();
+    console.log('new Avg request latency: ', newData);
+    for (let i = 0; i < newData.length; i++) {
+      output[i].data.push({x: newData[i].x, y: newData[i].y});
+    }
+    console.log('updated output: ', output);
   }
 
   return (
@@ -112,13 +131,15 @@ const AvgRequestLatency = () => {
 
         }}
         options={{
+          duration : 100000000,
           scales: {
             x: {
               type: 'realtime',
               realtime: {
-                delay: 2000,
+                delay: 5000,
                 onRefresh: chart => {
                   chart.data.datasets.forEach(dataset => {
+                    //dataset.label= `zookeeper${1}` 
                     dataset.data.push({
                       x: Date.now(),
                       y: Math.random()

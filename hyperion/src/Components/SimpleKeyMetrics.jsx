@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Paper, Box, Typography } from '@mui/material';
+//import { queryDictionary } from '../Containers/DataContainer.jsx';
 
 const pollingInterval = 5000;
+
+// const { offlinePartitionsQuery, 
+//         activeControllersQuery, 
+//         underreplicatedControllersQuery } = queryDictionary;
+
 const SimpleKeyMetrics = (props) => {
  
   const [kafkaData, setKafkaData] = useState({
@@ -37,17 +43,17 @@ const SimpleKeyMetrics = (props) => {
     let underRepSum = 0;
 
     //fetch number of offline partition data //sum of values
-    const responseOfflinePart = await fetch('/server/metrics?metric=offlinePartitions');
+    const responseOfflinePart = await fetch(`/server/metrics?metric=offlinePartitions`);
     const dataOfflinePart = await responseOfflinePart.json();
     console.log('Offline Part', dataOfflinePart)
 
     //fetch number of active controllers //sum of values should be 1
-    const responseActiveCont = await fetch('/server/metrics?metric=activeControllers');
+    const responseActiveCont = await fetch(`/server/metrics?metric=activeControllers`);
     const dataActiveCont = await responseActiveCont.json();
     console.log('Active Controllers', dataActiveCont);
 
     //fetch under replicated partition data
-    const responseUnderReplicated = await fetch('/server/metrics?metric=underReplicated');
+    const responseUnderReplicated = await fetch(`/server/metrics?metric=underReplicated`);
     const dataUnderReplicated = await responseUnderReplicated.json();
     console.log('UnderReplicate', dataUnderReplicated);
 
