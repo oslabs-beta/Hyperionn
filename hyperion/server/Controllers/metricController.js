@@ -49,18 +49,19 @@ metricController.getMetricData = async (req, res, next) => {
     }
     //grab Metric data out of res.locals
     const tempMetricData = res.locals.metricData;
-    
+    //create a new date object
     const today = new Date();
-
+    //Get CURRENT TIME from the date object
     const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-
+    //create an array to hold data needed by Anoish on the front end
     const arrayWithDataForAnish = []
-    
+    //iterate through our metric data, pushing relevant data into the array to be sent to the front end
     tempMetricData.forEach(zookeeperObj => {
         arrayWithDataForAnish.push({x: time, y: zookeeperObj.value[1], instance: zookeeperObj.metric.instance});
     });
     // const objWithDataForAnish = {'x': Math.floor(Date.now() / 1000), 'y': averageLatency};
     console.log('arrayWithDataForAnish: ', arrayWithDataForAnish);
+    //send data to the front end on res.locals
     res.locals.metricData = arrayWithDataForAnish;
     // parse out data to conform to an object with an x value (timestamp) and a y value (data value)
     // res.locals.metricData = 

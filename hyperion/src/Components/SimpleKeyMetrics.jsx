@@ -45,17 +45,17 @@ const SimpleKeyMetrics = (props) => {
     //fetch number of offline partition data //sum of values
     const responseOfflinePart = await fetch(`/server/metrics?metric=offlinePartitions`);
     const dataOfflinePart = await responseOfflinePart.json();
-    console.log('Offline Part', dataOfflinePart)
+    //console.log('Offline Part', dataOfflinePart)
 
     //fetch number of active controllers //sum of values should be 1
     const responseActiveCont = await fetch(`/server/metrics?metric=activeControllers`);
     const dataActiveCont = await responseActiveCont.json();
-    console.log('Active Controllers', dataActiveCont);
+    //console.log('Active Controllers', dataActiveCont);
 
     //fetch under replicated partition data
     const responseUnderReplicated = await fetch(`/server/metrics?metric=underReplicated`);
     const dataUnderReplicated = await responseUnderReplicated.json();
-    console.log('UnderReplicate', dataUnderReplicated);
+    //console.log('UnderReplicate', dataUnderReplicated);
 
     //loop through data and sum all values
     for (const metricChunk of dataUnderReplicated) {
