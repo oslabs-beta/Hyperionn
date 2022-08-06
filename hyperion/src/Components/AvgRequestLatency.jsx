@@ -47,7 +47,8 @@ const AvgRequestLatency = () => {
   let count = 0; 
   const [zookeepers, setZookeepers] = useState([])
   const [label, setLabel] = useState('');
-  const [xAxis, setXAxis] = useState()
+  const [xAxis, setXAxis] = useState();
+  const [yAxis, setYAxis] = useState();
   //const [latencyHistory, setLatencyHistory] = useState({})
   
   useEffect(()=> {
