@@ -41,11 +41,13 @@ import StreamingPlugin from 'chartjs-plugin-streaming';
 //  }
 
 
-const pollingInterval = 10000;
+const pollingInterval = 5000;
 
 const AvgRequestLatency = () => {
   let count = 0; 
   const [zookeepers, setZookeepers] = useState([]);
+  const [dataPoints, setDataPoints] = useState([]);
+  //dataPoints = [ {x: 2, y: 4}, {x: 2, y: 5}]
 
   //  const [zookeepers, setZookeepers] = useState([{
   //   label: '', //make more specific by pulling the actual name
@@ -79,7 +81,7 @@ const AvgRequestLatency = () => {
         backgroundColor: `rgba(${colorVal}, ${colorVal}, ${colorVal}, 0.5)`,
         borderColor: `rgb(${colorVal}, ${colorVal}, ${colorVal})`,
         fill: false,
-        data: [{x: zooData[i].x, y: zooData[i].y}],
+        data: [],
        }
       output.push(obj);
     }
@@ -120,18 +122,34 @@ const AvgRequestLatency = () => {
     return () => clearInterval(interval);
   },[count])
 
+  // const fetchLatency = async () =>  {
+  //   const response = await fetch('/server/metrics?metric=avgReqLatency');
+  //   const newData = await response.json();
+  //   console.log('new Avg request latency: ', newData);
+  //   for (let i = 0; i < newData.length; i++) {
+  //     output[i].data.push({x: newData[i].x, y: newData[i].y});
+  //   }
+  //   console.log('updated output: ', output);
+  //   setZookeepers(output);
+  // }
+  
+  
   const fetchLatency = async () =>  {
+    const newDataPoints = [];
     const response = await fetch('/server/metrics?metric=avgReqLatency');
     const newData = await response.json();
     console.log('new Avg request latency: ', newData);
     for (let i = 0; i < newData.length; i++) {
-      output[i].data.push({x: newData[i].x, y: newData[i].y});
+      newDataPoints.push({x: newData[i].x, y: newData[i].y});
     }
-    console.log('updated output: ', ...output);
-    return output;
+    console.log('newDataPoints: ', newDataPoints);
+    // setZookeepers(output);
+    setDataPoints(newDataPoints);
   }
-  
+
+
   console.log('zookeeper state', zookeepers);
+  console.log('output', output);
   //let label = zookeepers[1].label;
   //let xAxis = zookeepers[1].data[data.length-1].x;
   //let yAxis =zookeepers[1].data[data.length-1].y;
@@ -142,12 +160,14 @@ const AvgRequestLatency = () => {
 //     data: [{x:'2016-12-25', y:20}, {x:'2016-12-26', y:10}]
 //   }]
 // }
- 
+ // 
+
+  
   return (
     <Box>
       <Line
         data={{
-          datasets: output,
+          datasets: zookeepers,
     
         }}
         options={{
@@ -155,14 +175,16 @@ const AvgRequestLatency = () => {
             x: {
               type: 'realtime',
               realtime: {
-                delay: 1000,
-                //duration : 200000, //duration = x-axis maximum
+                // delay: 1000,
+                duration : 200000, //duration = x-axis maximum
                 onRefresh: chart => {
-                  chart.data.datasets.forEach(dataset => {
-                    //dataset.label= `zookeeper${1}` 
-                    dataset.data.push({
-                      x: Date.now(),
-                      y: Math.random()
+                  chart.data.datasets.forEach((zooKeeperInstance, index, array) => {
+                    console.log('zookeeper instance', zooKeeperInstance.data.dataSets);
+                    console.log('dataPoints[index].x', dataPoints[index].x);
+                    console.log('dataPoints[index].y', dataPoints[index].y);
+                    zooKeeperInstance.data.push({
+                      x: dataPoints[index].x,
+                      y: dataPoints[index].y
                     });
                   });
                 }
