@@ -2,9 +2,9 @@ import React from 'react';
 import { Grid, Box, Paper, TextField, Autocomplete} from '@mui/material';
 import SimpleKeyMetrics from '../Components/SimpleKeyMetrics.jsx';
 import AvgRequestLatency from '../Components/AvgRequestLatency.jsx';
+import BrokenRequestRate from '../Components/BrokenRequestRate.jsx';
+import ResponseRate from '../Components/ResponseRate.jsx';
 import RequestRate from '../Components/RequestRate.jsx';
-import SecondGraph from '../Components/SecondGraph.jsx';
-import ThirdGraph from '../Components/ThirdGraph.jsx';
 
 const queryEndpoint = '/server/metrics?metric=';
 
@@ -60,13 +60,13 @@ const Metrics = [
           <AvgRequestLatency/>
         </Paper>
         <Paper className="paper" sx={{gridArea:"RequestRate", boxShadow:"none"}}>
-          <RequestRate/>
+          <BrokenRequestRate/>
         </Paper>
         <Paper className="paper" sx={{gridArea:"SecondGraph", boxShadow:"none"}}>
-          <SecondGraph/>
+          <RequestRate/>
         </Paper>
         <Paper className="paper" sx={{gridArea:"ThirdGraph", boxShadow:"none"}}>
-          <ThirdGraph/>
+          <ResponseRate/>
         </Paper>
       </Grid>
     </>
