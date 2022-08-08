@@ -102,7 +102,8 @@ const AvgRequestLatency = () => {
         options={{
           animation: false,
           plugins: {
-            title: {
+            title:
+           {
               display: true,
               text: 'Average Request Latency'
             }
@@ -113,6 +114,7 @@ const AvgRequestLatency = () => {
               realtime: {
                 // delay: 1000,
                 duration : 200000, //duration = x-axis maximum
+                refresh: 5000,
                 onRefresh: chart => {
                   chart.data.datasets.forEach((zooKeeperInstance, index, array) => {
                     // console.log('zookeeper instance', zooKeeperInstance.data.dataSets);

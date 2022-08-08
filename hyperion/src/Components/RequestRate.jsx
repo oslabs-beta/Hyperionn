@@ -16,7 +16,7 @@ import StreamingPlugin from 'chartjs-plugin-streaming';
 const pollingInterval = 5000;
 
 const RequestRate = () => {
-
+//request rate is An average number of responses sent per producer.
   let count = 0; 
   const [reqRate, setreqRate] = useState([]);
   const [dataPoints, setDataPoints] = useState([]);
@@ -104,6 +104,11 @@ const RequestRate = () => {
     
         }}
         options={{
+          elements: {
+            point:{
+                radius: 0
+            }
+          },
           plugins: {
             title: {
               display: true,
@@ -115,7 +120,8 @@ const RequestRate = () => {
               type: 'realtime',
               realtime: {
                 // delay: 1000,
-                duration : 200000, //duration = x-axis maximum
+                duration : 200000,
+                refresh: 5000, //duration = x-axis maximum
                 onRefresh: chart => {
                   chart.data.datasets.forEach((reqRateInstance, index, array) => {
                     // console.log('zookeeper instance', zooKeeperInstance.data.dataSets);
@@ -129,6 +135,9 @@ const RequestRate = () => {
                   });
                 }
               }
+            },
+            y: {
+              max : 1,
             }
           }
         }}
