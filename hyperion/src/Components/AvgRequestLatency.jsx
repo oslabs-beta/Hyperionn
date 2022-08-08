@@ -88,25 +88,6 @@ const AvgRequestLatency = () => {
     setZookeepers(output);
     console.log('output', output);
   }
-  // 0:
-  // backgroundColor: "rgba(27, 27, 27, 0.5)"
-  // borderColor: "rgb(27, 27, 27)"
-  // data: Array(15)
-  // 0: {x: '14:59:5', y: '0'}
-  // 1: {x: '14:59:15', y: '0'}
-  // 2: {x: '14:59:25', y: '0'}
-  // 3: {x: '14:59:35', y: '0'}
-  // 4: {x: '14:59:45', y: '0'}
-  // 5: {x: '14:59:55', y: '0'}
-  // 6: {x: '15:0:5', y: '0'}
-  // 7: {x: '15:0:15', y: '0'}
-  // 8: {x: '15:0:25', y: '0'}
-  // 9: {x: '15:0:35', y: '0'}
-  // 10: {x: '15:0:45', y: '0'}
-  // 11: {x: '15:0:55', y: '0'}
-  // 12: {x: '15:1:5', y: '0'}
-  // 13: {x: '15:1:15', y: '0'}
-  // 14: {x: '15:1:25', y: '0'}
   
   const initialFetch = async () => {
     const response = await fetch('/server/metrics?metric=avgReqLatency');
@@ -121,17 +102,6 @@ const AvgRequestLatency = () => {
     }, pollingInterval);
     return () => clearInterval(interval);
   },[count])
-
-  // const fetchLatency = async () =>  {
-  //   const response = await fetch('/server/metrics?metric=avgReqLatency');
-  //   const newData = await response.json();
-  //   console.log('new Avg request latency: ', newData);
-  //   for (let i = 0; i < newData.length; i++) {
-  //     output[i].data.push({x: newData[i].x, y: newData[i].y});
-  //   }
-  //   console.log('updated output: ', output);
-  //   setZookeepers(output);
-  // }
   
   
   const fetchLatency = async () =>  {
@@ -150,17 +120,7 @@ const AvgRequestLatency = () => {
 
   console.log('zookeeper state', zookeepers);
   console.log('output', output);
-  //let label = zookeepers[1].label;
-  //let xAxis = zookeepers[1].data[data.length-1].x;
-  //let yAxis =zookeepers[1].data[data.length-1].y;
 
-  //type: 'line',
-// data: {
-//   datasets: [{
-//     data: [{x:'2016-12-25', y:20}, {x:'2016-12-26', y:10}]
-//   }]
-// }
- // 
 
   
   return (
@@ -171,6 +131,15 @@ const AvgRequestLatency = () => {
     
         }}
         options={{
+          point:{
+            radius: 0
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: 'Average Latency'
+            }
+        },
           scales: {
             x: {
               type: 'realtime',
