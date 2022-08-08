@@ -6,6 +6,15 @@ import FirstGraph from '../Components/FirstGraph.jsx';
 import SecondGraph from '../Components/SecondGraph.jsx';
 import ThirdGraph from '../Components/ThirdGraph.jsx';
 
+const queryEndpoint = '/server/metrics?metric=';
+
+export const queryDictionary = {
+  offlinePartitionsQuery: `${queryEndpoint}offlinePartition`,
+  activeControllersQuery: `${queryEndpoint}activeControllers`,
+  underreplicatedControllersQuery: `${queryEndpoint}underReplicated`,
+  avgReqLatencyQuery: `${queryEndpoint}avgReqLatency`
+}
+
 
 const DataContainer = (props) => {
 
