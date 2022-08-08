@@ -19,6 +19,8 @@ const RequestRate = () => {
   //let count = 0; 
   //const [requestRateArray, setRequestRateArray] = useState([]);
   const [dataPoints, setDataPoints] = useState([]);
+
+
   //dataPoints = [ {x: 2, y: 4}, {x: 2, y: 5}]
 
   
@@ -57,6 +59,8 @@ const RequestRate = () => {
   //   makeDataSets(data);
   // }
 
+
+
   useEffect(() => {
     const interval = setInterval(() => {
       fetchRequestRate();
@@ -66,13 +70,11 @@ const RequestRate = () => {
 
   
   const fetchRequestRate = async () =>  {
-    const newDataPoints = [];
+    let newDataPoints = [];
     const response = await fetch('/server/metrics?metric=requestRate');
     const newData = await response.json();
     console.log('new req request: ', newData);
-    for (let i = 0; i < newData.length; i++) {
-      newDataPoints.push({x: newData[i].x, y: newData[i].y});
-    }
+    newDataPoints = [{x: newData[0].x, y: newData[0].y}];
     console.log('newDataPoints: ', newDataPoints);
     setDataPoints(newDataPoints);
   }
@@ -83,12 +85,12 @@ const RequestRate = () => {
       <Line
         data={{
             datasets:[{
-                label: 'Dataset 1',
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                borderColor: 'rgb(255, 99, 132)',
-                borderDash: [8, 4],
-                fill: false,
-                data: []
+              label: 'Connect Metrics Request Rate',
+              backgroundColor: 'rgba(255, 99, 132, 0.5)',
+              borderColor: 'rgb(255, 99, 132)',
+              borderDash: [8, 4],
+              fill: false,
+              data: [],
             }]
         }}
         options={{
@@ -101,20 +103,27 @@ const RequestRate = () => {
               realtime: {
                 // delay: 1000,
                 duration : 200000, //duration = x-axis maximum
+                // onRefresh: chart => {
+                //   console.log('chart.data.datasets[0].data', chart.data.datasets[0].data[0])
+                //   console.log('dataPoints[0].x', dataPoints[0].x)
+                //   console.log('dataPoints[0].y', dataPoints[0].y)
+                //   chart.data.datasets[0].data.push({
+                //       x: dataPoints[0].x,
+                //       y: dataPoints[0].y
+                //   })
+                 
+                //   // console.table('chart.data.datasets[0].data: ', chart.data.datasets[0].data)
+                // }
                 onRefresh: chart => {
-                  chart.data.datasets[0].data.push({
+                  chart.data.datasets.forEach((dataset, index, array) => {
+                    // console.log('zookeeper instance', zooKeeperInstance.data.dataSets);
+                    // console.log('dataPoints[index].x', dataPoints[index].x);
+                    // console.log('dataPoints[index].y', dataPoints[index].y);
+                    dataset.data.push({
                       x: dataPoints[index].x,
                       y: dataPoints[index].y
-                  })
-                  // chart.data.datasets.forEach((dataSet, index, array) => {
-                  //   console.log('zookeeper instance', zooKeeperInstance.data.dataSets);
-                  //   console.log('dataPoints[index].x', dataPoints[index].x);
-                  //   console.log('dataPoints[index].y', dataPoints[index].y);
-                  //   zooKeeperInstance.data.push({
-                  //     x: dataPoints[index].x,
-                  //     y: dataPoints[index].y
-                  //   });
-                  // });
+                    });
+                  });
                 }
               }
             }
@@ -124,4 +133,4 @@ const RequestRate = () => {
     </Box>
   )
 }
-export default AvgRequestLatency;
+export default RequestRate;
