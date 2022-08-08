@@ -15,9 +15,10 @@ import StreamingPlugin from 'chartjs-plugin-streaming';
 
 const pollingInterval = 5000;
 
-const AvgRequestLatency = () => {
+const RequestRate = () => {
+//request rate is An average number of responses sent per producer.
   let count = 0; 
-  const [zookeepers, setZookeepers] = useState([]);
+  const [reqRate, setreqRate] = useState([]);
   const [dataPoints, setDataPoints] = useState([]);
   //dataPoints = [ {x: 2, y: 4}, {x: 2, y: 5}]
 
@@ -45,11 +46,11 @@ const AvgRequestLatency = () => {
   //   //checks how many zookeepers there are.
 
   const output = [];
-  const makeDataSets = zooData => {
-    for (let i = 0; i < zooData.length; i++){
+  const makeDataSets = reqData => {
+    for (let i = 0; i < reqData.length; i++){
       let colorVal = Math.floor(Math.random() * 255)
       const obj = {
-        label: zooData[i].instance, //make more specific by pulling the actual name
+        label: reqData[i].instance, //make more specific by pulling the actual name
         backgroundColor: `rgba(${colorVal}, ${colorVal}, ${colorVal}, 0.5)`,
         borderColor: `rgb(${colorVal}, ${colorVal}, ${colorVal})`,
         fill: false,
@@ -57,12 +58,12 @@ const AvgRequestLatency = () => {
        }
       output.push(obj);
     }
-    setZookeepers(output);
+    setreqRate(output);
     // console.log('output', output);
   }
   
   const initialFetch = async () => {
-    const response = await fetch('/server/metrics?metric=avgReqLatency');
+    const response = await fetch('/server/metrics?metric=requestRate');
     const data = await response.json();
     // console.log('Avg request latency: ', data);
     makeDataSets(data);
@@ -78,7 +79,7 @@ const AvgRequestLatency = () => {
   
   const fetchLatency = async () =>  {
     const newDataPoints = [];
-    const response = await fetch('/server/metrics?metric=avgReqLatency')
+    const response = await fetch('/server/metrics?metric=requestRate');
     const newData = await response.json();
     // console.log('new Avg request latency: ', newData);
     for (let i = 0; i < newData.length; i++) {
@@ -90,22 +91,28 @@ const AvgRequestLatency = () => {
   }
 
 
-  // console.log('zookeeper state', zookeepers);
+  // console.log('reqRate state', reqRate);
   //console.log('output', output);
 
+
+  
   return (
     <Box>
       <Line
         data={{
-          datasets: zookeepers,
+          datasets: reqRate,
+    
         }}
         options={{
-          animation: false,
+          elements: {
+            point:{
+                radius: 0
+            }
+          },
           plugins: {
-            title:
-           {
+            title: {
               display: true,
-              text: 'Average Request Latency'
+              text: 'Request Rate'
             }
         },
           scales: {
@@ -113,21 +120,24 @@ const AvgRequestLatency = () => {
               type: 'realtime',
               realtime: {
                 // delay: 1000,
-                duration : 200000, //duration = x-axis maximum
-                refresh: 5000,
+                duration : 200000,
+                refresh: 5000, //duration = x-axis maximum
                 onRefresh: chart => {
-                  chart.data.datasets.forEach((zooKeeperInstance, index, array) => {
+                  chart.data.datasets.forEach((reqRateInstance, index, array) => {
                     // console.log('zookeeper instance', zooKeeperInstance.data.dataSets);
                     //console.log('dataPoints[index].x', dataPoints[index].x);
                     //console.log('dataPoints[index].y', dataPoints[index].y);
                     //console.log('zooKeeperInstance.data Array', zooKeeperInstance.data)
-                    zooKeeperInstance.data.push({
+                    reqRateInstance.data.push({
                       x: dataPoints[index].x,
                       y: dataPoints[index].y
                     });
                   });
                 }
               }
+            },
+            y: {
+              max : 1,
             }
           }
         }}
@@ -135,30 +145,4 @@ const AvgRequestLatency = () => {
     </Box>
   )
 }
-export default AvgRequestLatency;
-
-
-//{
-//label: 'Dataset 1',
-// backgroundColor: 'rgba(255, 99, 132, 0.5)',
-// borderColor: 'rgb(255, 99, 132)',
-// borderDash: [8, 4],
-// fill: false,
-// data: []
-// },
-// {
-// label: 'Dataset 2',
-// backgroundColor: 'rgba(54, 162, 235, 0.5)',
-// borderColor: 'rgb(54, 162, 235)',
-// cubicInterpolationMode: 'monotone',
-// fill: false,
-// data: []
-// },
-// {
-// label: 'Dataset 3',
-// backgroundColor: 'rgba(50, 100, 100, 0.5)',
-// borderColor: 'rgb(54, 162, 235)',
-// cubicInterpolationMode: 'monotone',
-// fill: false,
-// data: []
-// },
+export default RequestRate;
