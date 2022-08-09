@@ -26,15 +26,14 @@ const SimpleKeyMetrics = (props) => {
   const stylingBox = {
     display: "flex",
     flexDirection: "column",
-    height: "100%",
-    width: "100%",
-    justifyContent: "space-evenly",
+    height: "90%",
+    width: "200px",
+    justifyContent: "space-between",
     alignItems: "center",
     alignContent: "center",
     textAlign: "center",
-    padding: "15px",
+    margin: "10px",
     border: "1px solid #d0d0d0",
-    // borderRadius: "10px",
     boxShadow: "none",
   }
 

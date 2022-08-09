@@ -23,10 +23,10 @@ const dataGrid = {
   display: "grid", 
   gridTemplateColumns: "1fr 1fr", 
   height: "87vh",
-  gridTemplateRows: "200px 1fr 1fr",
+  gridTemplateRows: "150px 1fr 1fr",
   gap: "15px 15px", 
   gridTemplateAreas:`
-    "SimpleKeyMetrics SimpleKeyMetrics"
+    "SimpleKeyMetrics ."
     "FirstGraph AvgRequestLatency"
     "SecondGraph ThirdGraph"
   `,
@@ -34,29 +34,10 @@ const dataGrid = {
 }
 
 
-
-
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const Metrics = [
-
-  { label: 'Offline Partitions', year: 1995 },
-  { label: 'Under Replicated Partitions', year: 1991 },
-  { label: "Active Controllers", year: 1946 },
-  { label: 'Average Request Latency', year: 1997 },
-];
-
-
   return(
     <>
-      {/* <Autocomplete
-      disablePortal
-      id="combo-box-demo"
-      options={Metrics}
-      sx={{ width: 200, padding: "30px"}}
-      renderInput={(params) => <TextField {...params} label="Metrics" />}
-      /> */}
       <Grid container sx={dataGrid}>
-        <SimpleKeyMetrics sx={{gridArea:"FirstGraph", height: "100%", width: "100%"}}/>
+        <SimpleKeyMetrics sx={{gridArea:"SimpleKeyMetrics", height: "100%", width: "100%"}}/>
         <Paper className="paper"  sx={{gridArea:"AvgRequestLatency", boxShadow:"none"}}>
           <AvgRequestLatency/>
         </Paper>

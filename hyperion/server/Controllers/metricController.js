@@ -56,8 +56,8 @@ metricController.getMetricData = async (req, res, next) => {
     //create an array to hold data needed by Anoish on the front end
     const arrayWithDataForAnish = []
     //iterate through our metric data, pushing relevant data into the array to be sent to the front end
-    tempMetricData.forEach(zookeeperObj => {
-        arrayWithDataForAnish.push({x: Date.now(), y: zookeeperObj.value[1], instance: zookeeperObj.metric.instance});
+    tempMetricData.forEach(dataObj => {
+        arrayWithDataForAnish.push({x: Date.now(), y: dataObj.value[1], instance: dataObj.metric.instance});
     });
     // const objWithDataForAnish = {'x': Math.floor(Date.now() / 1000), 'y': averageLatency};
     console.log('arrayWithDataForAnish: ', arrayWithDataForAnish);
