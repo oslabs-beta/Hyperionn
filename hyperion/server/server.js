@@ -4,7 +4,9 @@ const path = require('path');
 const app = express();
 const router = require('./routers/Router');
 const PORT = 3001;
-const { auth } = require('express-openid-connect');
+// var firebase = require('firebase');
+// var firebaseui = require('firebaseui');
+// const { auth } = require('express-openid-connect');
 
 //Boiler plate for parsing incoming json and requests with urlencoded payloads
 app.use(express.urlencoded({ extended: true }));

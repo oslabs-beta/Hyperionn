@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import { createTheme, ThemeProvider } from "@mui/material";
-
+// import "bootstrap/dist/css/bootstrap.min.css"
 
 const theme = createTheme({
   palette: {
@@ -27,6 +27,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   // <ThemeProvider theme={this.props.theme}>
+  <React.StrictMode>    
     <App />
-  // </ThemeProvider>
+  </React.StrictMode>
+
+  // {/* // </ThemeProvider> */}
 );
