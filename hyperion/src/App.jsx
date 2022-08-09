@@ -21,7 +21,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 // import Dashboard from "./Dashboard"
 import MainDisplay from './Containers/MainDisplay';
 import Login from './Login'
-// import PrivateRoute from "./PrivateRoute"
+import PrivateRoute from "./PrivateRoute"
 import ForgotPassword from "./ForgotPassword"
 // import UpdateProfile from "./UpdateProfile"
 
@@ -35,7 +35,13 @@ function App() {
         <Router>
           <AuthProvider>
             <Routes>
-              <PrivateRoute exact path="/" element={<MainDisplay/>} />
+            {/* <Route exact path='/' element={<PrivateRoute/>}>
+            <Route exact path='/' element={<MainDisplay/>}/>
+          </Route> */}
+          <Route path ='/' element={<MainDisplay/>}/>
+              {/* <Route exact path="/" element={<PrivateRoute/>}>
+                <Route exact path = '/' element = {<MainDisplay/>}/>
+              </Route> */}
               {/* <PrivateRoute path="/update-profile" component={UpdateProfile} /> */}
               <Route path="/signup" element={<Signup/>} />
               <Route path="/login" element={<Login/>} />
@@ -43,9 +49,34 @@ function App() {
             </Routes>
           </AuthProvider>
         </Router>
-      </div>
-    </Container>
+       </div>
+     </Container>
   )
 }
 
 export default App;
+
+
+// {/* <NavBar />
+//       {/* <NavBar></NavBar> */}
+//         <Routes>
+//           <Route path='/Feed' element={<ProtectedRoute>< Feed statusStack={statusStack} setStatusStack={setStatusStack}/></ProtectedRoute>} />
+//           <Route path='/addhike' element={<ProtectedRoute>< AddHikeScreen /></ProtectedRoute>} />
+//           <Route path='/signup' element={< SignupScreen />} />  
+//           <Route path='/login' element={< LoginScreen />} />   
+//           {/* <Route path='/edithike' element={<EditHikeScreen/>} />              */}
+//                                   {/* ProtectedRoute(<DashboardScreen/>) */}
+//           <Route path='/' element={<ProtectedRoute>< DashboardScreen /></ProtectedRoute>} />            
+//         </Routes>    
+//       </Router>
+//     </div>
+//   );
+// }
+
+// export function ProtectedRoute(props){
+//   if (localStorage.getItem('user')){ 
+//     return props.children
+//   } else {
+//    return <Navigate to='/login'/>
+//   }
+// } */}

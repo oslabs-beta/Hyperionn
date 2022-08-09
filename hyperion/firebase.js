@@ -18,9 +18,17 @@ import { initializeApp } from "firebase/app";
 // import "firebase/compat/app";
 // import "firebase/compat/analytics";
 
-import {getAuth } from "firebase/auth";
+// import {getAuth, 
+//     signOut, 
+//     sendPasswordResetEmail,
+//      createUserWithEmailAndPassword,
+//      signInWithEmailAndPassword,
+//      signOut,
+//      se 
+//      } from "firebase/auth";
 
-
+""
+import * as firebase from 'firebase/auth';
 
 // firebase.initializeApp(firebaseConfig);
 
@@ -51,6 +59,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // console.log('app', app)
-export const auth = getAuth(app);
+export const auth = firebase.getAuth(app);
 // export default ;
 export default app;

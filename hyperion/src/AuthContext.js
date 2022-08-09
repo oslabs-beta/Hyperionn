@@ -1,8 +1,11 @@
 import React, { useContext, useState, useEffect, createContext } from "react"
 import { auth } from "../firebase.js"
+import app from '../firebase.js';
+import { ConstructionOutlined } from "@mui/icons-material";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
 
 const AuthContext = React.createContext()
-
+//const auth = getAuth()
 export function useAuth() {
   return useContext(AuthContext)
 }
@@ -12,11 +15,15 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   function signup(email, password) {
-    return auth.createUserWithEmailAndPassword(email, password)
+    return createUserWithEmailAndPassword(auth, email, password)
   }
 
   function login(email, password) {
-    return auth.signInWithEmailAndPassword(email, password)
+    console.log('logging in...')
+    console.log('auth: ', auth)
+    console.log('app: ', app)
+    console.log(email);
+    return signInWithEmailAndPassword(auth, email, password)
   }
 
   function logout() {
