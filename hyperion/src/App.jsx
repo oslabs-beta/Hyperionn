@@ -1,4 +1,4 @@
-// import './app.scss';
+import './app.scss';
 // import React from 'react'
 // import MainDisplay from './Containers/MainDisplay.jsx'
 // import Login from './Login';
@@ -15,7 +15,7 @@
 
 import React from "react"
 import Signup from "./Signup"
-import { Container } from "react-bootstrap"
+import { Container } from "@mui/material"
 import { AuthProvider } from "./AuthContext"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 // import Dashboard from "./Dashboard"
@@ -38,13 +38,13 @@ function App() {
             {/* <Route exact path='/' element={<PrivateRoute/>}>
             <Route exact path='/' element={<MainDisplay/>}/>
           </Route> */}
-          <Route path ='/' element={<MainDisplay/>}/>
+          <Route path ='/dashboard' element={<MainDisplay/>}/>
               {/* <Route exact path="/" element={<PrivateRoute/>}>
                 <Route exact path = '/' element = {<MainDisplay/>}/>
               </Route> */}
               {/* <PrivateRoute path="/update-profile" component={UpdateProfile} /> */}
               <Route path="/signup" element={<Signup/>} />
-              <Route path="/login" element={<Login/>} />
+              <Route path="/" element={<Login/>} />
               <Route path="/forgot-password" element={<ForgotPassword/>} />
             </Routes>
           </AuthProvider>

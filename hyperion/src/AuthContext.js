@@ -2,7 +2,16 @@ import React, { useContext, useState, useEffect, createContext } from "react"
 import { auth } from "../firebase.js"
 import app from '../firebase.js';
 import { ConstructionOutlined } from "@mui/icons-material";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
+import { getAuth, 
+    createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword,
+     signOut, 
+     sendPasswordResetEmail,
+     updateEmail,
+     updatePassword,
+     onAuthStateChanged,
+
+     } from "firebase/auth"
 
 const AuthContext = React.createContext()
 //const auth = getAuth()
@@ -27,11 +36,11 @@ export function AuthProvider({ children }) {
   }
 
   function logout() {
-    return auth.signOut()
+    return signOut(auth)
   }
 
   function resetPassword(email) {
-    return auth.sendPasswordResetEmail(email)
+    return sendPasswordResetEmail(auth, email)
   }
 
   function updateEmail(email) {
