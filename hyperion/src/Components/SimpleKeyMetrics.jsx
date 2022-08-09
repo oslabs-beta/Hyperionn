@@ -79,6 +79,14 @@ const SimpleKeyMetrics = (props) => {
     })
   }
 
+  // useEffect(() => {
+  //   setCount(JSON.parse(window.localStorage.getItem('count')));
+  // }, []);
+
+  // useEffect(() => {
+  //   window.localStorage.setItem('count', count);
+  // }, [count]);
+
   //deconstruct state
   const { offlinePartitions, activeControllers, underReplicated } = kafkaData;
 
@@ -86,18 +94,15 @@ const SimpleKeyMetrics = (props) => {
     <div className="key-metrics">
         <Paper sx={stylingBox}>
           <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase' }}>Offline Partitions</Typography>
-          {/* <Typography>{offlinePartitions}</Typography> */}
-          <Typography className="big-number" sx={{ fontSize: '3rem'}}>0</Typography>
+          <Typography className="big-number" sx={{ fontSize: '3rem'}}>{offlinePartitions}</Typography>
         </Paper>
         <Paper sx={stylingBox}>
           <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Active Controllers</Typography>
-          {/* <Typography>{activeControllers}</Typography> */}
-          <Typography className="big-number" sx={{ fontSize: '3rem'}}>1</Typography>
+          <Typography className="big-number" sx={{ fontSize: '3rem'}}>{activeControllers}</Typography>
         </Paper>
         <Paper sx={stylingBox}>
           <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Underreplicated Partitions</Typography>
-          {/* <Typography>{underReplicated}</Typography> */}
-          <Typography className="big-number" sx={{ fontSize: '3rem'}}>0</Typography>
+          <Typography className="big-number" sx={{ fontSize: '3rem'}}>{underReplicated}</Typography>
         </Paper>
     </div>
   )

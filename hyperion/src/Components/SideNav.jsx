@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Button, TextField } from '@mui/material';
+import axios from 'axios';
 
 const SideNav = () => {
 
@@ -11,13 +12,26 @@ const button = {
   width: '120px'
 }
 
+const handleSubmit = async () => {
+  //get the values of the needed imputs to send to server
+  const port = document.getElementById('port');
+  const domain = document.getElementById('domain');
+  try{
+    axios.post('/server', { port: port.value, domain: domain.value })
+    setConnectButton(false);
+  }
+  catch(error){
+    console.log('error sending data')
+  }
+}
+
     return (
         <>
           {connectButton && (
             <div className="side-nav">
-              <TextField className="input" label="Domain" variant="filled" sx={button}/>
-              <TextField className="input" label="Port" variant="filled" sx={button}/>
-              <Button variant="text" sx={button} onClick={()=> setConnectButton(false)}>Submit</Button>
+              <TextField id="port" label="Domain" variant="filled" sx={button}/>
+              <TextField id="domain" label="Port" variant="filled" sx={button}/>
+              <Button variant="text" sx={button} onClick={()=> handleSubmit()}>Submit</Button>
             </div>
           )}
           {!connectButton && (
