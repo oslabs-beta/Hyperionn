@@ -4,10 +4,6 @@ import { Paper, Box, Typography } from '@mui/material';
 
 const pollingInterval = 5000;
 
-// const { offlinePartitionsQuery, 
-//         activeControllersQuery, 
-//         underreplicatedControllersQuery } = queryDictionary;
-
 const SimpleKeyMetrics = (props) => {
  
   const [kafkaData, setKafkaData] = useState({
@@ -15,6 +11,18 @@ const SimpleKeyMetrics = (props) => {
     activeControllers : [],
     underReplicated : []
   })
+
+  // if (localStorage.getItem('offlinePartitions')) {
+  //   kafkaData.offlinePatitions = localStorage.getItem('offlinePartitions');
+  // }
+  
+  // if (localStorage.getItem('activeControllers')) {
+  //   kafkaData.activeControllers = localStorage.getItem('activeControllers');
+  // }
+  
+  // if (localStorage.getItem('underReplicated')) {
+  //   kafkaData.underReplicated = localStorage.getItem('underReplicated');
+  // }
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -28,7 +36,7 @@ const SimpleKeyMetrics = (props) => {
     flexDirection: "column",
     height: "90%",
     width: "200px",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     alignItems: "center",
     alignContent: "center",
     textAlign: "center",
@@ -76,19 +84,23 @@ const SimpleKeyMetrics = (props) => {
         offlinePartitions: offlinePartSum,
         activeControllers: activeContSum,
         underReplicated: underRepSum,
-    })
+    });
   }
 
   // useEffect(() => {
-  //   setCount(JSON.parse(window.localStorage.getItem('count')));
+  //   setKafkaData(JSON.parse(window.localStorage.getItem('kafkaData')));
   // }, []);
 
   // useEffect(() => {
-  //   window.localStorage.setItem('count', count);
-  // }, [count]);
+  //   window.localStorage.setItem('kafkaData', kafakData);
+  // }, [kafkaData]);
 
   //deconstruct state
   const { offlinePartitions, activeControllers, underReplicated } = kafkaData;
+
+  localStorage.setItem('offlinePartitions', offlinePartitions);
+  localStorage.setItem('activeControllers', activeControllers);
+  localStorage.setItem('underReplicated', underReplicated);
 
   return (
     <div className="key-metrics">

@@ -70,8 +70,9 @@ const AvgRequestLatency = () => {
     }
     //state is updated with the new data points
     setDataPoints(newDataPoints);
+    localStorage.setItem('Average Request Latency', JSON.stringify(newDataPoints));
   }
-
+ 
 
   return (
     <Box>
