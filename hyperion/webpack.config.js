@@ -33,6 +33,7 @@ const config = {
           name: 'src/assets/[name].[ext]'
         }
       },
+
     ],
   },
   devServer: {
