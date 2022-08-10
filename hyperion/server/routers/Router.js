@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const metricController = require('../Controllers/metricController');
+const userController = require('../Controllers/userController');
 
 // const axios = require('axios');
 
@@ -26,10 +27,19 @@ const metricController = require('../Controllers/metricController');
 
 //Handle get requests for metricData
 router.get('/metrics', 
+  // userController.checkUser,
   metricController.getMetricData, 
   metricController.parseData,
   (req, res) => {
     return res.status(200).json(res.locals.metricData);
+  }
+)
+
+//Handle post requests for first time connects
+router.post('/metrics', 
+  userController.connectPort, 
+  (req, res) => {
+    return res.status(200).send('Saved prometheus information');
   }
 )
 
