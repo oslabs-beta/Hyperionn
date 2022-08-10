@@ -6,7 +6,7 @@ import { Link, useHistory, useNavigate } from "react-router-dom"
 export default function Login() {
   const emailRef = useRef()
   const passwordRef = useRef()
-  const { login } = useAuth()
+  const { login, loginWithGoogle, loginWithGithub } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -25,6 +25,41 @@ export default function Login() {
 
     setLoading(false)
   }
+
+  async function handleGoogle(e) {
+    e.preventDefault()
+
+    try {
+      setError("")
+      setLoading(true)
+      const result = await loginWithGoogle();
+      console.log(result);
+      navigate("/dashboard")
+    // setTimeout(()=>navigate("/dashboard"),5000)
+
+    } catch {
+      setError("Failed to log in")
+    }
+
+    setLoading(false)
+  }
+  async function handleGithub(e) {
+    e.preventDefault()
+
+    try {
+      setError("")
+      setLoading(true)
+      
+      const result = await loginWithGithub();
+    //   setTimeout(()=>navigate("/dashboard"),5000)
+      navigate('/dashboard')
+    } catch {
+      setError("Failed to log in")
+    }
+
+    setLoading(false)
+  }
+
 
   return (
     <>
@@ -53,6 +88,13 @@ export default function Login() {
       <div className="w-100 text-center mt-2">
         Need an account? <Link to="/signup">Sign Up</Link>
       </div>
+      
+      <div><Button onClick={handleGoogle} className="w-100" type="submit">
+              Sign in with Google
+            </Button>
+            <Button onClick={handleGithub} className="w-100" type="submit">
+              Sign in with github
+            </Button></div>
     </>
   )
 }

@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, createContext } from "react"
 import { auth } from "../firebase.js"
 import app from '../firebase.js';
-import { ConstructionOutlined } from "@mui/icons-material";
+import { ConstructionOutlined, Google } from "@mui/icons-material";
 import { getAuth, 
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword,
@@ -10,9 +10,12 @@ import { getAuth,
      updateEmail,
      updatePassword,
      onAuthStateChanged,
-
+    GoogleAuthProvider,
+    signInWithPopup,
+    GithubAuthProvider
      } from "firebase/auth"
-
+const goog = new GoogleAuthProvider()
+const github = new GithubAuthProvider();
 const AuthContext = React.createContext()
 //const auth = getAuth()
 export function useAuth() {
@@ -26,7 +29,17 @@ export function AuthProvider({ children }) {
   function signup(email, password) {
     return createUserWithEmailAndPassword(auth, email, password)
   }
+function loginWithGoogle(){
+    const result = signInWithPopup(auth, goog)
+    return result;
+}
 
+async function loginWithGithub(){
+    console.log('logging in')
+    const result = await signInWithPopup(auth, github)
+    console.log('LOGGED IN')
+    return result;
+}
   function login(email, password) {
     console.log('logging in...')
     console.log('auth: ', auth)
@@ -62,6 +75,8 @@ export function AuthProvider({ children }) {
 
   const value = {
     currentUser,
+    loginWithGoogle,
+    loginWithGithub,
     login,
     signup,
     logout,
