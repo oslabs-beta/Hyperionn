@@ -4,10 +4,6 @@ import { Paper, Box, Typography } from '@mui/material';
 
 const pollingInterval = 5000;
 
-// const { offlinePartitionsQuery, 
-//         activeControllersQuery, 
-//         underreplicatedControllersQuery } = queryDictionary;
-
 const SimpleKeyMetrics = (props) => {
  
   const [kafkaData, setKafkaData] = useState({
@@ -15,6 +11,18 @@ const SimpleKeyMetrics = (props) => {
     activeControllers : [],
     underReplicated : []
   })
+
+  // if (localStorage.getItem('offlinePartitions')) {
+  //   kafkaData.offlinePatitions = localStorage.getItem('offlinePartitions');
+  // }
+  
+  // if (localStorage.getItem('activeControllers')) {
+  //   kafkaData.activeControllers = localStorage.getItem('activeControllers');
+  // }
+  
+  // if (localStorage.getItem('underReplicated')) {
+  //   kafkaData.underReplicated = localStorage.getItem('underReplicated');
+  // }
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -28,7 +36,7 @@ const SimpleKeyMetrics = (props) => {
     flexDirection: "column",
     height: "90%",
     width: "200px",
-    justifyContent: "space-between",
+    justifyContent: "space-evenly",
     alignItems: "center",
     alignContent: "center",
     textAlign: "center",
@@ -76,28 +84,37 @@ const SimpleKeyMetrics = (props) => {
         offlinePartitions: offlinePartSum,
         activeControllers: activeContSum,
         underReplicated: underRepSum,
-    })
+    });
   }
+
+  // useEffect(() => {
+  //   setKafkaData(JSON.parse(window.localStorage.getItem('kafkaData')));
+  // }, []);
+
+  // useEffect(() => {
+  //   window.localStorage.setItem('kafkaData', kafakData);
+  // }, [kafkaData]);
 
   //deconstruct state
   const { offlinePartitions, activeControllers, underReplicated } = kafkaData;
+
+  localStorage.setItem('offlinePartitions', offlinePartitions);
+  localStorage.setItem('activeControllers', activeControllers);
+  localStorage.setItem('underReplicated', underReplicated);
 
   return (
     <div className="key-metrics">
         <Paper sx={stylingBox}>
           <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase' }}>Offline Partitions</Typography>
-          {/* <Typography>{offlinePartitions}</Typography> */}
-          <Typography className="big-number" sx={{ fontSize: '3rem'}}>0</Typography>
+          <Typography className="big-number" sx={{ fontSize: '3rem'}}>{offlinePartitions}</Typography>
         </Paper>
         <Paper sx={stylingBox}>
           <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Active Controllers</Typography>
-          {/* <Typography>{activeControllers}</Typography> */}
-          <Typography className="big-number" sx={{ fontSize: '3rem'}}>1</Typography>
+          <Typography className="big-number" sx={{ fontSize: '3rem'}}>{activeControllers}</Typography>
         </Paper>
         <Paper sx={stylingBox}>
           <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Underreplicated Partitions</Typography>
-          {/* <Typography>{underReplicated}</Typography> */}
-          <Typography className="big-number" sx={{ fontSize: '3rem'}}>0</Typography>
+          <Typography className="big-number" sx={{ fontSize: '3rem'}}>{underReplicated}</Typography>
         </Paper>
     </div>
   )

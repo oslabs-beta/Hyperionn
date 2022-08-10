@@ -66,6 +66,7 @@ const RequestRate = () => {
       newDataPoints.push({x: newData[i].x, y: newData[i].y});
     }
     setDataPoints(newDataPoints);
+    localStorage.setItem('Request Rate', JSON.stringify(newDataPoints));
   }
 
   

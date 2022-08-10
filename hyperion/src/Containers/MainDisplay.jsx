@@ -14,7 +14,7 @@ export function MainDisplay () {
         display: "grid",
         gridTemplateColumns: "200px 1fr",
         gridTemplateRows: "60px 1fr",
-        height: "90vh",
+        height: "80vh",
         gap: "0px 0px",
         gridTemplateAreas: `
         "SideNav NavBar"

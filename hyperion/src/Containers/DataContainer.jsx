@@ -21,13 +21,11 @@ const DataContainer = (props) => {
 const dataGrid = {
   padding: "20px",
   display: "grid", 
-  gridTemplateColumns: "1fr 1fr", 
-  height: "87vh",
-  gridTemplateRows: "150px 1fr 1fr",
+  gridTemplateColumns: "40vw 40vw", 
+  gridTemplateRows: "1fr 1fr",
   gap: "15px 15px", 
   gridTemplateAreas:`
-    "SimpleKeyMetrics ."
-    "FirstGraph AvgRequestLatency"
+    "SimpleKeyMetrics FirstGraph"
     "SecondGraph ThirdGraph"
   `,
   gridArea: "DataContainer",
@@ -37,8 +35,8 @@ const dataGrid = {
   return(
     <>
       <Grid container sx={dataGrid}>
-        <SimpleKeyMetrics sx={{gridArea:"SimpleKeyMetrics", height: "100%", width: "100%"}}/>
-        <Paper className="paper"  sx={{gridArea:"AvgRequestLatency", boxShadow:"none"}}>
+        <SimpleKeyMetrics sx={{gridArea:"SimpleKeyMetrics", minWidth: "100px"}}/>
+        <Paper className="paper"  sx={{gridArea:"FirstGraph", boxShadow:"none"}}>
           <AvgRequestLatency/>
         </Paper>
         {/* <Paper className="paper" sx={{gridArea:"FirstGraph", boxShadow:"none"}}>
