@@ -17,7 +17,7 @@ const handleSubmit = async () => {
   const port = document.getElementById('port');
   const domain = document.getElementById('domain');
   try{
-    axios.post('/server', { port: port.value, domain: domain.value })
+    axios.post('/server/metrics', { port: port.value, domain: domain.value })
     setConnectButton(false);
   }
   catch(error){
@@ -29,8 +29,8 @@ const handleSubmit = async () => {
         <>
           {connectButton && (
             <div className="side-nav">
-              <TextField id="port" label="Domain" variant="filled" sx={button}/>
-              <TextField id="domain" label="Port" variant="filled" sx={button}/>
+              <TextField id="domain" label="Domain" variant="filled" sx={button}/>
+              <TextField id="port" label="Port" variant="filled" sx={button}/>
               <Button variant="text" sx={button} onClick={()=> handleSubmit()}>Submit</Button>
             </div>
           )}
