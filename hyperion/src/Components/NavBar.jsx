@@ -10,9 +10,8 @@ import {
   Fade
 } from "@mui/material";
 import { useAuth } from "../AuthContext";
-import MenuIcon from '@mui/icons-material/Menu';
-import logo from "../assets/Hyperion.png";
-import SideNav from './SideNav.jsx';
+import { useNavigate } from "react-router-dom"
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 
@@ -21,6 +20,7 @@ export function NavBar () {
   //const [sidebarAppear, setSideBarAppear] = useState(false);
   const [anchorEl, setMenuAppear] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const navigate = useNavigate()
 
   const { logout } = useAuth()
 
@@ -35,16 +35,17 @@ export function NavBar () {
     },
   }
 
+  async function handleSubmit(e) {
 
+    e.preventDefault()
 
-  //const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = () => {
-    setMenuAppear(event.currentTarget);
-  };
-  const handleClose = () => {
-    setMenuAppear(null);
-  };
+    try {
+      await logout()
+      navigate("/")
+    } catch {
+      setError("Failed to logout")
+    }
+  }
 
 
 
@@ -52,7 +53,9 @@ export function NavBar () {
   return(
     <AppBar id="NavBar">
       <Box>
-        <Button variant="contained" sx={button} onClick={logout}>Logout</Button>
+        <Button variant="contained" sx={button} onClick={handleSubmit}>
+          <LogoutIcon></LogoutIcon>
+        </Button>
       </Box>
     </ AppBar>
     );

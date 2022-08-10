@@ -3,28 +3,24 @@ import React from "react"
 import Signup from "./Signup"
 import { Container } from "@mui/material"
 import { AuthProvider } from "./AuthContext"
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-// import Dashboard from "./Dashboard"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainDisplay from './Containers/MainDisplay';
-import Login from './Login'
-import PrivateRoute from "./PrivateRoute"
-import ForgotPassword from "./ForgotPassword"
-// import UpdateProfile from "./UpdateProfile"
+import Login from './Login';
+import PrivateRoute from "./PrivateRoute";
+import ForgotPassword from "./ForgotPassword";
+import ErrorLogDisplay from './Containers/ErrorLogDisplay';
 
 function App() {
   return (
-    <Container
-      className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: "100vh", padding:"0px" }}
-    >
-      <div className="w-100" style={{ maxWidth: "100vw" }}>
+    <Container className="main-app" style={{ minHeight: "100vh", minWidth:"100vw" }}>
         <Router>
           <AuthProvider>
             <Routes>
             {/* <Route exact path='/' element={<PrivateRoute/>}>
             <Route exact path='/' element={<MainDisplay/>}/>
           </Route> */}
-          <Route path ='/dashboard' element={<MainDisplay/>}/>
+              <Route path ='/errorlogs' element={<ErrorLogDisplay/>}/>
+              <Route path ='/dashboard' element={<MainDisplay/>}/>
               {/* <Route exact path="/" element={<PrivateRoute/>}>
                 <Route exact path = '/' element = {<MainDisplay/>}/>
               </Route> */}
@@ -35,7 +31,6 @@ function App() {
             </Routes>
           </AuthProvider>
         </Router>
-       </div>
      </Container>
   )
 }
