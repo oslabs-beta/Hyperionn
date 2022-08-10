@@ -1,7 +1,11 @@
 import React, { useRef, useState } from "react"
-import { Form, Button, Card, Alert } from "react-bootstrap"
+import { Card, Alert } from "react-bootstrap"
 import { useAuth } from "./AuthContext";
 import { Link, useHistory, useNavigate } from "react-router-dom"
+import { Box, Button, TextField } from '@mui/material';
+import GitHubIcon from "@mui/icons-material/GitHub";
+import GoogleIcon from "@mui/icons-material/Google";
+import logo from './assets/Hyperion.png';
 
 export default function Login() {
   const emailRef = useRef()
@@ -11,8 +15,22 @@ export default function Login() {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
+  const button = {
+    backgroundColor: "white",
+    borderRadius: "3px",
+    padding: "10px",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100px",
+  }
+
   async function handleSubmit(e) {
+
     e.preventDefault()
+    console.log('email ref', emailRef.current.value)
+    console.log('pw ref', passwordRef.current.value)
 
     try {
       setError("")
@@ -62,39 +80,211 @@ export default function Login() {
 
 
   return (
-    <>
-      <Card>
-        <Card.Body>
-          <h2 className="text-center mb-4">Log In</h2>
+    <div className="login-page">
+      <Box className="login-box">
+        <Box className="logo-box">
+          <img src={logo} width="200px" height="200px"></img>
+        </Box>
+        <Box className="login-text-box">
+          <h2 >Log In</h2>
+          {/* <Box className='logo'>
+            <img src={logo} width="30px" height="30px"></img>
+          </Box> */}
           {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
-            </Form.Group>
-            <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required />
-            </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
-              Log In
-            </Button>
-          </Form>
-          <div className="w-100 text-center mt-3">
+          <form onSubmit={handleSubmit}>
+            <div className="form-input">
+              <TextField size="small" label="Email" inputRef={emailRef}  required />
+            </div>
+            <div className="form-input">
+              <TextField size="small" label="Password" type="password" inputRef={passwordRef}  required />
+            </div>
+            <div className="form-button">
+              <Button className="button" disabled={loading} type="submit">Log In</Button>
+              <Button className="button" onClick={handleGoogle}>
+                <GoogleIcon></GoogleIcon>
+              </Button>
+              <Button className="button" onClick={handleGithub}>
+                <GitHubIcon></GitHubIcon>
+              </Button>
+            </div>
+          </form>
+          <div className="form-input">
             <Link to="/forgot-password">Forgot Password?</Link>
           </div>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-        Need an account? <Link to="/signup">Sign Up</Link>
-      </div>
-      
-      <div><Button onClick={handleGoogle} className="w-100" type="submit">
-              Sign in with Google
-            </Button>
-            <Button onClick={handleGithub} className="w-100" type="submit">
-              Sign in with github
-            </Button></div>
-    </>
+          <div>
+            Need an account? <Link to="/signup">Sign Up</Link>
+          </div>
+        </Box>
+     </Box>
+    </div>
   )
 }
+
+// import * as React from 'react';
+// import Box from '@mui/material/Box';
+// import TextField from '@mui/material/TextField';
+
+// export default function FormPropsTextFields() {
+//   return (
+//     <Box
+//       component="form"
+//       sx={{
+//         '& .MuiTextField-root': { m: 1, width: '25ch' },
+//       }}
+//       noValidate
+//       autoComplete="off"
+//     >
+//       <div>
+//         <TextField
+//           required
+//           id="outlined-required"
+//           label="Required"
+//           defaultValue="Hello World"
+//         />
+//         <TextField
+//           disabled
+//           id="outlined-disabled"
+//           label="Disabled"
+//           defaultValue="Hello World"
+//         />
+//         <TextField
+//           id="outlined-password-input"
+//           label="Password"
+//           type="password"
+//           autoComplete="current-password"
+//         />
+//         <TextField
+//           id="outlined-read-only-input"
+//           label="Read Only"
+//           defaultValue="Hello World"
+//           InputProps={{
+//             readOnly: true,
+//           }}
+//         />
+//         <TextField
+//           id="outlined-number"
+//           label="Number"
+//           type="number"
+//           InputLabelProps={{
+//             shrink: true,
+//           }}
+//         />
+//         <TextField id="outlined-search" label="Search field" type="search" />
+//         <TextField
+//           id="outlined-helperText"
+//           label="Helper text"
+//           defaultValue="Default Value"
+//           helperText="Some important text"
+//         />
+//       </div>
+//       <div>
+//         <TextField
+//           required
+//           id="filled-required"
+//           label="Required"
+//           defaultValue="Hello World"
+//           variant="filled"
+//         />
+//         <TextField
+//           disabled
+//           id="filled-disabled"
+//           label="Disabled"
+//           defaultValue="Hello World"
+//           variant="filled"
+//         />
+//         <TextField
+//           id="filled-password-input"
+//           label="Password"
+//           type="password"
+//           autoComplete="current-password"
+//           variant="filled"
+//         />
+//         <TextField
+//           id="filled-read-only-input"
+//           label="Read Only"
+//           defaultValue="Hello World"
+//           InputProps={{
+//             readOnly: true,
+//           }}
+//           variant="filled"
+//         />
+//         <TextField
+//           id="filled-number"
+//           label="Number"
+//           type="number"
+//           InputLabelProps={{
+//             shrink: true,
+//           }}
+//           variant="filled"
+//         />
+//         <TextField
+//           id="filled-search"
+//           label="Search field"
+//           type="search"
+//           variant="filled"
+//         />
+//         <TextField
+//           id="filled-helperText"
+//           label="Helper text"
+//           defaultValue="Default Value"
+//           helperText="Some important text"
+//           variant="filled"
+//         />
+//       </div>
+//       <div>
+//         <TextField
+//           required
+//           id="standard-required"
+//           label="Required"
+//           defaultValue="Hello World"
+//           variant="standard"
+//         />
+//         <TextField
+//           disabled
+//           id="standard-disabled"
+//           label="Disabled"
+//           defaultValue="Hello World"
+//           variant="standard"
+//         />
+//         <TextField
+//           id="standard-password-input"
+//           label="Password"
+//           type="password"
+//           autoComplete="current-password"
+//           variant="standard"
+//         />
+//         <TextField
+//           id="standard-read-only-input"
+//           label="Read Only"
+//           defaultValue="Hello World"
+//           InputProps={{
+//             readOnly: true,
+//           }}
+//           variant="standard"
+//         />
+//         <TextField
+//           id="standard-number"
+//           label="Number"
+//           type="number"
+//           InputLabelProps={{
+//             shrink: true,
+//           }}
+//           variant="standard"
+//         />
+//         <TextField
+//           id="standard-search"
+//           label="Search field"
+//           type="search"
+//           variant="standard"
+//         />
+//         <TextField
+//           id="standard-helperText"
+//           label="Helper text"
+//           defaultValue="Default Value"
+//           helperText="Some important text"
+//           variant="standard"
+//         />
+//       </div>
+//     </Box>
+//   );
+// }

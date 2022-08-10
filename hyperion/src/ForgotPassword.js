@@ -27,8 +27,8 @@ export default function ForgotPassword() {
   }
 
   return (
-    <>
-      <Card>
+    <div className="login-page">
+      <Card className="login-box">
         <Card.Body>
           <h2 className="text-center mb-4">Password Reset</h2>
           {error && <Alert variant="danger">{error}</Alert>}
@@ -48,8 +48,8 @@ export default function ForgotPassword() {
         </Card.Body>
       </Card>
       <div className="w-100 text-center mt-2">
-        Need an account? <Link to="/signup">Sign Up</Link>
-      </div>
-    </>
+          Need an account? <Link to="/signup">Sign Up</Link>
+        </div>
+    </div>
   )
 }

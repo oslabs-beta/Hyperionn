@@ -1,7 +1,11 @@
 import React, { useRef, useState } from "react";
-import { Form, Button, Card, Alert } from "react-bootstrap";
+import { Alert } from "react-bootstrap";
+import { Box, Button, TextField } from '@mui/material';
 import { useAuth } from "./AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import GoogleIcon from "@mui/icons-material/Google";
+import logo from './assets/Hyperion.png';
 
 export default function Signup() {
   const emailRef = useRef();
@@ -12,6 +16,7 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -20,6 +25,8 @@ export default function Signup() {
     }
 
     try {
+      console.log('email', emailRef.current.value)
+      console.log('password', passwordRef.current.value)
       setError("")
       setLoading(true)
       await signup(emailRef.current.value, passwordRef.current.value)
@@ -32,33 +39,39 @@ export default function Signup() {
   }
 
   return (
-    <>
-      <Card>
-        <Card.Body>
-          <h2 className="text-center mb-4">Sign Up</h2>
+    <div className="login-page">
+      <Box className="login-box">
+        <Box className="logo-box">
+          <img src={logo} width="200px" height="200px"></img>
+        </Box>
+        <Box className="login-text-box">
+        <h2 className="text-center mb-4">Sign Up</h2>
           {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
-            </Form.Group>
-            <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required />
-            </Form.Group>
-            <Form.Group id="password-confirm">
-              <Form.Label>Password Confirmation</Form.Label>
-              <Form.Control type="password" ref={passwordConfirmRef} required />
-            </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
-              Sign Up
-            </Button>
-          </Form>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-        Already have an account? <Link to="/login">Log In</Link>
-      </div>
-    </>
+          <form onSubmit={handleSubmit}>
+            <div className="form-input">
+              <TextField size="small" label="Email" inputRef={emailRef}  required />
+            </div>
+            <div className="form-input">
+              <TextField size="small" label="Password" type="password" inputRef={passwordRef}  required />
+            </div>
+            <div className="form-input">
+              <TextField size="small" label="Confirm Password" type="password" inputRef={passwordConfirmRef}  required />
+            </div>
+            <div className="form-button">
+              <Button disabled={loading} className="button" type="submit">Sign Up</Button>
+              <Button className="button">
+                <GoogleIcon></GoogleIcon>
+              </Button>
+              <Button className="button">
+                <GitHubIcon></GitHubIcon>
+              </Button>
+              </div>
+            </form>
+            <div className="form-input">
+              Already have an account? <Link to="/signup">Log in</Link>
+            </div>
+          </Box>
+        </Box>
+    </div>
   )
 }
