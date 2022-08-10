@@ -1,18 +1,4 @@
 import './app.scss';
-// import React from 'react'
-// import MainDisplay from './Containers/MainDisplay.jsx'
-// import Login from './Login';
-      
-// function App() {
-//   return (
-//     <div className="MainDisplay">
-//       <Login/>
-//     </div>
-//   );
-// }
-
-// export default App;
-
 import React from "react"
 import Signup from "./Signup"
 import { Container } from "@mui/material"
@@ -29,9 +15,9 @@ function App() {
   return (
     <Container
       className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: "100vh" }}
+      style={{ minHeight: "100vh", padding:"0px" }}
     >
-      <div className="w-100" style={{ maxWidth: "400px" }}>
+      <div className="w-100" style={{ maxWidth: "100vw" }}>
         <Router>
           <AuthProvider>
             <Routes>

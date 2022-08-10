@@ -57,11 +57,26 @@ body {
 .login-page {
   display: flex;
   height: 100vh;
-  flex-direction: column;
+  width: 100vw;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  background: rgb(18,10,39);
-  background: linear-gradient(249deg, rgba(18,10,39,1) 0%, rgba(206,16,250,1) 51%, rgba(243,190,102,1) 100%);
+  background-color: $darkGrey;
+  //background: rgb(18,10,39);
+  //background: linear-gradient(249deg, rgba(18,10,39,1) 0%, rgba(206,16,250,1) 51%, rgba(243,190,102,1) 100%);
+}
+
+.logo-box{
+  background-color: $dustyPurple;
+  width: 50%;
+  height: 100%;
+  //border: 1px solid $lightGrey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  //border: 4px solid $logoMidOrange;
+  border-radius: 5px 0px 0px 5px;
 }
 
 .login-box {
@@ -71,6 +86,23 @@ body {
   height: 70vh;
   width: 70vw;
   box-shadow: 0px 0px 34px -12px $textGrey;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-text-box {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  width:50%;
+}
+
+.form-button {
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -119,4 +151,20 @@ body {
 
 .big-number {
   color: $logoMidOrange;
+}
+
+.form-input {
+  padding: 10px;
+  color: $textGrey;
+}
+
+.button {
+  background-color: white;
+  border-radius: 3px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
 }
