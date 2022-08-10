@@ -8,23 +8,12 @@ import GoogleIcon from "@mui/icons-material/Google";
 import logo from './assets/Hyperion.png';
 
 export default function Login() {
-  const emailRef = useRef()
-  const passwordRef = useRef()
-  const { login, loginWithGoogle, loginWithGithub } = useAuth()
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
-  const navigate = useNavigate()
-
-  const button = {
-    backgroundColor: "white",
-    borderRadius: "3px",
-    padding: "10px",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100px",
-  }
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const { login, loginWithGoogle, loginWithGithub } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
 
@@ -83,27 +72,50 @@ export default function Login() {
     <div className="login-page">
       <Box className="login-box">
         <Box className="logo-box">
-          <img src={logo} width="200px" height="200px"></img>
+        <img src={logo} width="200px" height="200px"></img>
         </Box>
         <Box className="login-text-box">
-          <h2 >Log In</h2>
+          <h2>Welcome Back</h2>
           {/* <Box className='logo'>
             <img src={logo} width="30px" height="30px"></img>
           </Box> */}
           {error && <Alert variant="danger">{error}</Alert>}
           <form onSubmit={handleSubmit}>
             <div className="form-input">
-              <TextField size="small" label="Email" inputRef={emailRef}  required />
+              <TextField 
+                size="small" 
+                label="Email" 
+                inputRef={emailRef}
+                sx={{
+                  backgroundColor: "#fefefe",
+                  color: "#f39566",
+                  "&:hover": {
+                    color: "#63489b",
+                  },
+                }}  
+                />
             </div>
             <div className="form-input">
-              <TextField size="small" label="Password" type="password" inputRef={passwordRef}  required />
+              <TextField 
+                size="small" 
+                label="Password" 
+                type="password" 
+                inputRef={passwordRef} 
+                sx={{
+                    backgroundColor: "#fefefe",
+                    color: "#f39566",
+                    "&:hover": {
+                      color: "#63489b",
+                    },
+                }} 
+                />
             </div>
             <div className="form-button">
-              <Button className="button" disabled={loading} type="submit">Log In</Button>
-              <Button className="button" onClick={handleGoogle}>
+              <Button className="button" disabled={loading} type="submit" sx={{color: "#f39566", width: "195px", border: "1px solid #ececec", margin:"10px"}}>Log In</Button>
+              <Button className="button" sx={{color: "#f39566", width: "195px" }} onClick={handleGoogle}>
                 <GoogleIcon></GoogleIcon>
               </Button>
-              <Button className="button" onClick={handleGithub}>
+              <Button className="button" sx={{color: "#f39566", width: "190px" }} onClick={handleGithub}>
                 <GitHubIcon></GitHubIcon>
               </Button>
             </div>
