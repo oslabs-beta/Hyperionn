@@ -27,7 +27,7 @@ const userController = require('../Controllers/userController');
 
 //Handle get requests for metricData
 router.get('/metrics', 
-  userController.
+  // userController.checkUser,
   metricController.getMetricData, 
   metricController.parseData,
   (req, res) => {

@@ -27,6 +27,8 @@ userController.createUser = async (req, res, next) => {
   //if user doesn't exist, create one in sql db
 }
 
+
+
 //for checking if the user has a port already, if yes then res.locals.connected = true, 
 //if not, res.locals.connect = false and then metrics controller won't show any data
 userController.checkUser = async (req, res, next) => {
@@ -35,8 +37,15 @@ userController.checkUser = async (req, res, next) => {
   try {
     const result = await pg.query(queryString, queryParameter);
     console.log('result from trying to find domain and port: ', result);
-    res.locals.connect = true;
-    return next();
+    if (!result.rows[0].domain.length || !result.rows[0].port.length) {
+      res.locals.connected = false;
+      console.log('connected set to false');
+      return next();
+    } else {
+      res.locals.connected = true;
+      console.log('connected set to true');
+      return next();
+    }
   } catch(err) {
     return next(err);
   }

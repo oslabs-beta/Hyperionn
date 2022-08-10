@@ -24,7 +24,8 @@ const metricController = {};
 
 //Middleware to get under replicated partitions from Prometheus
 metricController.getMetricData = async (req, res, next) => {
-    if (res.locals.connected === true) {
+    // if (res.locals.connected === true) {
+        console.log('entered true logic in getMetricData')
         //destructure target query from request query
         const { metric } = req.query;
         const queryString = queryStringDictionary[metric];
@@ -43,14 +44,14 @@ metricController.getMetricData = async (req, res, next) => {
               message:  "Error occurred when obtaining Prometheus data: " + error
             })
         }
-    } else {
-        res.locals.metricData = null;
-        return next()
-    }
+    // } else {
+    //     res.locals.metricData = null;
+    //     return next()
+    // }
 }
  //parse out the requested data for the client
  metricController.parseData = (req, res, next) => {
-    if (res.locals.connected === true) {
+    // if (res.locals.connected === true) {
         const { metric } = req.query;
         const queryString = `INSERT INTO errors 
         (name, instance, env, value, time, user_id) 
@@ -83,11 +84,11 @@ metricController.getMetricData = async (req, res, next) => {
                 Number(acc) + Number(curr.value[1])
             , 0);
             // console.log('sum: ', sum);
-            if (sum > 1) {
+            if (sum !== 1) {
                 const name = res.locals.metricData[0].metric.__name__;
                 const instance = res.locals.metricData[0].metric.instance;
                 const env = res.locals.metricData[0].metric.env;
-                const value = Number(res.locals.metricData[0].value[1]);
+                const value = sum;
                 const time = res.locals.metricData[0].value[0]
                 const user_id = 1;
                 const queryParameter = [name, instance, env, value, time, user_id];
@@ -122,10 +123,10 @@ metricController.getMetricData = async (req, res, next) => {
             return next();
         } 
 
-    } else {
-        res.locals.metricData = null;
-        return next();
-    }
+    // } else {
+    //     res.locals.metricData = null;
+    //     return next();
+    // }
  }
 
 module.exports = metricController;
