@@ -19,6 +19,36 @@ body {
   color: $white;
   font-family: "Nanum Gothic", sans-serif;
   box-sizing: border-box;
+  background-color: #f3be66;
+}
+
+@media (min-width: 1200px) {
+  .css-1oqqzyl-MuiContainer-root {
+    max-width: 0px;
+}
+}
+
+@media (min-width: 600px) {
+  .css-1oqqzyl-MuiContainer-root {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
+.css-1oqqzyl-MuiContainer-root {
+  width: 100%;
+  margin-left: auto;
+  background: red;
+  box-sizing: border-box;
+  margin-right: auto;
+  display: block;
+  padding-left: 0px; 
+  padding-right: 0px; 
+}
+
+.main-app {
+  width: 100vw;
+  background: $logoMidPink;
 }
 
 
@@ -45,6 +75,7 @@ body {
   padding-top: 150px;
   width: 100%;
   align-content: center;
+  float: left;
 }
 
 .key-metrics {
@@ -67,10 +98,10 @@ body {
 }
 
 .logo-box{
-  background-color: $dustyPurple;
+  background: $mediumGrey;
   width: 50%;
   height: 100%;
-  //border: 1px solid $lightGrey;
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -160,6 +191,7 @@ body {
 
 .button {
   background-color: white;
+  color: $logoOrange;
   border-radius: 3px;
   padding: 10px;
   display: flex;
@@ -167,4 +199,18 @@ body {
   align-items: center;
   justify-content: center;
   width: 100px;
+}
+
+Link:link {
+  color: $darkPurple;
+}
+
+/* visited link */
+Link:visited {
+  color: green;
+}
+
+/* mouse over link */
+Link:hover {
+  color: hotpink;
 }

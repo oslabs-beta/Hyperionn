@@ -35,7 +35,8 @@ export default function ForgotPassword() {
           <img src={logo} width="200px" height="200px"></img>
         </Box>
         <Box className="login-text-box">
-          <h2 className="text-center mb-4">Password Reset</h2>
+          <h2 className="text-center mb-4">Reset Password</h2>
+          <h4 className="text-center mb-4">Enter email to verify password reset</h4>
           {error && <Alert variant="danger">{error}</Alert>}
           {message && <Alert variant="success">{message}</Alert>}
           <form onSubmit={handleSubmit}>
@@ -43,12 +44,9 @@ export default function ForgotPassword() {
               <TextField size="small" label="Email" inputRef={emailRef}  required />
             </div>
             <div className="form-button">
-              <Button disabled={loading} className="button" type="submit">Reset Password</Button>
+              <Button disabled={loading} className="button" type="submit" sx={{color: "#f39566", width: "195px", border: "1px solid #ececec", margin:"10px"}}>Verify Email</Button>
             </div>
           </form>
-          <div className="form-input">
-            <Link to="/">Login</Link>
-          </div>
           <div className="form-input">
             Need an account? <Link to="/signup">Sign up</Link>
           </div>

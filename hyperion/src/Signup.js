@@ -45,7 +45,7 @@ export default function Signup() {
           <img src={logo} width="200px" height="200px"></img>
         </Box>
         <Box className="login-text-box">
-        <h2 className="text-center mb-4">Sign Up</h2>
+        <h2 className="text-center mb-4">Hyperion</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <form onSubmit={handleSubmit}>
             <div className="form-input">
@@ -58,11 +58,11 @@ export default function Signup() {
               <TextField size="small" label="Confirm Password" type="password" inputRef={passwordConfirmRef}  required />
             </div>
             <div className="form-button">
-              <Button disabled={loading} className="button" type="submit">Sign Up</Button>
-              <Button className="button">
+              <Button disabled={loading} className="button" type="submit" sx={{color: "#f39566", width: "195px", border: "1px solid #ececec", margin:"10px"}}>Sign Up</Button>
+              <Button className="button" sx={{ color: "#f39566", width: "195px" }}>
                 <GoogleIcon></GoogleIcon>
               </Button>
-              <Button className="button">
+              <Button className="button" sx={{ color: "#f39566", width: "195px" }}>
                 <GitHubIcon></GitHubIcon>
               </Button>
               </div>
