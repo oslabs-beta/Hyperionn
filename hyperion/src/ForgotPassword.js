@@ -1,7 +1,9 @@
 import React, { useRef, useState } from "react"
-import { Form, Button, Card, Alert } from "react-bootstrap"
+import { Alert } from "react-bootstrap"
 import { useAuth } from "./AuthContext"
 import { Link } from "react-router-dom"
+import { Box, Button, TextField } from '@mui/material';
+import logo from './assets/Hyperion.png';
 
 export default function ForgotPassword() {
   const emailRef = useRef()
@@ -28,28 +30,30 @@ export default function ForgotPassword() {
 
   return (
     <div className="login-page">
-      <Card className="login-box">
-        <Card.Body>
+      <Box className="login-box">
+        <Box className="logo-box">
+          <img src={logo} width="200px" height="200px"></img>
+        </Box>
+        <Box className="login-text-box">
           <h2 className="text-center mb-4">Password Reset</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           {message && <Alert variant="success">{message}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
-            </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
-              Reset Password
-            </Button>
-          </Form>
-          <div className="w-100 text-center mt-3">
-            <Link to="/login">Login</Link>
+          <form onSubmit={handleSubmit}>
+            <div className="form-input">
+              <TextField size="small" label="Email" inputRef={emailRef}  required />
+            </div>
+            <div className="form-button">
+              <Button disabled={loading} className="button" type="submit">Reset Password</Button>
+            </div>
+          </form>
+          <div className="form-input">
+            <Link to="/">Login</Link>
           </div>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-          Need an account? <Link to="/signup">Sign Up</Link>
-        </div>
-    </div>
+          <div className="form-input">
+            Need an account? <Link to="/signup">Sign up</Link>
+          </div>
+       </Box>
+    </Box>
+</div>
   )
 }
