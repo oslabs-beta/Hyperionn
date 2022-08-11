@@ -9,6 +9,9 @@ const SideNav = () => {
   const navigate = useNavigate();
 
 
+  const button = {
+    color: "#a4a4a4",
+    width: "150px"
   }
 
   const handleSubmit = async () => {
@@ -28,7 +31,9 @@ const SideNav = () => {
         <>
           {connectButton && (
             <div className="side-nav">
-
+              <Button variant="text" sx={button} onClick={() => navigate('/dashboard')}>Home</Button>
+              <TextField id="domain" label="Domain" variant="filled" sx={button}/>
+              <TextField id="port" label="Port" variant="filled" sx={button}/>
               <Button variant="text" sx={button} onClick={()=> handleSubmit()}>Submit</Button>
               <Button variant="text" sx={button} onClick={() => navigate('/errorlogs')}>Error Logs</Button>
             </div>
@@ -38,7 +43,7 @@ const SideNav = () => {
               <Button variant="text" sx={button} onClick={() => navigate('/dashboard')}>Home</Button>
               <Button variant="text" sx={button} onClick={()=> setConnectButton(true)}>Connect</Button>
               <Button variant="text" sx={button} onClick={() => navigate('/errorlogs')}>Error Logs</Button>
-          </div> 
+            </div> 
           )}
         </>
     )
