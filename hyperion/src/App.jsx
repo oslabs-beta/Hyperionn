@@ -12,7 +12,7 @@ import ErrorLogDisplay from './Containers/ErrorLogDisplay';
 
 function App() {
   return (
-    <Container className="main-app" style={{ minHeight: "100vh", minWidth:"100vw" }}>
+    // <Container className="main-app" style={{ minHeight: "100vh", minWidth:"100vw" }}>
         <Router>
           <AuthProvider>
             <Routes>
@@ -31,7 +31,7 @@ function App() {
             </Routes>
           </AuthProvider>
         </Router>
-     </Container>
+    //  </Container>
   )
 }
 
