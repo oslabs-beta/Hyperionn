@@ -82,7 +82,12 @@ const AvgRequestLatency = () => {
           datasets: zookeepers,
         }}
         options={{
-          animation: false,
+          elements: {
+            point:{
+                radius: 0
+            }
+          },
+         // animation: false,
           plugins: {
             title:
            {
@@ -91,6 +96,15 @@ const AvgRequestLatency = () => {
             }
         },
           scales: {
+            y: {
+              scaleId: {
+                display: true,
+                align: 'center',
+                text: 'ms',
+
+            }
+
+            },
             x: {
               type: 'realtime',
               realtime: {

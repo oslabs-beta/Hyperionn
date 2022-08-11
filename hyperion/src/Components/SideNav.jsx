@@ -19,7 +19,7 @@ const SideNav = () => {
     const port = document.getElementById('port');
     const domain = document.getElementById('domain');
     try{
-      axios.post('/server', { port: port.value, domain: domain.value })
+      axios.post('/server/metrics', { port: port.value, domain: domain.value })
       setConnectButton(false);
     }
     catch(error){

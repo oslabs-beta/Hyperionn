@@ -91,7 +91,7 @@ const ResponseRate = () => {
             x: {
               type: 'realtime',
               realtime: {
-                duration : 100000, 
+                duration : 200000, 
                 refresh: 5000,
                 onRefresh: chart => {
                   chart.data.datasets.forEach((resRateInstance, index, array) => {
@@ -103,9 +103,6 @@ const ResponseRate = () => {
                 }
               }
             },
-            y: {
-              max : 1,
-            }
           }
         }}
       />

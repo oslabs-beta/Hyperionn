@@ -104,9 +104,6 @@ const RequestRate = () => {
                 }
               }
             },
-            y: {
-              max : 1,
-            }
           }
         }}
       />

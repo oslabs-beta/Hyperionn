@@ -112,7 +112,7 @@ metricController.getMetricData = async (req, res, next) => {
             const arrayWithDataForAnish = []
             //iterate through our metric data, pushing relevant data into the array to be sent to the front end
             tempMetricData.forEach(dataObj => {
-                arrayWithDataForAnish.push({x: Number(dataObj.value[0]), y: dataObj.value[1], instance: dataObj.metric.instance});
+                arrayWithDataForAnish.push({x: Date.now(), y: dataObj.value[1], instance: dataObj.metric.instance});
             });
             // const objWithDataForAnish = {'x': Math.floor(Date.now() / 1000), 'y': averageLatency};
             console.log('arrayWithDataForAnish: ', arrayWithDataForAnish);
