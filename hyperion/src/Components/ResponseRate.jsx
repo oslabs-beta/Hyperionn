@@ -32,8 +32,8 @@ const ResponseRate = () => {
       let colorVal = Math.floor(Math.random() * 255)
       const obj = {
         label: resData[i].instance, 
-        backgroundColor: `rgba(${colorVal}, ${colorVal}, ${colorVal}, 0.5)`,
-        borderColor: `rgb(${colorVal}, ${colorVal}, ${colorVal})`,
+        backgroundColor: `#f39566`,
+        borderColor: `#f39566`,
         fill: false,
         data: [],
        }
