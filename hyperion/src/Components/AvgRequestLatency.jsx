@@ -97,13 +97,9 @@ const AvgRequestLatency = () => {
         },
           scales: {
             y: {
-              scaleId: {
                 display: true,
                 align: 'center',
                 text: 'ms',
-
-            }
-
             },
             x: {
               type: 'realtime',
