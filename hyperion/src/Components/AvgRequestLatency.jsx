@@ -29,13 +29,15 @@ const AvgRequestLatency = () => {
   
   // iterate through the returned data in order to determine # of zookeepers. 
   const makeDataSets = zooData => {
+    const colorArray = ['#f3be66', '#f39566', '#f366dc', '#ce10fa', '#63489b'];
     const output = [];
     for (let i = 0; i < zooData.length; i++){
       let colorVal = Math.floor(Math.random() * 255)
       const obj = {
         label: zooData[i].instance,
-        backgroundColor: `rgba(${colorVal}, ${colorVal}, ${colorVal}, 0.5)`,
-        borderColor: `rgb(${colorVal}, ${colorVal}, ${colorVal})`,
+        //backgroundColor: `rgba(${colorVal}, ${colorVal}, ${colorVal}, 0.5)`,
+       backgroundColor: `#f39566`,
+        borderColor: `#f39566`,
         fill: false,
         data: [],
        }
@@ -115,6 +117,12 @@ const AvgRequestLatency = () => {
                     });
                   });
                 }
+              }
+            },
+            y:{
+              title : {
+                display : true,
+                text : 'ms'
               }
             }
           }
