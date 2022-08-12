@@ -16,11 +16,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
-
     e.preventDefault()
-    console.log('email ref', emailRef.current.value)
-    console.log('pw ref', passwordRef.current.value)
-
     try {
       setError("")
       setLoading(true)

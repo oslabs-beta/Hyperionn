@@ -35,16 +35,10 @@ function loginWithGoogle(){
 }
 
 async function loginWithGithub(){
-    console.log('logging in')
     const result = await signInWithPopup(auth, github)
-    console.log('LOGGED IN')
     return result;
 }
   function login(email, password) {
-    console.log('logging in...')
-    console.log('auth: ', auth)
-    console.log('app: ', app)
-    console.log(email);
     return signInWithEmailAndPassword(auth, email, password)
   }
 

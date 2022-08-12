@@ -43,7 +43,10 @@
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
     "sass": "^1.54.0",
-    "sass-loader": "^13.0.2"
+    "sass-loader": "^13.0.2",
+    "socket-io": "^1.0.0",
+    "socket.io": "^4.5.1",
+    "socket.io-client": "^4.5.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
