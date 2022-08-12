@@ -35,6 +35,13 @@ router.get('/metrics',
   }
 )
 
+router.get('/errors', 
+  metricController.getErrors, 
+  (req, res) => {
+    return res.status(200).json(res.locals.errorData);
+  }
+)
+
 //Handle post requests for first time connects
 router.post('/metrics', 
   userController.connectPort, 
