@@ -63,6 +63,14 @@ body {
   padding: 5px;
 }
 
+#leftSide {
+  justify-content: flex-start;
+}
+
+#rightSide {
+  justify-content: flex-end;
+}
+
 .side-nav {
   grid-area: SideNav;
   height: 100%;

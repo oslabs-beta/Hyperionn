@@ -12,6 +12,7 @@ import {
 import { useAuth } from "../AuthContext";
 import { useNavigate } from "react-router-dom"
 import LogoutIcon from '@mui/icons-material/Logout';
+import logo from '../assets/whitelogo.png';
 
 
 
@@ -53,9 +54,14 @@ export function NavBar () {
   return(
     <AppBar id="NavBar">
       <Box>
-        <Button variant="contained" sx={button} onClick={handleSubmit}>
-          <LogoutIcon></LogoutIcon>
-        </Button>
+        {/* <Box id="leftSide">
+          <img src={logo} width="50px" height="50px"></img>
+        </Box> */}
+        <Box id="rightSide">
+          <Button variant="contained" sx={button} onClick={handleSubmit}>
+            <LogoutIcon></LogoutIcon>
+          </Button>
+        </Box>
       </Box>
     </ AppBar>
     );
