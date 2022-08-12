@@ -8,6 +8,58 @@ const PORT = 3001;
 // var firebaseui = require('firebaseui');
 // const { auth } = require('express-openid-connect');
 
+//import { Server } from "socket.io";
+
+// const io = new Server(3500);
+
+const http = require('http').createServer();
+
+const io = require('socket.io')(http, {
+    cors: { origin: "*" }
+});
+
+io.on('connection', (socket) => {
+    console.log('a user connected');
+    console.log(socket.id)
+
+    socket.on('message', (message) =>     {
+        console.log(message);
+        io.emit('message', `${socket.id.substr(0,2)} said ${message}` );   
+    });
+});
+
+http.listen(3500, () => console.log('listening on http://localhost:3500') );
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const io = require('socket.io')(3500, {
+//   cors: {
+//     origin: ["*"],
+//   },
+// })
+
+// io.on("connection", (socket) => {
+//   // send a message to the client
+//   io.emit("hello from server", 1, "2", { 3: Buffer.from([4]) });
+
+//   // receive a message from the client
+//   io.on("hello from client", (...args) => {
+//     console.log("ARGS IM A PIRATE: ", ...args)
+//     console.log(socket.id)
+//   });
+// });
+
+
 //Boiler plate for parsing incoming json and requests with urlencoded payloads
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

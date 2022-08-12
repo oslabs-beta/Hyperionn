@@ -9,6 +9,32 @@ import Login from './Login';
 import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
 import ErrorLogDisplay from './Containers/ErrorLogDisplay';
+// import { io } from "socket.io-client";
+// const { io } = require("socket.io-client");
+
+// const socket = io("https://localhost:3500");
+// console.log('SOCKETClientSide: ', socket)
+// // send a message to the server
+// socket.emit("hello from client", 5, "6", { 7: Uint8Array.from([8]) });
+
+// // receive a message from the server
+// socket.on("hello from server", (...args) => {
+//   // ...
+//   console.log("ARG IM A PIRATE: ", ...args)
+//   console.log(socket.id)
+// });
+const socket = io('ws://localhost:3500');
+
+socket.on('message', text => {
+  console.log('TEXT: ', text)
+  console.log(socket.id)
+    // const el = document.createElement('li');
+    // el.innerHTML = text;
+    // document.querySelector('ul').appendChild(el)
+
+});
+
+
 
 function App() {
   return (
