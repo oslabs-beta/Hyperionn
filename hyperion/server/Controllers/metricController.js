@@ -24,12 +24,15 @@ const metricController = {};
 //Middleware to get under replicated partitions from Prometheus
 metricController.getMetricData = async (req, res, next) => {
     // if (res.locals.connected === true) {
+        const allMetrics = req.body;
+
         console.log('entered true logic in getMetricData');
         io.on('connection', (socket) => {
             console.log(socket.id, 'connected inside getMetricData');
         })
         //destructure target query from request query
-        const { metric } = req.query;
+        // const { metric } = req.query;
+        console.log('req.body: ', req.body);
         const queryString = queryStringDictionary[metric];
         try {
           //Request data from prometheus

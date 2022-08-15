@@ -39,20 +39,36 @@ socket.on('message', text => {
 //   console.log(eventName)
 // })
 
-socket.on('data', function(data){
-  console.log(data, 'front end data');
-});
+// socket.on('data', function(data){
+//   console.log(data, 'front end data');
+// });
+
+socket.onAny((metric, data)=>
+{
+  console.log("Here's your metric: ", metric);
+  console.log("Here's your data: ", data);
+})
 
 
 
 
-
+const allMetrics = ['underReplicated', 'activeControllers', 'offlinePartitions', 'avgReqLatency', 'responseRate', 'requestRate', 'avgReqLatencyZookeepers'];
 function App() {
-
-  useEffect(()=> {
-    fetch('/server/metrics?metric=avgReqLatency');
-
-  }, [])
+const fetchData = () => {
+  let hasBeenCalled = false;
+  return function(){
+    if(hasBeenCalled) return;
+    fetch('/server/metrics?metric=avgReqLatency', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    }, 
+    body: JSON.stringify(allMetrics)
+  })
+  hasBeenCalled = true;
+}
+}
+  useEffect(fetchData, [])
   return (
     // <Container className="main-app" style={{ minHeight: "100vh", minWidth:"100vw" }}>
         <Router>
