@@ -67,7 +67,8 @@ metricController.getMetricData = async (req, res, next) => {
                     const instance = res.locals.metricData[ind].metric.instance;
                     const env = res.locals.metricData[ind].metric.env;
                     const value = Number(res.locals.metricData[ind].value[1]);
-                    const time = res.locals.metricData[ind].value[0];
+                    const dateObj = new Date(res.locals.metricData[ind].value[0]);
+                    const time = dateObj.toLocaleString(); //human readable timestamp
                     const user_id = 1;
                     const queryParameter = [name, instance, env, value, time, user_id];
                     pg.query(queryString, queryParameter)

@@ -17,23 +17,45 @@ const http = require('http').createServer();
 const io = require('socket.io')(http, {
     cors: { origin: "*" }
 });
+//const count = 0;
+// let data = Date.now()
+let data = 1;
+setInterval(()=>{data++},5000)
+// io.on('connection', (socket) => {
+//   console.log('a user connected');
+//   console.log(socket.id)
+  
+//   socket.on('message', (message) =>     {
+//     console.log(message);
+//     io.emit('message', `${socket.id.substr(0,2)} said ${message}` );   
+//   });
+  
+  
+//   setInterval(function(){
+//     socket.emit('data', data); 
+// }, 5000);
+  
+// });
 
-io.on('connection', (socket) => {
-    console.log('a user connected');
-    console.log(socket.id)
 
-    socket.on('message', (message) =>     {
-        console.log(message);
-        io.emit('message', `${socket.id.substr(0,2)} said ${message}` );   
-    });
-});
+io.on('connection', (socket) => { app.get('/server/metrics', (req,res)=> {
+  socket.emit(msg,res)
+})})
+
+
+
 
 http.listen(3500, () => console.log('listening on http://localhost:3500') );
 
 
 
-
-
+// io.use((socket, next) => {
+//   if (isValid(socket.request)) {
+//     next();
+//   } else {
+//     next(new Error("invalid"));
+//   }
+// });
 
 
 

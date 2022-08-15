@@ -33,8 +33,14 @@ socket.on('message', text => {
     // document.querySelector('ul').appendChild(el)
 
 });
+// socket.onAny((eventName, ...args)=>{
+//   console.log("HEY BUDDY WE GOT SOME DATA:", ...args)
+//   console.log(eventName)
+// })
 
-
+socket.on('data', function(data){
+  console.log(data);
+});
 
 function App() {
   return (

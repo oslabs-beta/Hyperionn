@@ -20,6 +20,7 @@ export const queryDictionary = {
 
 const DataContainer = (props) => {
 
+  //create state for isConnected, and upon component did mount, make request to back end to check 
 const dataGrid = {
   padding: "20px",
   display: "grid", 
