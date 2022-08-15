@@ -31,7 +31,9 @@ router.get('/metrics',
   metricController.getMetricData, 
   metricController.parseData,
   (req, res) => {
-    return res.status(200).json(res.locals.metricData);
+    io.emit('data', { 'message': res.locals.metricData });
+    return res.send('connection established, and emitted data')
+    // return res.status(200).json(res.locals.metricData);
   }
 )
 

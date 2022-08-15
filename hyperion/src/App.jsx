@@ -9,6 +9,7 @@ import Login from './Login';
 import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
 import ErrorLogDisplay from './Containers/ErrorLogDisplay';
+import {useEffect} from 'react'
 // import { io } from "socket.io-client";
 // const { io } = require("socket.io-client");
 
@@ -39,10 +40,21 @@ socket.on('message', text => {
 // })
 
 socket.on('data', function(data){
-  console.log(data);
+  console.log(data, 'front end data');
 });
 
+
+
+
+
 function App() {
+
+  useEffect(async ()=> {
+    const response = await fetch('/server/metrics?metric=avgReqLatency');
+    const data = await response.json();
+    //makeDataSets(data);
+
+  }, [])
   return (
     // <Container className="main-app" style={{ minHeight: "100vh", minWidth:"100vw" }}>
         <Router>

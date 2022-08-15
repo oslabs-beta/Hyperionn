@@ -19,13 +19,15 @@ const queryStringDictionary = {
     avgReqLatency: '/api/v1/query?query=kafka_producer_producer_metrics_request_latency_avg',
     avgReqLatencyZookeepers: '/api/v1/query?query=zookeeper_avgrequestlatency',
 };
-
 const metricController = {};
 
 //Middleware to get under replicated partitions from Prometheus
 metricController.getMetricData = async (req, res, next) => {
     // if (res.locals.connected === true) {
-        console.log('entered true logic in getMetricData')
+        console.log('entered true logic in getMetricData');
+        io.on('connection', (socket) => {
+            console.log(socket.id, 'connected inside getMetricData');
+        })
         //destructure target query from request query
         const { metric } = req.query;
         const queryString = queryStringDictionary[metric];
@@ -44,10 +46,12 @@ metricController.getMetricData = async (req, res, next) => {
               message:  "Error occurred when obtaining Prometheus data: " + error
             })
         }
-    // } else {
-    //     res.locals.metricData = null;
-    //     return next()
-    // }
+
+
+        // 
+
+
+
 }
  //parse out the requested data for the client
  metricController.parseData = (req, res, next) => {

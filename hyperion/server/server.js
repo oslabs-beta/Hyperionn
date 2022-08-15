@@ -4,10 +4,22 @@ const path = require('path');
 const app = express();
 const router = require('./routers/Router');
 const PORT = 3001;
+const axios = require('axios')
 // var firebase = require('firebase');
 // var firebaseui = require('firebaseui');
 // const { auth } = require('express-openid-connect');
-
+const queryStringDictionary = {
+  underReplicated: '/api/v1/query?query=kafka_server_replicamanager_underreplicatedpartitions',
+  offlinePartitions: '/api/v1/query?query=kafka_controller_kafkacontroller_offlinepartitionscount',
+  activeControllers: '/api/v1/query?query=kafka_controller_kafkacontroller_activecontrollercount',
+  responseRate: '/api/v1/query?query=kafka_connect_connect_metrics_response_rate',
+  requestRate: '/api/v1/query?query=kafka_connect_connect_metrics_request_rate',
+  avgReqLatency: '/api/v1/query?query=kafka_producer_producer_metrics_request_latency_avg',
+  avgReqLatencyZookeepers: '/api/v1/query?query=zookeeper_avgrequestlatency',
+};
+const prometheusServerHostname = 'http://localhost:';
+const prometheusPort = '9090';
+const url = prometheusServerHostname + prometheusPort;
 //import { Server } from "socket.io";
 
 // const io = new Server(3500);
@@ -17,10 +29,11 @@ const http = require('http').createServer();
 const io = require('socket.io')(http, {
     cors: { origin: "*" }
 });
+global.io = io;
 //const count = 0;
 // let data = Date.now()
-let data = 1;
-setInterval(()=>{data++},5000)
+// let data = 1;
+// setInterval(()=>{data++},5000)
 // io.on('connection', (socket) => {
 //   console.log('a user connected');
 //   console.log(socket.id)
@@ -38,11 +51,47 @@ setInterval(()=>{data++},5000)
 // });
 
 
-io.on('connection', (socket) => { app.get('/server/metrics', (req,res)=> {
-  socket.emit(msg,res)
-})})
+// io.on('connection', (socket) => { app.get('/server/metrics', (req,res)=> {
+//   socket.emit(msg,res)
+// })})
 
+// const getMetricData = async (metric) => {
+//   // if (res.locals.connected === true) {
+//       console.log('entered true logic in getMetricData')
+//       //destructure target query from request query
 
+//       const queryString = queryStringDictionary[metric];
+//       try {
+//         //Request data from prometheus
+//         const data = await axios.get(`${url}${queryString}`);
+//         //Create a property on res.locals with the data to be sent back to the client
+//         console.log(data.data.data.result)
+//         return data.data.data.result;
+//         //Invoke next in our middleware chain
+
+//       } catch (error) {
+//           //Invoke global error handler in case of any errors
+//           console.log(error)
+//       }
+//     }
+//io.on('connection',(socket)=>{
+  //create a method to get some data, parse the data
+
+// // 
+// //const interval = () => {
+// //   socket.emit('data', JSON.stringify(getMetricData('underReplicated')))
+// // }
+//   //set an interval to invoke that method every n seconds
+//   setInterval(async ()=>{
+//     socket.emit('data', await getMetricData('underReplicated'))
+//   }, 5000)
+//   // setInterval( () => socket.emit('data', JSON.stringify(getMetricData('underReplicated')), 5000));
+//   // setInterval( () => socket.emit('data',{data: 'HERES SOME DATA FOR YOU BUDDY'}), 5000);
+
+//   //send that data to client
+
+//   }
+// )
 
 
 http.listen(3500, () => console.log('listening on http://localhost:3500') );
