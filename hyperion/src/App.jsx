@@ -49,10 +49,8 @@ socket.on('data', function(data){
 
 function App() {
 
-  useEffect(async ()=> {
-    const response = await fetch('/server/metrics?metric=avgReqLatency');
-    const data = await response.json();
-    //makeDataSets(data);
+  useEffect(()=> {
+    fetch('/server/metrics?metric=avgReqLatency');
 
   }, [])
   return (
