@@ -13,13 +13,21 @@ const config = {
   },
   module: {
     rules: [
-      { 
-        test: /\.jsx?/,
-        exclude: [/node_modules/],
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          presets: ['@babel/preset-env', '@babel/preset-react']
-        }
+          presets: ['@babel/preset-env', '@babel/preset-react'],
+          plugins: ['@babel/plugin-transform-runtime', '@babel/transform-async-to-generator'],
+        },
+      },
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'ts-loader',
+        },
       },
       {
         test: /\.s?css/,
@@ -52,18 +60,12 @@ const config = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.resolve(__dirname, './src/index.html')
-    })
+    }),
   ],
   resolve: {
-    extensions: [".js", ".jsx"]
-  },
+    extensions: ['.js', '.jsx', '.ts', '.tsx']
+  }
 };
 
 module.exports = config;
 
-
-
-// {
-//   test: /\.s[ac]ss$/i,
-//   use: ['style-loader', 'css-loader',  'postcss-loader', 'sass-loader']
-// },

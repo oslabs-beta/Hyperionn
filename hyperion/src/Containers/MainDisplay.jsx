@@ -1,8 +1,8 @@
 import React,{useEffect, useContext, useState, createContext} from "react";
 import { Grid, Box } from '@mui/material';
-import NavBar from '../Components/NavBar.jsx';
-import DataContainer from './DataContainer.jsx';
-import SideNav from '../Components/SideNav.jsx';
+import NavBar from '../Components/NavBar';
+import DataContainer from './DataContainer';
+import SideNav from '../Components/SideNav';
 
 export function MainDisplay () {
 
