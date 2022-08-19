@@ -24,51 +24,13 @@ import {useEffect} from 'react'
 //   console.log("ARG IM A PIRATE: ", ...args)
 //   console.log(socket.id)
 // });
-const socket = io('ws://localhost:3500');
-
-socket.on('message', text => {
-  console.log('TEXT: ', text)
-  console.log(socket.id)
-    // const el = document.createElement('li');
-    // el.innerHTML = text;
-    // document.querySelector('ul').appendChild(el)
-
-});
-// socket.onAny((eventName, ...args)=>{
-//   console.log("HEY BUDDY WE GOT SOME DATA:", ...args)
-//   console.log(eventName)
-// })
-
-// socket.on('data', function(data){
-//   console.log(data, 'front end data');
-// });
-
-socket.onAny((metric, data)=>
-{
-  console.log("Here's your metric: ", metric);
-  console.log("Here's your data: ", data);
-})
 
 
 
 
-const allMetrics = ['underReplicated', 'activeControllers', 'offlinePartitions', 'avgReqLatency', 'responseRate', 'requestRate', 'avgReqLatencyZookeepers'];
+
 function App() {
-const fetchData = () => {
-  let hasBeenCalled = false;
-  return function(){
-    if(hasBeenCalled) return;
-    fetch('/server/metrics?metric=avgReqLatency', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    }, 
-    body: JSON.stringify(allMetrics)
-  })
-  hasBeenCalled = true;
-}
-}
-  useEffect(fetchData, [])
+
   return (
     // <Container className="main-app" style={{ minHeight: "100vh", minWidth:"100vw" }}>
         <Router>

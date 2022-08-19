@@ -99,7 +99,7 @@ http.listen(3500, () => console.log('listening on http://localhost:3500') );
 
 
 // io.use((socket, next) => {
-//   if (isValid(socket.request)) {
+//   if (isValid(socket.request)) {npm version
 //     next();
 //   } else {
 //     next(new Error("invalid"));

@@ -44,7 +44,7 @@ const parseData = (data, metric) => {
   (name, instance, env, value, time, user_id) 
   VALUES ($1, $2, $3, $4, $5, $6)`;
   const dataArray = data.data.data.result;
-  console.log('dataArray: ', dataArray);
+  // console.log('dataArray: ', dataArray);
   if(metric === 'underReplicated' || metric === 'offlinePartitions'){
       // console.log('inside logic for underReplicated/offlinePartitions');
       // console.log('metricData to be parsed: ', res.locals.metricData);
@@ -139,7 +139,8 @@ const getDataAndEmit = async (metric) => {
               //Create a property on res.locals with the data to be sent back to the client
       // const emittedData  = data.data.data.result;
       // console.log(key);
-      io.emit(metric, {metric: parsedData});
+      console.log('back end sending this data through socket: ', metric, parsedData)
+      io.emit(metric, parsedData);
     }catch(error){
       console.log('error in get data and emit', error)
       throw new Error('Error in get Data and Emit')
@@ -147,15 +148,19 @@ const getDataAndEmit = async (metric) => {
   // }
 }
 const time = 5000;
+let hasBeenCalled = false;
 
 const emitter = (req, res, next) =>  {
+  if(hasBeenCalled) return next();
   // console.log('about to send some data!')
   // const { metric } = req.query;
   const allMetrics = req.body;
+  let count = 1;
   try{
   allMetrics.forEach(metric => {
     setInterval(()=> getDataAndEmit(metric), time)
-    
+    console.log('just set a new interval: ', ++count)
+    hasBeenCalled = true;
   });
   //setInterval(()=> getDataAndEmit(metric), time)
   // io.emit('data', { 'message': res.locals.metricData });
