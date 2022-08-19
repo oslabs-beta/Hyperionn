@@ -5,7 +5,7 @@ import { useAuth } from "./AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import GoogleIcon from "@mui/icons-material/Google";
-import logo from './assets/Hyperion.png';
+import logo from '../assets/Hyperion.png';
 
 export default function Signup() {
   const emailRef = useRef();

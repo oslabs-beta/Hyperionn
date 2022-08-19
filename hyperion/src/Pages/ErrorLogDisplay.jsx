@@ -2,7 +2,7 @@ import React,{useEffect, useContext, useState, createContext} from "react";
 import { Grid, Box } from '@mui/material';
 import NavBar from '../Components/NavBar';
 import SideNav from '../Components/SideNav';
-import ErrorLogContainer from './ErrorLogContainer';
+import ErrorLogContainer from '../Components/ErrorLogContainer';
 
 export function ErrorLogDisplay () {
 

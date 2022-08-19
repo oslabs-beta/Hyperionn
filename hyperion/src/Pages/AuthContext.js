@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect, createContext } from "react"
-import { auth } from "../firebase.js"
-import app from '../firebase.js';
+import { auth } from "../../firebase.js"
+import app from '../../firebase.js';
 import { ConstructionOutlined, Google } from "@mui/icons-material";
 import { getAuth, 
     createUserWithEmailAndPassword, 

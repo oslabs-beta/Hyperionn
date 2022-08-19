@@ -3,7 +3,7 @@ import { Alert } from "react-bootstrap"
 import { useAuth } from "./AuthContext"
 import { Link } from "react-router-dom"
 import { Box, Button, TextField } from '@mui/material';
-import logo from './assets/Hyperion.png';
+import logo from '../assets/Hyperion.png';
 
 export default function ForgotPassword() {
   const emailRef = useRef()

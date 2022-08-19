@@ -9,7 +9,7 @@ import {
   MenuItem,
   Fade
 } from "@mui/material";
-import { useAuth } from "../AuthContext";
+import { useAuth } from "../Pages/AuthContext";
 import { useNavigate } from "react-router-dom"
 import LogoutIcon from '@mui/icons-material/Logout';
 //import logo from '../assets/whitelogo.png';

@@ -1,14 +1,14 @@
 import './app.scss';
 import React from "react"
-import Signup from "./Signup"
 import { Container } from "@mui/material"
-import { AuthProvider } from "./AuthContext"
+import { AuthProvider } from "./Pages/AuthContext"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import MainDisplay from './Containers/MainDisplay';
-import Login from './Login';
-import PrivateRoute from "./PrivateRoute";
-import ForgotPassword from "./ForgotPassword";
-import ErrorLogDisplay from './Containers/ErrorLogDisplay';
+import MainDisplay from './Pages/MainDisplay';
+import Login from './Pages/Login';
+import Signup from "./Pages/Signup";
+import PrivateRoute from "./Pages/PrivateRoute";
+import ForgotPassword from "./Pages/ForgotPassword";
+import ErrorLogDisplay from './Pages/ErrorLogDisplay';
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { io } from "socket.io-client";
