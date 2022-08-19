@@ -1,8 +1,8 @@
 import React,{useEffect, useContext, useState, createContext} from "react";
 import { Grid, Box } from '@mui/material';
-import NavBar from '../Components/NavBar.jsx';
-import SideNav from '../Components/SideNav.jsx';
-import ErrorLogContainer from './ErrorLogContainer.jsx';
+import NavBar from '../Components/NavBar';
+import SideNav from '../Components/SideNav';
+import ErrorLogContainer from './ErrorLogContainer';
 
 export function ErrorLogDisplay () {
 

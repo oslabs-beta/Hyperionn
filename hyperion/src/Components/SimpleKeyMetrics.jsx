@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, MyProvider } from 'react'
 import { Paper, Box, Typography } from '@mui/material';
 //import { queryDictionary } from '../Containers/DataContainer.jsx';
 
@@ -23,6 +23,7 @@ const SimpleKeyMetrics = (props) => {
   // if (localStorage.getItem('underReplicated')) {
   //   kafkaData.underReplicated = localStorage.getItem('underReplicated');
   // }
+
   
   useEffect(() => {
     const interval = setInterval(() => {
