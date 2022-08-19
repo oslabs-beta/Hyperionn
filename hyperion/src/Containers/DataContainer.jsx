@@ -18,7 +18,7 @@ import RequestRate from '../Components/RequestRate.jsx';
 // }
 
 const socket = io('ws://localhost:3500');
-const allMetrics = ['underReplicated']; // 'activeControllers', 'offlinePartitions', 'avgReqLatency', 'responseRate', 'requestRate'
+const allMetrics = ['underReplicated','activeControllers', 'offlinePartitions', 'avgReqLatency', 'responseRate', 'requestRate']; // 
 socket.on('message', text => {
   console.log('TEXT: ', text)
   console.log(socket.id)

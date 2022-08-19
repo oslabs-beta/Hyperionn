@@ -150,6 +150,8 @@ const getDataAndEmit = async (metric) => {
 const time = 5000;
 let hasBeenCalled = false;
 
+const allMetrics = ['underReplicated','activeControllers', 'offlinePartitions', 'avgReqLatency', 'responseRate', 'requestRate'];
+
 const emitter = (req, res, next) =>  {
   if(hasBeenCalled) return next();
   // console.log('about to send some data!')
