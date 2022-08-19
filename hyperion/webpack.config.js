@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
   entry: [
-    './src/index.js'
+    './src/index.tsx'
   ],
   mode: process.env.NODE_ENV,
   output: {
