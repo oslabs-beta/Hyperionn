@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "",
   "main": "index.tsx",
+  "type" : "module",
   "scripts": {
     "start": "NODE_ENV=production node server/server.js",
     "build": "webpack",
