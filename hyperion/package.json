@@ -2,7 +2,7 @@
   "name": "hyperion",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.tsx",
   "scripts": {
     "start": "NODE_ENV=production node server/server.js",
     "build": "webpack",
@@ -11,14 +11,6 @@
   },
   "author": "Team jakaL",
   "license": "ISC",
-  "jest": {
-    "globalSetup": "./jest-setup.js",
-    "globalTeardown": "./jest-teardown.js",
-    "testEnvironment": "jest-environment-jsdom",
-    "setupFilesAfterEnv": [
-      "@testing-library/jest-dom/extend-expect"
-    ]
-  },
   "dependencies": {
     "@babel/plugin-transform-typescript": "^7.18.12",
     "@babel/preset-react": "^7.18.6",

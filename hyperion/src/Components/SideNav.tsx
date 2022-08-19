@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, Drawer } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const SideNav = () => {
 
-  interface connectBtn { connectButton: boolean };
-
-  const [connectButton, setConnectButton] = React.useState <connectBtn>({connectButton: false});
+  const [connectButton, setConnectButton] = React.useState(false);
   const navigate = useNavigate();
 
 
@@ -27,7 +25,7 @@ const SideNav = () => {
     const domain = (document.getElementById('domain') as HTMLInputElement).value;
     try{
       axios.post<ConnectionModel>('/server/metrics', { port: port, domain: domain })
-      setConnectButton({connectButton: false});
+      setConnectButton(false);
     }
     catch(error){
       console.log('error sending data')
@@ -48,7 +46,7 @@ const SideNav = () => {
           {!connectButton && (
             <div className="side-nav">
               <Button variant="text" sx={button} onClick={() => navigate('/dashboard')}>Home</Button>
-              <Button variant="text" sx={button} onClick={()=> setConnectButton({connectButton: true})}>Connect</Button>
+              <Button variant="text" sx={button} onClick={()=> setConnectButton(true)}>Connect</Button>
               <Button variant="text" sx={button} onClick={() => navigate('/errorlogs')}>Error Logs</Button>
             </div> 
           )}

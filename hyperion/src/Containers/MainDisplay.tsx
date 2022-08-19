@@ -25,10 +25,10 @@ export function MainDisplay () {
               <Box sx={{gridArea:"SideNav"}}>
                 <SideNav />
               </Box>
-              <Box item sx={{ gridArea: "NavBar"}}>
+              <Box sx={{ gridArea: "NavBar"}}>
                 <NavBar />
               </Box>
-              <Box item sx={{gridArea:"DataContainer"}}>
+              <Box sx={{gridArea:"DataContainer"}}>
                 <DataContainer />
               </Box>
             </Grid>

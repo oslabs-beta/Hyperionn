@@ -9,7 +9,8 @@ import Login from './Login';
 import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
 import ErrorLogDisplay from './Containers/ErrorLogDisplay';
-// import { io } from "socket.io-client";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { io } from "socket.io-client";
 // const { io } = require("socket.io-client");
 
 // const socket = io("https://localhost:3500");
@@ -23,6 +24,27 @@ import ErrorLogDisplay from './Containers/ErrorLogDisplay';
 //   console.log("ARG IM A PIRATE: ", ...args)
 //   console.log(socket.id)
 // });
+
+// interface ServerToClientEvents {
+//   noArg: () => void;
+//   basicEmit: (a: number, b: string, c: Buffer) => void;
+//   withAck: (d: string, callback: (e: number) => void) => void;
+// }
+
+// interface ClientToServerEvents {
+//   hello: () => void;
+// }
+
+// interface InterServerEvents {
+//   ping: () => void;
+// }
+
+// interface SocketData {
+//   name: string;
+//   age: number;
+// }
+
+// const io = new Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>(); 
 const socket = io('ws://localhost:3500');
 
 socket.on('message', text => {
@@ -34,12 +56,34 @@ socket.on('message', text => {
 
 });
 
+// const darkTheme = createTheme({
+//   palette: {
+//     mode: "dark",
+//     info: {
+//       main: "#9d5ee1",
+//     },
+//   },
+// });
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#63489b",
+      light: "#d8d8d8",
+      dark: "#120a27",
+    },
+    secondary: {
+      main: "#f39566",
+      light: "#f3be66",
+      dark: "#ce10fa",
+    },
+  },
+});
 
-function App() {
+const App: React.FC = () => {
   return (
-    // <Container className="main-app" style={{ minHeight: "100vh", minWidth:"100vw" }}>
-        <Router>
+      <Router>
+        <ThemeProvider theme={theme}>
           <AuthProvider>
             <Routes>
             {/* <Route exact path='/' element={<PrivateRoute/>}>
@@ -56,8 +100,8 @@ function App() {
               <Route path="/forgot-password" element={<ForgotPassword/>} />
             </Routes>
           </AuthProvider>
-        </Router>
-    //  </Container>
+        </ThemeProvider>
+      </Router>
   )
 }
 

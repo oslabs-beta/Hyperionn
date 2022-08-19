@@ -1,8 +1,8 @@
 // import App from '../App.jsx';
-import React from 'react'
-import {render, waitFor, screen} from '@testing-library/react'
-import '@testing-library/jest-dom'
-import regeneratorRuntime from 'regenerator-runtime';
+//import React from 'react'
+//import {render, waitFor, screen} from '@testing-library/react'
+//import '@testing-library/jest-dom'
+//import regeneratorRuntime from 'regenerator-runtime';
 //kristin is a nice lady
 
 // import '../app.scss';
@@ -13,8 +13,8 @@ import regeneratorRuntime from 'regenerator-runtime';
 // import { AuthProvider } from "./AuthContext"
 // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import MainDisplay from './Containers/MainDisplay';
-//import App from '../App.jsx';
-import NavBar from '../Components/NavBar';
+import App from '../App.jsx';
+//import NavBar from '../Components/NavBar';
 // import PrivateRoute from "./PrivateRoute";
 // import ForgotPassword from "./ForgotPassword";
 // import ErrorLogDisplay from './Containers/ErrorLogDisplay';
