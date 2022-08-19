@@ -5,11 +5,12 @@ import { Paper, Box, Typography } from '@mui/material';
 const pollingInterval = 5000;
 
 const SimpleKeyMetrics = (props) => {
- 
+  console.log('props: ', props)
+  const { underReplicated } = props;
   const [kafkaData, setKafkaData] = useState({
-    offlinePartitions : [],
-    activeControllers : [],
-    underReplicated : []
+    // offlinePartitionsParsed : [],
+    // activeControllersParsed : [],
+    underReplicatedParsed : []
   })
 
   // if (localStorage.getItem('offlinePartitions')) {
@@ -26,11 +27,8 @@ const SimpleKeyMetrics = (props) => {
 
   
   useEffect(() => {
-    const interval = setInterval(() => {
-      getSimpleKeyMetrics();
-    }, pollingInterval);
-    return () => clearInterval(interval);
-  }, []);
+    // parseSimpleKeyMetrics(underReplicated);
+  }, [underReplicated]);
 
   const stylingBox = {
     display: "flex",
@@ -45,46 +43,47 @@ const SimpleKeyMetrics = (props) => {
     border: "1px solid #d0d0d0",
     boxShadow: "none",
   }
+  
 
-  async function getSimpleKeyMetrics() {
-    
+  function parseSimpleKeyMetrics( underReplicated) {
+    // console.log('offlinePartitions prop: ', offlinePartitions)
     let offlinePartSum = 0;
     let activeContSum = 0;
     let underRepSum = 0;
 
-    //fetch number of offline partition data //sum of values
-    const responseOfflinePart = await fetch(`/server/metrics?metric=offlinePartitions`);
-    const dataOfflinePart = await responseOfflinePart.json();
-    //console.log('Offline Part', dataOfflinePart)
+    // //fetch number of offline partition data //sum of values
+    // const responseOfflinePart = await fetch(`/server/metrics?metric=offlinePartitions`);
+    // const dataOfflinePart = await responseOfflinePart.json();
+    // //console.log('Offline Part', dataOfflinePart)
 
-    //fetch number of active controllers //sum of values should be 1
-    const responseActiveCont = await fetch(`/server/metrics?metric=activeControllers`);
-    const dataActiveCont = await responseActiveCont.json();
-    //console.log('Active Controllers', dataActiveCont);
+    // //fetch number of active controllers //sum of values should be 1
+    // const responseActiveCont = await fetch(`/server/metrics?metric=activeControllers`);
+    // const dataActiveCont = await responseActiveCont.json();
+    // //console.log('Active Controllers', dataActiveCont);
 
-    //fetch under replicated partition data
-    const responseUnderReplicated = await fetch(`/server/metrics?metric=underReplicated`);
-    const dataUnderReplicated = await responseUnderReplicated.json();
-    //console.log('UnderReplicate', dataUnderReplicated);
+    // //fetch under replicated partition data
+    // const responseUnderReplicated = await fetch(`/server/metrics?metric=underReplicated`);
+    // const dataUnderReplicated = await responseUnderReplicated.json();
+    // //console.log('UnderReplicate', dataUnderReplicated);
 
     //loop through data and sum all values
-    for (const metricChunk of dataUnderReplicated) {
+    for (const metricChunk of underReplicated) {
       underRepSum += Number(metricChunk.value[1]);
     }
 
-    for (const metricChunk of dataActiveCont) {
-      activeContSum += Number(metricChunk.value[1]);
-    }
+    // for (const metricChunk of activeControllers) {
+    //   activeContSum += Number(metricChunk.value[1]);
+    // }
 
-    for (const metricChunk of dataOfflinePart) {
-      offlinePartSum += Number(metricChunk.value[1]);
-    }
+    // for (const metricChunk of offlinePartitions) {
+    //   offlinePartSum += Number(metricChunk.value[1]);
+    // }
 
   //set state of kafkaData
     setKafkaData({
-        offlinePartitions: offlinePartSum,
-        activeControllers: activeContSum,
-        underReplicated: underRepSum,
+        // offlinePartitionsParsed: offlinePartSum,
+        // activeControllersParsed: activeContSum,
+        underReplicatedParsed: underRepSum,
     });
   }
 
@@ -97,22 +96,22 @@ const SimpleKeyMetrics = (props) => {
   // }, [kafkaData]);
 
   //deconstruct state
-  const { offlinePartitions, activeControllers, underReplicated } = kafkaData;
+  // const { offlinePartitions, activeControllers, underReplicated } = kafkaData;
 
-  localStorage.setItem('offlinePartitions', offlinePartitions);
-  localStorage.setItem('activeControllers', activeControllers);
-  localStorage.setItem('underReplicated', underReplicated);
+  // localStorage.setItem('offlinePartitions', offlinePartitions);
+  // localStorage.setItem('activeControllers', activeControllers);
+  // localStorage.setItem('underReplicated', underReplicated);
 
   return (
     <div className="key-metrics">
-        <Paper sx={stylingBox}>
+        {/* <Paper sx={stylingBox}>
           <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase' }}>Offline Partitions</Typography>
           <Typography className="big-number" sx={{ fontSize: '3rem'}}>{offlinePartitions}</Typography>
         </Paper>
         <Paper sx={stylingBox}>
           <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Active Controllers</Typography>
           <Typography className="big-number" sx={{ fontSize: '3rem'}}>{activeControllers}</Typography>
-        </Paper>
+        </Paper> */}
         <Paper sx={stylingBox}>
           <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Underreplicated Partitions</Typography>
           <Typography className="big-number" sx={{ fontSize: '3rem'}}>{underReplicated}</Typography>

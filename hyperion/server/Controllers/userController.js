@@ -25,6 +25,9 @@ userController.connectPort = async (req, res, next) => {
 
 userController.createUser = async (req, res, next) => {
   //if user doesn't exist, create one in sql db
+  //search db for entry where email = ___ 
+  //if result is empty, then create user 
+  //if result has length, then return next for checkUser middleware to start
 }
 
 
@@ -43,6 +46,8 @@ userController.checkUser = async (req, res, next) => {
       return next();
     } else {
       res.locals.connected = true;
+      res.locals.domain = domain;
+      res.locals.port = port;
       console.log('connected set to true');
       return next();
     }

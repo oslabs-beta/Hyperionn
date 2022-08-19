@@ -9,8 +9,10 @@ import Login from './Login';
 import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
 import ErrorLogDisplay from './Containers/ErrorLogDisplay';
+
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { io } from "socket.io-client";
+
 // const { io } = require("socket.io-client");
 
 // const socket = io("https://localhost:3500");
@@ -24,6 +26,7 @@ import { io } from "socket.io-client";
 //   console.log("ARG IM A PIRATE: ", ...args)
 //   console.log(socket.id)
 // });
+
 
 // interface ServerToClientEvents {
 //   noArg: () => void;
@@ -47,14 +50,8 @@ import { io } from "socket.io-client";
 // const io = new Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>(); 
 const socket = io('ws://localhost:3500');
 
-socket.on('message', text => {
-  console.log('TEXT: ', text)
-  console.log(socket.id)
-    // const el = document.createElement('li');
-    // el.innerHTML = text;
-    // document.querySelector('ul').appendChild(el)
 
-});
+
 
 // const darkTheme = createTheme({
 //   palette: {
@@ -79,6 +76,7 @@ const theme = createTheme({
     },
   },
 });
+
 
 const App: React.FC = () => {
   return (

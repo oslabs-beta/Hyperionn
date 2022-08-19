@@ -19,15 +19,20 @@ const queryStringDictionary = {
     avgReqLatency: '/api/v1/query?query=kafka_producer_producer_metrics_request_latency_avg',
     avgReqLatencyZookeepers: '/api/v1/query?query=zookeeper_avgrequestlatency',
 };
-
 const metricController = {};
 
 //Middleware to get under replicated partitions from Prometheus
 metricController.getMetricData = async (req, res, next) => {
     // if (res.locals.connected === true) {
-        console.log('entered true logic in getMetricData')
+        const allMetrics = req.body;
+
+        console.log('entered true logic in getMetricData');
+        io.on('connection', (socket) => {
+            console.log(socket.id, 'connected inside getMetricData');
+        })
         //destructure target query from request query
-        const { metric } = req.query;
+        // const { metric } = req.query;
+        console.log('req.body: ', req.body);
         const queryString = queryStringDictionary[metric];
         try {
           //Request data from prometheus
@@ -44,10 +49,12 @@ metricController.getMetricData = async (req, res, next) => {
               message:  "Error occurred when obtaining Prometheus data: " + error
             })
         }
-    // } else {
-    //     res.locals.metricData = null;
-    //     return next()
-    // }
+
+
+        // 
+
+
+
 }
  //parse out the requested data for the client
  metricController.parseData = (req, res, next) => {
@@ -67,7 +74,8 @@ metricController.getMetricData = async (req, res, next) => {
                     const instance = res.locals.metricData[ind].metric.instance;
                     const env = res.locals.metricData[ind].metric.env;
                     const value = Number(res.locals.metricData[ind].value[1]);
-                    const time = res.locals.metricData[ind].value[0];
+                    const dateObj = new Date(res.locals.metricData[ind].value[0]);
+                    const time = dateObj.toLocaleString(); //human readable timestamp
                     const user_id = 1;
                     const queryParameter = [name, instance, env, value, time, user_id];
                     pg.query(queryString, queryParameter)
