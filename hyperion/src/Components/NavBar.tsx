@@ -21,7 +21,7 @@ const NavBar = (): JSX.Element => {
 
   interface errorMsg { result: string }
 
-  const [error, setError] = useState <errorMsg>({result: ''})
+  const [error, setError] = useState <errorMsg>({ result: '' })
   const navigate = useNavigate()
 
   const { logout } = useAuth()
@@ -45,7 +45,7 @@ const NavBar = (): JSX.Element => {
       await logout()
       navigate("/")
     } catch {
-      setError("Failed to logout")
+      setError({ result: "Failed to logout" })
     }
   }
 
