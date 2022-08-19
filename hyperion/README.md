@@ -1,306 +1,146 @@
 # GitHub Tutorial
+<div align="center">
+  <a href="https://https://github.com/oslabs-beta/hyperionn">
+    <img src="./assets/Hyperion.png" alt="Logo" height="300px" width="300px"/> 
+  </a>
+  <h1>Hyperion</h1>
+  <p>An open-source Kafka monitoring tool built for developers<p>
+  <a href="https://github.com/oslabs-beta/ksqljs"><img src="https://img.shields.io/badge/license-MIT-blue"/></a>
+  <a href="https://github.com/oslabs-beta/ksqljs/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/oslabs-beta/hyperionn"></a>
+  <a href="https://github.com/oslabs-beta/ksqljs/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/oslabs-beta/hyperionn"></a>
+  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/oslabs-beta/hyperionn">
+  
+  <a href=""><strong>hyperion.com</strong></a>
+</div>
 
-<a href="https://excalidraw.com/#json=oPciaBeml8N1pVKFR27uB,cSQoBdLi9vR_jbHPsHer8w" target="_blank">Visual Guild Linked Here</a>
-
-## Creating a New Branch
-
-1. Clone repo to your local system.
-- `git clone https://github.com/oslabs-beta/Hyperionn.git`
-
-2. Create or go to `dev` branch
-- `git checkout dev`
-
-<a><img src="./git/assets/images/git1.png"/></a>
-
-3. Create or go to your branch
-- `git checkout -b [your-name/feature]`
-
-4. Check what branch you are currently on
-- `git branch`
-
-<a><img src="./git/assets/images/git3.png"/></a>
+## Table of Contents
 
-## Starting Workflow
-
-1. Make sure local branch is up to date with `dev` branch before working
-- `git checkout dev` (locally switch to dev branch)
-- `git pull origin dev` (pull updates of dev down to your localc system)
-- `git checkout <YOUR BRANCH>` (switch back to your branch locally)
-- `git merge dev` (brings dev int your branch locally)
-- Resolve conflicts or `:q` if there aren't any 
-
-2. Create or go to your branch. PRO TIP: Use tab to autofill
-- `git checkout -b [your-name/feature]`
+1. [About the Project](#about-the-project)
+   - [Built With](#built-with)
+1. [Getting Started](#getting-started)
+   - [Requirements](#requirements)
+   - [Installation](#installation)
+   - [When you're ready to use FranzView](#when-youre-ready-to-use-franzview)
+1. [Contributors](#contributors)
+1. [Roadmap](#roadmap)
+1. [Prometheus Server and Demo Cluster](#prometheus-server-and-demo-cluster)
+1. [License](#license)
 
-<a><img src="./git/assets/images/git2.png"/></a>
-
-3. Use `git branch` to make sure you are on the correct branch
-<a><img src="./git/assets/images/git4.png"/></a>
-
-## Saving and Uploading Code
-1. Before pushing code to GitHub. Merge any updates from `dev`. Solve any conflicts (aka differences) between `dev` and your local branch 
-- `git checkout dev` (locally switch to dev branch)
-- `git pull origin dev` (pull updates of dev down to your localc system)
-- `git checkout <YOUR BRANCH>` (switch back to your branch locally)
-- `git merge dev` (brings dev int your branch locally)
-- Resolve conflicts or `:q` if there aren't any 
-
-2. Git add & git commit your files. MAKE SURE YOU ARE ON YOUR BRANCH BEFORE COMMITING! (use `git branch` to check)
-- `git add <YOUR FILES>`
-- `git commit -m"<YOUR COMMENT>`
-
-3. Push files to your branch
-- `git push origin <YOUR BRANCH>`
-
-4. Create a pull request on GitHub
-  - base: dev <-- compare: [YOUR BRANCH NAME]
-  - add comments
-  - add reviewers (on the right sidebar)
-  - click create pull request
-
-<a><img src="./git/assets/images/git6.png"/></a>
+## About the Project
 
-5. Review, Approve and Merge pull request to `dev` branch
+<!-- FranzView is an open-source web application to help small teams with monitoring and management of Apache Kafka clusters. With FranzView you can monitor key metrics related to broker and topic performance and take actions around them. Through the UI you are able to:
 
+- Monitor key performance metrics in real time by broker or topic and diagnose any issues through different views
+- Create and delete topics within a cluster
+- Reassign partition replicas to support with load balancing, change replication factor for a topic, and solve for underreplication issues
 
+These features are supported by a GraphQL API for improved performance, for abstraction of PromQL queries, and is easily extendable based on the nuances of your cluster. -->
 
+### Built With
 
-module.exports = {
+- [Chart.js](https://www.chartjs.org/)
+- [React](https://reactjs.org/)
+- [Material-UI](https://mui.com/)
+- [FireBase SDK](https://firebase.google.com/docs/auth)
+- [Chart.js](https://www.chartjs.org/docs/latest/)
+- [Jest](https://jestjs.io/)
+- [Prometheus](https://prometheus.io/)
+- [KafkaJS](https://kafka.js.org/)
 
-    testPathIgnorePatterns: ['/node_modules/', '/dist'],
-    collectCoverage: true,
-    verbose: true,
-    // preset: "@babel/preset-react",
-    roots: [
-      "<rootDir>/src"
-    ],
-    //"preset": "@testing-library/react-native",
-    testEnvironment: "jsdom",
-    transform: {
-      "^.+\\.jsx?$": "babel-jest",
-      //"\\.(jpg|jpeg|png|gif|eot|otf|webp|svg)$": "identity-obj-proxy",
-    },
-    // "transformIgnorePatterns": [
-    //   "node_modules/(?!variables/.*)"
-    // ],
-    transformIgnorePatterns: ['<rootDir>/node_modules/'],
-    moduleNameMapper: {
-      "src/(.*)": "<rootDir>/src/$1",
-    },
-    moduleFileExtensions: [
-     "js",
-     "jsx",
-  ],
-    moduleDirectories: [
-      "node_modules",
-      "src"
-    ],
-    moduleNameMapper: {
-      '^@/(.*)$': '<rootDir>/src/$1'
-    },
-    testMatch: [
-      '<rootDir>/(tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx))'
-    ],
-  // All imported modules in your tests should be mocked automatically
-  // automock: false,
-
-  // Stop running tests after `n` failures
-  // bail: 0,
-
-  // The directory where Jest should store its cached dependency information
-  // cacheDirectory: "/private/var/folders/ld/0tl30xs17d13hr_3hhy3q7wc0000gn/T/jest_dx",
-
-  // Automatically clear mock calls, instances, contexts and results before every test
-  //clearMocks: true,
-
-  // Indicates whether the coverage information should be collected while executing the test
-  //collectCoverage: true,
+## Getting Started
 
-  // An array of glob patterns indicating a set of files for which coverage information should be collected
-  // collectCoverageFrom: undefined,
+### Requirements
 
-  // The directory where Jest should output its coverage files
-  //coverageDirectory: "coverage",
+<!-- Before starting setup you'll need to take the following steps:
 
-  // An array of regexp pattern strings used to skip coverage collection
-  // coveragePathIgnorePatterns: [
-  //   "/node_modules/"
-  // ],
+- Have node installed. FranzView is tested to work on Node 14+.
+- If you'd like to use our demo cluster, make sure you have Docker Desktop and Docker Compose installed and then check the [demo instructions](#prometheus-server-and-demo-cluster).
+- Set up [JMX exporter](https://github.com/prometheus/jmx_exporter) on your cluster. You can find the configuration files and a copy of the JMX exporter jar file in the `configs/jmx_exporter` folder in this repo.
+  1. If you're starting your Kafka cluster from the CLI you can set up JMX exporter following these commands:
+  ```
+  export KAFKA_OPTS='-javaagent:{PATH_TO_JMX_EXPORTER}/jmx-exporter.jar={PORT}:{PATH_TO_JMX_EXPORTER_KAFKA.yml}/kafka.yml'
+  ```
+  2. Launch or restart your broker as you normally would.
+- Have a Prometheus metric server set up with targets setup for each of your brokers. You should use the `prometheus.template.yml` as a template.
 
-  // Indicates which provider should be used to instrument code for coverage
-  // coverageProvider: "babel",
+Please check the docker-compose files in this repo as examples or to spin up a demo cluster. -->
 
-  // A list of reporter names that Jest uses when writing coverage reports
-  // coverageReporters: [
-  //   "json",
-  //   "text",
-  //   "lcov",
-  //   "clover"
-  // ],
+### Installation
 
-  // An object that configures minimum threshold enforcement for coverage results
-  // coverageThreshold: undefined,
+1. Clone down this repository:
 
-  // A path to a custom dependency extractor
-  // dependencyExtractor: undefined,
+```
+git clone https://github.com/oslabs-beta/hyperionn
+```
 
-  // Make calling deprecated APIs throw helpful error messages
-  // errorOnDeprecated: false,
+2. In the Hyperion root directory to install all dependencies:
 
-  // The default configuration for fake timers
-  // fakeTimers: {
-  //   "enableGlobally": false
-  // },
+```
+npm install
+```
 
-  // Force coverage collection from ignored files using an array of glob patterns
-  // forceCoverageMatch: [],
+4. Build your version of Hyperion:
 
-  // A path to a module which exports an async function that is triggered once before all test suites
-  // globalSetup: undefined,
+```
+npm run build
+```
 
-  // A path to a module which exports an async function that is triggered once after all test suites
-  // globalTeardown: undefined,
+### When you're ready to use Hyperion
 
-  // A set of global variables that need to be available in all test environments
-  // globals: {},
+1. Start the server:
 
-  // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
-  // maxWorkers: "50%",
+```
+npm start
+```
 
-  // An array of directory names to be searched recursively up from the requiring module's location
-  // moduleDirectories: [
-  //   "node_modules"
-  // ],
+2. Hyperion defaults to running on port 3000. So simply go to http://localhost:3500. You can view your metrics and start managing your Kafka cluster!
 
-  // An array of file extensions your modules use
-  // moduleFileExtensions: [
-  //    "js",
-  // //   "mjs",
-  // //   "cjs",
-  //    "jsx",
-  // //   "ts",
-  // //   "tsx",
-  // //   "json",
-  // //   "node"
-  // ],
+## Contributors
 
-  // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  // moduleNameMapper: {
-  //     ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "identity-obj-proxy",
-  //     // "firebase/app$":
-  //     // "<rootDir>/node_modules/firebase/lib/app/index.js",
-  //     // "firebase/auth$":
-  //     // "<rootDir>/node_modules/firebase/lib/auth/index.js",
-  // },
+- Anish Patel | [GitHub](https://github.com/justanotherguyonline) | [Linkedin](https://www.linkedin.com/in/anish-patel-759545123/)
+- Kristin Green | [GitHub](https://github.com/kngreen) | [Linkedin](https://www.linkedin.com/in/kristin-green-101902a4/)
+- Joey Friedman | [GitHub](https://github.com/fried-jo) | [Linkedin](https://www.linkedin.com/in/joseph-friedman-803803149/)
+- Anita Duong | [GitHub](https://github.com/anitaduong98) | [Linkedin](https://www.linkedin.com/in/anita-duong/)
 
-  // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
-  // modulePathIgnorePatterns: [],
 
-  // Activates notifications for test results
-  // notify: false,
+## Roadmap
 
-  // An enum that specifies notification mode. Requires { notify: true }
-  // notifyMode: "failure-change",
+Here are some features the Hyperion team is working on adding to the application in the near future:
 
-  // A preset that is used as a base for Jest's configuration
-   //preset: "['@babel/preset-env']",
+- Additional metrics to view monitor performance
+- Ability to customize dashboard with metrics that are important to your Kafka cluster
+- End-to-end testing with Cypress
+- Refactoring codebase to Typescript for 
 
-  // Run tests from one or more projects
-  // projects: undefined,
+If there is a feature you think would be useful to you and your team, or if you find any bugs, please [open an issue](https://github.com/oslabs-beta/hyperionn/issues). We are 
 
-  // Use this configuration option to add custom reporters to Jest
-  // reporters: undefined,
+## Prometheus Server and Demo Cluster
 
-  // Automatically reset mock state before every test
-  // resetMocks: false,
+<!-- We have a few different docker-compose files depending on your needs.
 
-  // Reset the module registry before running each individual test
-  // resetModules: false,
+- If you just need a Kafka cluster (this will spin up a cluster with one zookeeper instance and three brokers ([localhost:9092](localhost:9092), [localhost:9093](localhost:9093), [localhost:9094](localhost:9094)):
+  ```
+  docker-compose -f docker-compose-kafka-only.yml up -d
+  ```
+- If you just need a Prometheus server:
+  1. Create a `prometheus.yml` file from the template `prometheus.template.yml`
+  1. Save it in the `configs/prometheus` folder
+  1. Run the following command to spin up a Prometheus server running at http://localhost:9090:
+  ```
+  docker-compose -f docker-compose-prom-only.yml up -d
+  ```
+- If you just need want to spin up a Prometheus server + Kafka Cluster.:
+  1. We already have a Prometheus config set up, so don't worry about it!
+  1. Run the following command to spin up a Prometheus server running at http://localhost:9090 and 3 brokers ([localhost:9092](localhost:9092), [localhost:9093](localhost:9093), [localhost:9094](localhost:9094)):
+  ```
+  docker-compose -f docker-compose-kafka-prom.yml up -d
+  ``` -->
 
-  // A path to a custom resolver
-  //resolver: 'jest-node-exports-resolver',
+## License
 
-  // Automatically restore mock state and implementation before every test
-  // restoreMocks: false,
+This product is licensed under the MIT License without restriction.
 
-  // The root directory that Jest should scan for tests and modules within
-  // rootDir: undefined,
 
-  // A list of paths to directories that Jest should use to search for files in
-  // roots: [
-  //   "<rootDir>"
-  // ],
 
-  // Allows you to use a custom runner instead of Jest's default test runner
-  // runner: "jest-runner",
 
-  // The paths to modules that run some code to configure or set up the testing environment before each test
-  // setupFiles: [],
 
-  // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  // setupFilesAfterEnv: [],
-
-  // The number of seconds after which a test is considered as slow and reported as such in the results.
-  // slowTestThreshold: 5,
-
-  // A list of paths to snapshot serializer modules Jest should use for snapshot testing
-  // snapshotSerializers: [],
-
-  // The test environment that will be used for testing
-  // testEnvironment: "jsdom",
-  // //preset: "[['@babel/preset-env', {targets: {node: 'current'}}]]",
-  // // transform: {
-  // //   '\\.[jt]sx?$': 'esbuild-jest',
-  // // }
-  // transform: {
-  //   "^.+\\.(js|jsx)$": "babel-jest",
-  // },
-
-  // Options that will be passed to the testEnvironment
-  // testEnvironmentOptions: {},
-
-  // Adds a location field to test results
-  // testLocationInResults: false,
-
-  // The glob patterns Jest uses to detect test files
-  // testMatch: [
-  //   "**/__tests__/**/*.[jt]s?(x)",
-  //   "**/?(*.)+(spec|test).[tj]s?(x)"
-  // ],
-
-  // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
-  // testPathIgnorePatterns: [
-  //   "/node_modules/"
-  // ],
-
-  // The regexp pattern or array of patterns that Jest uses to detect test files
-  // testRegex: [],
-
-  // This option allows the use of a custom results processor
-  // testResultsProcessor: undefined,
-
-  // This option allows use of a custom test runner
-  // testRunner: "jest-circus/runner",
-
-  // A map from regular expressions to paths to transformers
-  //transform: "^.+\\.(js|jsx)$": "jest",
-
-  // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  // transformIgnorePatterns: [
-  //    "/node_modules/",
-  //    "firebase",
-  //    "firebase/app",
-  // ],
-
-  // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
-  // unmockedModulePathPatterns: undefined,
-
-  // Indicates whether each individual test should be reported during the run
-  // verbose: undefined,
-
-  // An array of regexp patterns that are matched against all source file paths before re-running tests in watch mode
-  // watchPathIgnorePatterns: [],
-
-  // Whether to use watchman for file crawling
-  // watchman: true,
-};

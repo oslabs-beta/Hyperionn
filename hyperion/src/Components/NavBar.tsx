@@ -53,7 +53,7 @@ const NavBar = (): JSX.Element => {
 
 
   return(
-    <AppBar id="NavBar">
+    <AppBar id="NavBar" position="absolute">
       <Box>
         {/* <Box id="leftSide">
           <img src={logo} width="50px" height="50px"></img>
