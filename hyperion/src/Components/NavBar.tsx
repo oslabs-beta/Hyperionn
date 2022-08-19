@@ -19,9 +19,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 const NavBar = (): JSX.Element => {
 
 
-  interface errorMsg { error: string }
-  
-  const [error, setError] = useState("")
+  interface errorMsg { result: string }
+
+  const [error, setError] = useState <errorMsg>({result: ''})
   const navigate = useNavigate()
 
   const { logout } = useAuth()

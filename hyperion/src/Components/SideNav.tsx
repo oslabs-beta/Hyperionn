@@ -5,11 +5,13 @@ import axios from 'axios';
 
 const SideNav = () => {
 
-  const [connectButton, setConnectButton] = useState(false);
+  interface connectBtn { connectButton: boolean };
+
+  const [connectButton, setConnectButton] = useState <connectBtn | false>(false);
   const navigate = useNavigate();
 
 
-  const button = {
+  const button: { color: string, width: string} = {
     color: "#a4a4a4",
     width: "150px"
   }
