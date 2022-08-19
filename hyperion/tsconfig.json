@@ -7,7 +7,7 @@
       "jsx": "react-jsx",
       "outDir": "./dist",
       "allowJs": true,
-      "noImplicitAny": true,
+      // "noImplicitAny": true,
       "esModuleInterop": true,
     },
     "include": ["./src/**/*"],
