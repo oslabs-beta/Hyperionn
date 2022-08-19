@@ -55,29 +55,6 @@ function App() {
   )
 }
 
+
+
 export default App;
-
-
-// {/* <NavBar />
-//       {/* <NavBar></NavBar> */}
-//         <Routes>
-//           <Route path='/Feed' element={<ProtectedRoute>< Feed statusStack={statusStack} setStatusStack={setStatusStack}/></ProtectedRoute>} />
-//           <Route path='/addhike' element={<ProtectedRoute>< AddHikeScreen /></ProtectedRoute>} />
-//           <Route path='/signup' element={< SignupScreen />} />  
-//           <Route path='/login' element={< LoginScreen />} />   
-//           {/* <Route path='/edithike' element={<EditHikeScreen/>} />              */}
-//                                   {/* ProtectedRoute(<DashboardScreen/>) */}
-//           <Route path='/' element={<ProtectedRoute>< DashboardScreen /></ProtectedRoute>} />            
-//         </Routes>    
-//       </Router>
-//     </div>
-//   );
-// }
-
-// export function ProtectedRoute(props){
-//   if (localStorage.getItem('user')){ 
-//     return props.children
-//   } else {
-//    return <Navigate to='/login'/>
-//   }
-// } */}
