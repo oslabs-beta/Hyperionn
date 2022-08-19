@@ -5,7 +5,7 @@ import { Link, useHistory, useNavigate } from "react-router-dom"
 import { Box, Button, TextField } from '@mui/material';
 import GitHubIcon from "@mui/icons-material/GitHub";
 import GoogleIcon from "@mui/icons-material/Google";
-import logo from './assets/Hyperion.png';
+import logo from '../assets/Hyperion.png';
 
 export default function Login() {
   const emailRef = useRef();

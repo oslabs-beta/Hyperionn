@@ -1,7 +1,7 @@
 import React,{useEffect, useContext, useState, createContext} from "react";
 import { Grid, Box } from '@mui/material';
 import NavBar from '../Components/NavBar';
-import DataContainer from './DataContainer';
+import DataContainer from '../Components/DataContainer';
 import SideNav from '../Components/SideNav';
 
 export function MainDisplay () {
