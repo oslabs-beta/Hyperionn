@@ -35,25 +35,30 @@ userController.createUser = async (req, res, next) => {
 //for checking if the user has a port already, if yes then res.locals.connected = true, 
 //if not, res.locals.connect = false and then metrics controller won't show any data
 userController.checkUser = async (req, res, next) => {
-  const queryParameter = [1];
-  const queryString = 'SELECT domain, port FROM users WHERE user_id = $1'
-  try {
-    const result = await pg.query(queryString, queryParameter);
-    console.log('result from trying to find domain and port: ', result);
-    if (!result.rows[0].domain.length || !result.rows[0].port.length) {
-      res.locals.connected = false;
-      console.log('connected set to false');
-      return next();
-    } else {
-      res.locals.connected = true;
-      res.locals.domain = domain;
-      res.locals.port = port;
-      console.log('connected set to true');
-      return next();
-    }
-  } catch(err) {
-    return next(err);
-  }
+  // const queryParameter = [1];
+  // const queryParameter = req.
+  // const queryString = 'SELECT domain, port FROM users WHERE user_id = $1'
+  // try {
+  //   const result = await pg.query(queryString, queryParameter);
+  //   console.log('result from trying to find domain and port: ', result);
+  //   if (!result.rows[0].domain.length || !result.rows[0].port.length) {
+  //     res.locals.connected = false;
+  //     console.log('connected set to false');
+  //     res.locals.domain = null;
+  //     res.locals.port = null;
+  //     return next();
+  //   } else {
+  //     res.locals.connected = true;
+  //     res.locals.domain = domain;
+  //     res.locals.port = port;
+  //     console.log('connected set to true');
+  //     return next();
+  //   }
+  // } catch(err) {
+  //   return next(err);
+  // }
+  console.log('inside checkUer middleware');
+  return next();
 }
 
 module.exports = userController;

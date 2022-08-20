@@ -185,16 +185,16 @@ const emitter = (req, res, next) =>  {
 }
 
 //Handle get requests for metricData
-router.post('/metrics', 
-  // userController.checkUser,
-  // metricController.getMetricData, 
-  // metricController.parseData,
-  emitter,
-  (req, res) => {
-    return res.send('connection established, and emitted data')
-    // return res.status(200).json(res.locals.metricData);
-  }
-)
+// router.post('/metrics', 
+//   // userController.checkUser,
+//   // metricController.getMetricData, 
+//   // metricController.parseData,
+//   emitter,
+//   (req, res) => {
+//     return res.send('connection established, and emitted data')
+//     // return res.status(200).json(res.locals.metricData);
+//   }
+// )
 
 
 router.get('/isConnected', 

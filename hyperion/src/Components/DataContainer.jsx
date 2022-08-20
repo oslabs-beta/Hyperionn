@@ -73,7 +73,8 @@ const DataContainer = (props) => {
   
   useEffect(() => {
     //insert fetch get request to back end to check if user is connected (check for existing port in user db)
-    //with the answer that comes back, set isConnected to true. 
+   fetch('/server/isConnected');
+    //with the a const data = nswer that comes back, set isConnected to true. 
     if (socket === null){
       setSocket(io('ws://localhost:3500'));
     }
@@ -93,7 +94,7 @@ const DataContainer = (props) => {
 return(
   <>
       <Grid container sx={dataGrid}>
-        <SimpleKeyMetrics underReplicated = {underReplicated}  sx={{gridArea:"SimpleKeyMetrics", minWidth: "100px"}}/> 
+        {/* <SimpleKeyMetrics underReplicated = {underReplicated}  sx={{gridArea:"SimpleKeyMetrics", minWidth: "100px"}}/>  */}
         {/* <Paper className="paper"  sx={{gridArea:"FirstGraph", boxShadow:"none"}}>
           <AvgRequestLatency avgRequestLatency = {avgRequestLatency}/>
         </Paper> */}
