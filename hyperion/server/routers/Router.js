@@ -28,6 +28,12 @@ const url = prometheusServerHostname + prometheusPort;
 //   }
 // }
 
+
+setTimeout(() => {}, 5000)
+
+
+
+
 const queryStringDictionary = {
   underReplicated: '/api/v1/query?query=kafka_server_replicamanager_underreplicatedpartitions',
   offlinePartitions: '/api/v1/query?query=kafka_controller_kafkacontroller_offlinepartitionscount',
@@ -150,18 +156,18 @@ const getDataAndEmit = async (metric) => {
 const time = 5000;
 let hasBeenCalled = false;
 
-// const allMetrics = ['underReplicated','activeControllers', 'offlinePartitions', 'avgReqLatency', 'responseRate', 'requestRate'];
+const allMetrics = ['underReplicated']; 
 
 const emitter = (req, res, next) =>  {
   if(hasBeenCalled) return next();
   // console.log('about to send some data!')
   // const { metric } = req.query;
-  const allMetrics = req.body;
+  //const allMetrics = req.body;
   let count = 1;
   try{
   allMetrics.forEach(metric => {
     setInterval(()=> getDataAndEmit(metric), time)
-    console.log('just set a new interval: ', ++count)
+    //console.log('just set a new interval: ', ++count)
     hasBeenCalled = true;
   });
   //setInterval(()=> getDataAndEmit(metric), time)
@@ -189,6 +195,21 @@ router.post('/metrics',
     // return res.status(200).json(res.locals.metricData);
   }
 )
+
+
+router.get('/isConnected', 
+  userController.checkUser,
+
+  emitter,
+  (req, res) => {
+    return res.send('connection established, and emitted data')
+    // return res.status(200).json(res.locals.metricData);
+  }
+)
+
+
+
+
 
 router.get('/errors', 
   metricController.getErrors, 
