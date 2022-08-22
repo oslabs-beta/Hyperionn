@@ -1,6 +1,6 @@
-const regeneratorRuntime = require('regenerator-runtime')
+// const regeneratorRuntime = require('regenerator-runtime')
 
-module.exports = () => {
-    console.log('in jest-setup');
-    global.testServer = require('./server/server.js');
-  };
+// module.exports = () => {
+//     console.log('in jest-setup');
+//     global.testServer = require('./server/server.js');
+//   };
