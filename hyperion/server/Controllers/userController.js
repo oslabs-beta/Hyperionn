@@ -36,7 +36,10 @@ userController.createUser = async (req, res, next) => {
 //if not, res.locals.connect = false and then metrics controller won't show any data
 userController.checkUser = async (req, res, next) => {
   // const queryParameter = [1];
-  // const queryParameter = req.
+  const {email} = req.body;
+  const queryParameter = email;
+  console.log('queryParameter: ', queryParameter)
+  return next();
   // const queryString = 'SELECT domain, port FROM users WHERE user_id = $1'
   // try {
   //   const result = await pg.query(queryString, queryParameter);
@@ -57,8 +60,8 @@ userController.checkUser = async (req, res, next) => {
   // } catch(err) {
   //   return next(err);
   // }
-  console.log('inside checkUer middleware');
-  return next();
+  // console.log('inside checkUer middleware');
+  // return next();
 }
 
 module.exports = userController;

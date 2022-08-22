@@ -197,8 +197,8 @@ const emitter = (req, res, next) =>  {
 // )
 
 
-router.get('/isConnected', 
-  userController.checkUser,
+router.post('/isConnected', 
+  userController.checkUser, //check if user is in postgresql, if not make entry. if so, obtain port and domain
 
   emitter,
   (req, res) => {

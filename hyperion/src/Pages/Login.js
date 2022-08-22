@@ -20,7 +20,13 @@ export default function Login() {
     try {
       setError("")
       setLoading(true)
-      await login(emailRef.current.value, passwordRef.current.value)
+      const result = await login(emailRef.current.value, passwordRef.current.value)
+      const email = result.user.email;
+      console.log(email);
+      localStorage.setItem(
+        'email',
+        JSON.stringify({ email })
+      );
       navigate("/dashboard")
     } catch {
       setError("Failed to log in")
@@ -36,7 +42,12 @@ export default function Login() {
       setError("")
       setLoading(true)
       const result = await loginWithGoogle();
-      console.log(result);
+      const email = result.user.email;
+      console.log(email);
+      localStorage.setItem(
+        'email',
+        JSON.stringify({ email })
+      );
       navigate("/dashboard")
     // setTimeout(()=>navigate("/dashboard"),5000)
 
@@ -63,6 +74,17 @@ export default function Login() {
     setLoading(false)
   }
 
+  // localStorage.setItem(
+  //   'user',
+  //   JSON.stringify({ ...response.data, password: "" })
+  // );
+    //to check if user is already logged in, navigate to homepage
+
+    // useEffect(() => {
+    //   if (localStorage.getItem('email')) {
+    //     navigate("/dashboard");
+    //   }
+    // }, []);
 
   return (
     <div className="login-page">

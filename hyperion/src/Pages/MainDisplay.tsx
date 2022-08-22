@@ -4,7 +4,7 @@ import NavBar from '../Components/NavBar';
 import DataContainer from '../Components/DataContainer';
 import SideNav from '../Components/SideNav';
 
-export function MainDisplay () {
+function MainDisplay () {
 
   const [display, setDisplay] = useState(false);
 

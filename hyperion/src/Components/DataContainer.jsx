@@ -8,6 +8,7 @@ import RequestRate from '../Components/RequestRate.jsx';
 
 
 
+
 // const queryEndpoint = '/server/metrics?metric=';
 
 // export const queryDictionary = {
@@ -17,7 +18,7 @@ import RequestRate from '../Components/RequestRate.jsx';
 //   avgReqLatencyQuery: `${queryEndpoint}avgReqLatency`
 // }
 
-const allMetrics = ['underReplicated']; // ,'activeControllers', 'offlinePartitions', 'avgReqLatency', 'responseRate', 'requestRate'
+// const allMetrics = ['underReplicated']; // ,'activeControllers', 'offlinePartitions', 'avgReqLatency', 'responseRate', 'requestRate'
 // socket.on('message', text => {
 //   console.log('TEXT: ', text)
 //   console.log(socket.id)
@@ -31,29 +32,46 @@ const allMetrics = ['underReplicated']; // ,'activeControllers', 'offlinePartiti
 //   console.log(data, 'front end data');
 // });
 // const metrics = {};
+// const fetchWithClosure = fetchData();
 
 
 const DataContainer = (props) => {
   // const [metrics, setMetrics] = useState({
-  //   'underReplicated': [],
-  //   // 'offlinePartitions' : [],
-  //   // 'activeControllers': [],
-  //   // 'requestRate': [],
-  //   // 'responseRate': [],
-  //   // 'avgReqLatency': []
-  // })
-  const [socket, setSocket] = useState(null)
-  
-  const [underReplicated, setUnderReplicated] = useState({})
-  // const [offlinePartitions, setOfflinePartitions] = useState([])
-  // const [activeControllers, setActiveControllers] = useState([])
-  // const [requestRate, setRequestRate] = useState([])
-  // const [responseRate, setResponseRate] = useState([])
-  // const [avgReqLatency, setAvgReqLatency] = useState([])
-  
-  
- 
-  
+    //   'underReplicated': [],
+    //   // 'offlinePartitions' : [],
+    //   // 'activeControllers': [],
+    //   // 'requestRate': [],
+    //   // 'responseRate': [],
+    //   // 'avgReqLatency': []
+    // })
+    const [socket, setSocket] = useState(null)
+    const [fetched, setFetched] = useState(false)
+    const [underReplicated, setUnderReplicated] = useState({});
+    const [email, setEmail] = useState(null);
+    // const [offlinePartitions, setOfflinePartitions] = useState([])
+    // const [activeControllers, setActiveControllers] = useState([])
+    // const [requestRate, setRequestRate] = useState([])
+    // const [responseRate, setResponseRate] = useState([])
+    // const [avgReqLatency, setAvgReqLatency] = useState([])
+    
+    function fetchData(){
+      const email = localStorage.getItem('email');
+      fetch('/server/isConnected',{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ email })
+      })
+      //with the a const data = nswer that comes back, set isConnected to true. 
+      if (socket === null){
+        setSocket(io('ws://localhost:3500'));
+      }
+      if (socket){
+        socket.onAny((metric, data) =>{
+          console.log("Here's your data: ", data); //is an object with a metric property
+          setUnderReplicated(data)
+        });
+      }
+    }
   
 
   
@@ -71,25 +89,21 @@ const DataContainer = (props) => {
     gridArea: "DataContainer",
   }
   
-  useEffect(() => {
-    //insert fetch get request to back end to check if user is connected (check for existing port in user db)
-   fetch('/server/isConnected');
-    //with the a const data = nswer that comes back, set isConnected to true. 
-    if (socket === null){
-      setSocket(io('ws://localhost:3500'));
-    }
-    if (socket){
-      socket.onAny((metric, data) =>{
-        console.log("Here's your data: ", data); //is an object with a metric property
-        setUnderReplicated(data)
-      });
-    }
-  },[socket])
+  function setFetchState() {
+    setFetched(true);
+  } 
 
-// const { underReplicated } = metrics;
-//, offlinePartitions, activeControllers, avgRequestLatency, requestRate, responseRate
-// console.log("underReplicated", underReplicated);
-// console.log("offlinePartitions", offlinePartitions);
+  useEffect(()=>{
+    console.log('use effect triggered');
+    if (fetched) return;
+    else if (!fetched) {
+      setFetchState();
+      fetchData();
+    }
+    
+   },[socket])
+
+
 
 return(
   <>
