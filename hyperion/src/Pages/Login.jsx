@@ -93,10 +93,7 @@ const Login = () => {
         <img src={logo} width="200px" height="200px"></img>
         </Box>
         <Box className="login-text-box">
-          <h2>Welcome Back</h2>
-          {/* <Box className='logo'>
-            <img src={logo} width="30px" height="30px"></img>
-          </Box> */}
+          <h2>Hyperion</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <form onSubmit={handleSubmit}>
             <div className="form-input">
