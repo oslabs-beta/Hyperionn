@@ -20,7 +20,7 @@
 1. [Getting Started](#getting-started)
    - [Requirements](#requirements)
    - [Installation](#installation)
-   - [When you're ready to use FranzView](#when-youre-ready-to-use-franzview)
+   - [When you're ready to use FranzView](#when-youre-ready-to-use-Hyperion)
 1. [Contributors](#contributors)
 1. [Roadmap](#roadmap)
 1. [Prometheus Server and Demo Cluster](#prometheus-server-and-demo-cluster)
