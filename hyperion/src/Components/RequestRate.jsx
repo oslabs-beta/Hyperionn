@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { Box } from '@mui/material';
-
+import React, { useState, useEffect, useRef } from 'react'
+import { Paper, Box, Typography, Container, Grid, Popover, Button } from '@mui/material';
+import ReadMoreIcon from '@mui/icons-material/ReadMore';
 import Chart from 'chart.js/auto';
 import { Line} from "react-chartjs-2";
 import 'chartjs-adapter-luxon';
 import StreamingPlugin from 'chartjs-plugin-streaming';
-
 
 Chart.register(StreamingPlugin);
   
@@ -57,9 +56,22 @@ const RequestRate = ({requestRate}) => {
     // localStorage.setItem('Request Rate', JSON.stringify(newDataPoints));
   }
 
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
   
   return (
     <Box>
+      <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Request Rate</Typography>
       <Line
         data={{
           datasets: reqRateSets,
@@ -71,12 +83,12 @@ const RequestRate = ({requestRate}) => {
             }
           },
           animation: true,
-          plugins: {
-            title: {
-              display: true,
-              text: 'Request Rate'
-            }
-        },
+        //   plugins: {
+        //     title: {
+        //       display: true,
+        //       text: 'Request Rate'
+        //     }
+        // },
           scales: {
             x: {
               type: 'realtime',
@@ -96,6 +108,20 @@ const RequestRate = ({requestRate}) => {
           }
         }}
       />
+      <ReadMoreIcon fontSize='small' onClick={handleClick} sx={{color:'#ececec'}}></ReadMoreIcon>
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+        vertical: 'bottom',
+          horizontal: 'left',
+              }}
+            >
+              <Typography sx={{ p: 2 }}>The request rate is the rate at which producers send data to brokers. Of course, what constitutes a healthy request rate will vary drastically depending on the use case. Keeping an eye on peaks and drops is essential to ensure continuous service availability. If rate-limiting is not enabled, in the event of a traffic spike, brokers could slow to a crawl as they struggle to process a rapid influx of data.</Typography>
+              <Typography sx={{ p: 1, color: '#f366dc' }}>Source: https://www.datadoghq.com/blog/monitoring-kafka-performance-metrics/</Typography>
+             </Popover>
     </Box>
   )
 }

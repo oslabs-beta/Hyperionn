@@ -50,6 +50,7 @@ export default function ErrorLogContainer() {
   const getErrorData = async () => {
     
     const email = localStorage.getItem('email');
+    console.log('email in geterror fetch request front end: ', email);
     const result = await axios.post('/server/errors', { email })
     console.log('get request', result);
     setErrorData(result.data);

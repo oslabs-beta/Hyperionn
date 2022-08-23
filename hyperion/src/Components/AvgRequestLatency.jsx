@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Box } from '@mui/material';
+import { Paper, Box, Typography, Container, Grid, Popover, Button } from '@mui/material';
+import ReadMoreIcon from '@mui/icons-material/ReadMore';
 import Chart from 'chart.js/auto';
 import { Line} from "react-chartjs-2";
 import 'chartjs-adapter-luxon';
@@ -52,10 +53,24 @@ const AvgRequestLatency = ({avgReqLatency}) => {
     setDataPoints(newDataPoints);
   }
 
- 
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
+
 
   return (
     <Box>
+      <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Average Request Latency</Typography>
       <Line
         //datasets is the state avgDataSets array
         data={{
@@ -69,11 +84,11 @@ const AvgRequestLatency = ({avgReqLatency}) => {
           },
           animation: true,
           plugins: {
-            title:
-           {
-              display: true,
-              text: 'Average Request Latency'
-            }
+          //   title:
+          //  {
+          //     display: true,
+          //     text: 'Average Request Latency'
+          //   }
         },
           scales: {
             y: {
@@ -106,6 +121,20 @@ const AvgRequestLatency = ({avgReqLatency}) => {
           }
         }}
       />
+      <ReadMoreIcon fontSize='small' onClick={handleClick} sx={{color:'#a4a4a4'}}></ReadMoreIcon>
+            <Popover
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+            >
+              <Typography sx={{ p: 2 }}>The average request latency is a measure of the amount of time between when KafkaProducer.send() was called until the producer receives a response from the broker. </Typography>
+              <Typography sx={{ p: 1, color: '#f366dc' }}>Source: https://www.datadoghq.com/blog/monitoring-kafka-performance-metrics/</Typography>
+             </Popover>
     </Box>
   )
 }

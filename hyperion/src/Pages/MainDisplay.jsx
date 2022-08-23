@@ -4,6 +4,7 @@ import NavBar from '../Components/NavBar';
 import DataContainer from '../Components/DataContainer';
 import SideNav from '../Components/SideNav';
 import { io, Socket } from "socket.io-client";
+import { Email } from "@mui/icons-material";
 
 function MainDisplay () {
 
@@ -42,12 +43,15 @@ function MainDisplay () {
     console.log('inHandlePortAndDomain SOS')
     setDomain(domain);
     setPort(port);
+    const email = localStorage.getItem('email');
     if (domain && port) {
       const socket = (io('ws://localhost:3500'));
       // socket.on("data", (data)=>{
       //   if(data) dispatch(connectAddress({ipaddress, port}));
       // });
-      socket.emit("ip", `${domain}:${port}`);
+      const ip = `${domain}:${port}`
+      socket.emit("ip&email", ip, email);
+
       // setConnected(true);
 
       // socket.on('underReplicated', (data) =>{

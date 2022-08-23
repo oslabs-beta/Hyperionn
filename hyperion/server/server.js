@@ -6,6 +6,8 @@ const router = require('./routers/Router');
 // const getDataAndEmit = require('./routers/Router');
 const PORT = 3001;
 const axios = require('axios');
+const pg = require('./models/errorLog');
+const { constants } = require('fs/promises');
 //const { SocketAddress } = require('net');
 // var firebase = require('firebase');
 // var firebaseui = require('firebaseui');
@@ -18,6 +20,7 @@ const queryStringDictionary = {
   requestRate: '/api/v1/query?query=kafka_connect_connect_metrics_request_rate',
   avgReqLatency: '/api/v1/query?query=kafka_producer_producer_metrics_request_latency_avg',
   avgReqLatencyZookeepers: '/api/v1/query?query=zookeeper_avgrequestlatency',
+  
 };
 // const prometheusServerHostname = 'http://localhost:';
 // const prometheusPort = '9090';
@@ -25,17 +28,12 @@ const queryStringDictionary = {
 //import { Server } from "socket.io";
 
 // const io = new Server(3500);
-const parseData = (data, metric) => {
-  // if (res.locals.connected === true) {
+const parseData = (data, metric, email) => {
   const queryString = `INSERT INTO errors 
-  (name, instance, env, value, time, user_id) 
+  (name, instance, env, value, time, email) 
   VALUES ($1, $2, $3, $4, $5, $6)`;
   const dataArray = data.data.data.result;
-  // console.log('dataArray: ', dataArray);
   if(metric === 'underReplicated' || metric === 'offlinePartitions'){
-      // console.log('inside logic for underReplicated/offlinePartitions');
-      // console.log('metricData to be parsed: ', res.locals.metricData);
-      // console.log(Date.now());
       try {
         dataArray.forEach((metricObj, ind, arr) => {
             if (Number(metricObj.value[1]) > 0) {
@@ -43,16 +41,17 @@ const parseData = (data, metric) => {
                 const instance = dataArray[ind].metric.instance;
                 const env = dataArray[ind].metric.env;
                 const value = Number(dataArray[ind].value[1]);
-                const dateObj = new Date(dataArray[ind].value[0]);
-                const time = dateObj.toLocaleString(); //human readable timestamp
-                const user_id = 1;
-                const queryParameter = [name, instance, env, value, time, user_id];
+                const today = new Date();
+                const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                const partTime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                const time = date+' '+partTime;
+                const queryParameter = [name, instance, env, value, time, email];
                 pg.query(queryString, queryParameter)
                 .then((result) => {
                     console.log('inserted out of range metric into db: ', result);
                     return dataArray;
                 })
-                .catch(err => {throw new Error('ERROR LOGGING OUT OF RANGE METRIC')});
+                .catch(err => {throw new Error('ERROR LOGGING OUT OF RANGE METRIC OFFLINE AND UNDER')});
             } 
           });
           return dataArray;
@@ -65,21 +64,22 @@ const parseData = (data, metric) => {
       const sum = dataArray.reduce((acc, curr) => 
           Number(acc) + Number(curr.value[1])
       , 0);
-      // console.log('sum: ', sum);
-      if (sum !== 1) {
+      if (sum === 1) {
           const name = dataArray[0].metric.__name__;
           const instance = dataArray[0].metric.instance;
           const env = dataArray[0].metric.env;
           const value = sum;
-          const time = dataArray[0].value[0]
-          const user_id = 1;
-          const queryParameter = [name, instance, env, value, time, user_id];
+          const today = new Date();
+          const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+          const partTime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+          const time = date+' '+partTime;
+          const queryParameter = [name, instance, env, value, time, email];
           pg.query(queryString, queryParameter)
           .then((result) => {
               console.log('inserted out of range metric into db: ', result);
               return dataArray;
           })
-          .catch(err =>{ throw new Error('ERROR LOGGING OUT OF RANGE METRIC')});
+          .catch(err =>{ throw new Error('ERROR LOGGING OUT OF RANGE METRIC ACTIVE')});
       }
       return dataArray;
     } catch(error) {
@@ -92,7 +92,7 @@ const parseData = (data, metric) => {
         try{
           // console.log('data for tempMetricData: ', data)
         const tempMetricData = dataArray;
-        console.log('tempMetricData: ', tempMetricData)
+        // console.log('tempMetricData: ', tempMetricData)
         //create a new date object
         // const today = new Date();
         //Get CURRENT TIME from the date object
@@ -118,7 +118,7 @@ const parseData = (data, metric) => {
  }
  const allMetrics = [ 'underReplicated', 'offlinePartitions', 'activeControllers', 'avgReqLatency', 'responseRate', 'requestRate']; 
 
-const getDataAndEmit = (url) => {
+const getDataAndEmit = (url, email) => {
   //  for (let key in queryStringDictionary){
     // allMetrics.forEach(metric => {
       console.log('trying to get data SOS')
@@ -126,7 +126,7 @@ const getDataAndEmit = (url) => {
     try{
       const queryString = queryStringDictionary[metric]
       const data = await axios.get(`${url}${queryString}`);
-      const parsedData = parseData(data, metric)
+      const parsedData = parseData(data, metric, email)
               //Create a property on res.locals with the data to be sent back to the client
       // const emittedData  = data.data.data.result;
       // console.log(key);
@@ -160,15 +160,17 @@ io.on('connection', socket => {
     
   // })
 
-  socket.on("ip", ip => {
+  socket.on("ip&email", (ip, email) => {
     console.log('IN HERE')
     // for testing 
     // query(socket,ip);
     //setTimeout(callTransporter, 3000, {to: 'sendFromMetricCard@yay.com', subject: 'FAKE Underreplicated Partitions'});
     
     // uncomment after test for normal use
-    setInterval(getDataAndEmit, 5000, ip); //ip = domain:port
+    console.log('backend email in socket: ', email)
+    setInterval(getDataAndEmit, 5000, ip, email); //ip = domain:port
   })
+
 
   // socket.on("alert", data => {
   //   throttled_callTransport(data);

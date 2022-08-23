@@ -23,6 +23,7 @@ const SideNav = (props) => {
     const port = (document.getElementById('port') as HTMLInputElement).value;
     const domain = (document.getElementById('domain') as HTMLInputElement).value;
     props.handlePortAndDomain(port, domain);
+    setConnectButton(false)
     //get the values of the needed imputs to send to server
     // try{
     //   axios.post<ConnectionModel>('/server/metrics', { port: port, domain: domain })
