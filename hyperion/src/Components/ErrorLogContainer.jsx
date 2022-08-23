@@ -48,7 +48,9 @@ export default function ErrorLogContainer() {
 
   
   const getErrorData = async () => {
-    const result = await axios.get('/server/errors')
+    
+    const email = localStorage.getItem('email');
+    const result = await axios.post('/server/errors', { email })
     console.log('get request', result);
     setErrorData(result.data);
   }

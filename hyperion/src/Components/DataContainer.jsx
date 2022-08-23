@@ -8,52 +8,37 @@ import RequestRate from '../Components/RequestRate.jsx';
 
 
 
-// const queryEndpoint = '/server/metrics?metric=';
-
-// export const queryDictionary = {
-//   offlinePartitionsQuery: `${queryEndpoint}offlinePartition`,
-//   activeControllersQuery: `${queryEndpoint}activeControllers`,
-//   underreplicatedControllersQuery: `${queryEndpoint}underReplicated`,
-//   avgReqLatencyQuery: `${queryEndpoint}avgReqLatency`
-// }
-
-const allMetrics = ['underReplicated']; // ,'activeControllers', 'offlinePartitions', 'avgReqLatency', 'responseRate', 'requestRate'
-// socket.on('message', text => {
-//   console.log('TEXT: ', text)
-//   console.log(socket.id)
-// });
-  // socket.onAny((eventName, ...args)=>{
-//   console.log("HEY BUDDY WE GOT SOME DATA:", ...args)
-//   console.log(eventName)
-// })
-
-// socket.on('data', function(data){
-//   console.log(data, 'front end data');
-// });
-// const metrics = {};
-
 
 const DataContainer = (props) => {
   // const [metrics, setMetrics] = useState({
-  //   'underReplicated': [],
-  //   // 'offlinePartitions' : [],
-  //   // 'activeControllers': [],
-  //   // 'requestRate': [],
-  //   // 'responseRate': [],
-  //   // 'avgReqLatency': []
-  // })
-  const [socket, setSocket] = useState(null)
-  
-  const [underReplicated, setUnderReplicated] = useState({})
-  // const [offlinePartitions, setOfflinePartitions] = useState([])
-  // const [activeControllers, setActiveControllers] = useState([])
-  // const [requestRate, setRequestRate] = useState([])
-  // const [responseRate, setResponseRate] = useState([])
-  // const [avgReqLatency, setAvgReqLatency] = useState([])
-  
-  
- 
-  
+    //   'underReplicated': [],
+    //   // 'offlinePartitions' : [],
+    //   // 'activeControllers': [],
+    //   // 'requestRate': [],
+    //   // 'responseRate': [],
+    //   // 'avgReqLatency': []
+    // })
+
+
+
+    // function fetchData(){
+    //   const email = localStorage.getItem('email');
+    //   fetch('/server/isConnected',{
+    //     method: 'POST',
+    //     headers: {'Content-Type': 'application/json'},
+    //     body: JSON.stringify({ email })
+    //   })
+    //   //with the a const data = nswer that comes back, set isConnected to true. 
+    //   if (socket === null){
+    //     setSocket(io('ws://localhost:3500'));
+    //   }
+    //   if (socket){
+    //     socket.onAny((metric, data) =>{
+    //       console.log("Here's your data: ", data); //is an object with a metric property
+    //       setUnderReplicated(data)
+    //     });
+    //   }
+    // }
   
 
   
@@ -71,41 +56,40 @@ const DataContainer = (props) => {
     gridArea: "DataContainer",
   }
   
-  useEffect(() => {
-    //insert fetch get request to back end to check if user is connected (check for existing port in user db)
-    //with the answer that comes back, set isConnected to true. 
-    if (socket === null){
-      setSocket(io('ws://localhost:3500'));
-    }
-    if (socket){
-      socket.onAny((metric, data) =>{
-        console.log("Here's your data: ", data); //is an object with a metric property
-        setUnderReplicated(data)
-      });
-    }
-  },[socket])
+  function setFetchState() {
+    setFetched(true);
+  } 
 
-// const { underReplicated } = metrics;
-//, offlinePartitions, activeControllers, avgRequestLatency, requestRate, responseRate
-// console.log("underReplicated", underReplicated);
-// console.log("offlinePartitions", offlinePartitions);
+  // useEffect(()=>{
+  //   console.log('use effect triggered');
+  //   if (fetched) return;
+  //   else if (!fetched) {
+  //     setFetchState();
+  //     fetchData();
+  //   }
+    
+  //  },[socket])
+
+
 
 return(
   <>
       <Grid container sx={dataGrid}>
-        <SimpleKeyMetrics underReplicated = {underReplicated}  sx={{gridArea:"SimpleKeyMetrics", minWidth: "100px"}}/> 
-        {/* <Paper className="paper"  sx={{gridArea:"FirstGraph", boxShadow:"none"}}>
-          <AvgRequestLatency avgRequestLatency = {avgRequestLatency}/>
-        </Paper> */}
-        {/* <Paper className="paper" sx={{gridArea:"FirstGraph", boxShadow:"none"}}>
-          <BrokenRequestRate/>
-        </Paper> */}
-        {/* <Paper className="paper" sx={{gridArea:"SecondGraph", boxShadow:"none"}}>
-          <RequestRate requestRate = {requestRate}/>
-        </Paper> */}
-        {/* <Paper className="paper" sx={{gridArea:"ThirdGraph", boxShadow:"none"}}>
-          <ResponseRate responseRate = {responseRate}/>
-        </Paper> */}
+        <SimpleKeyMetrics 
+          // connected={props.connected}
+        underReplicated = {props.underReplicated} 
+        offlinePartitions = {props.offlinePartitions} 
+        activeControllers = {props.activeControllers} 
+        sx={{gridArea:"SimpleKeyMetrics", minWidth: "100px"}}/> 
+        <Paper className="paper"  sx={{gridArea:"FirstGraph", boxShadow:"none"}}>
+          <AvgRequestLatency avgReqLatency = {props.avgReqLatency} />
+        </Paper>
+        <Paper className="paper" sx={{gridArea:"SecondGraph", boxShadow:"none"}}>
+          <RequestRate requestRate = {props.requestRate}/>
+        </Paper>
+        <Paper className="paper" sx={{gridArea:"ThirdGraph", boxShadow:"none"}}>
+          <ResponseRate responseRate = {props.responseRate}/>
+        </Paper>
       </Grid>
     </>
   )

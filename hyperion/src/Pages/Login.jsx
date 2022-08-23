@@ -20,7 +20,13 @@ const Login = () => {
     try {
       setError("")
       setLoading(true)
-      await login(emailRef.current.value, passwordRef.current.value)
+      const result = await login(emailRef.current.value, passwordRef.current.value)
+      const email = result.user.email;
+      console.log(email);
+      localStorage.setItem(
+        'email',
+        JSON.stringify({ email })
+      );
       navigate("/dashboard")
     } catch {
       setError("Failed to log in")
@@ -36,7 +42,12 @@ const Login = () => {
       setError("")
       setLoading(true)
       const result = await loginWithGoogle();
-      console.log(result);
+      const email = result.user.email;
+      console.log(email);
+      localStorage.setItem(
+        'email',
+        JSON.stringify({ email })
+      );
       navigate("/dashboard")
     // setTimeout(()=>navigate("/dashboard"),5000)
 
@@ -63,6 +74,17 @@ const Login = () => {
     setLoading(false)
   }
 
+  // localStorage.setItem(
+  //   'user',
+  //   JSON.stringify({ ...response.data, password: "" })
+  // );
+    //to check if user is already logged in, navigate to homepage
+
+    // useEffect(() => {
+    //   if (localStorage.getItem('email')) {
+    //     navigate("/dashboard");
+    //   }
+    // }, []);
 
   return (
     <div className="login-page">
@@ -71,10 +93,7 @@ const Login = () => {
         <img src={logo} width="200px" height="200px"></img>
         </Box>
         <Box className="login-text-box">
-          <h2>Welcome Back</h2>
-          {/* <Box className='logo'>
-            <img src={logo} width="30px" height="30px"></img>
-          </Box> */}
+          <h2>Hyperion</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <form onSubmit={handleSubmit}>
             <div className="form-input">

@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Box } from '@mui/material';
-
 import Chart from 'chart.js/auto';
 import { Line} from "react-chartjs-2";
 import 'chartjs-adapter-luxon';
 import StreamingPlugin from 'chartjs-plugin-streaming';
-// import { queryDictionary } from '../Containers/DataContainer.jsx';
-//const { avgReqLatencyQuery } = queryDictionary;
+
 
 
 Chart.register(StreamingPlugin);
@@ -14,17 +12,20 @@ Chart.register(StreamingPlugin);
 
 const pollingInterval = 5000;
 
-const ResponseRate = () => {
+const ResponseRate = ({responseRate}) => {
 //ResponseRate = An average number of responses received per producer.
-  let count = 0; 
-  const [resRate, setResRate] = useState([]);
+
+  const [resRateSets, setResRateSets] = useState([]);
   const [dataPoints, setDataPoints] = useState([]);
   
-  // make Initial Fetch on Component Did Mount
   useEffect(()=> {
-    initialFetch();
-    count++;
-  }, [])
+    if (!resRateSets.length){
+      makeDataSets(responseRate);
+    }
+    makeDataPoints(responseRate);
+    console.log('responseRate sets: ', resRateSets)
+    console.log('responseRate: ', responseRate)
+  }, [responseRate])
   
   const makeDataSets = resData => {
     const output = [];
@@ -39,32 +40,17 @@ const ResponseRate = () => {
        }
       output.push(obj);
     }
-    setResRate(output);
+    setResRateSets(output);
   }
   
-  const initialFetch = async () => {
-    const response = await fetch('/server/metrics?metric=responseRate');
-    const data = await response.json();
-    makeDataSets(data);
-  }
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      fetchLatency();
-    }, pollingInterval);
-    return () => clearInterval(interval);
-  },[count])
   
-  
-  const fetchLatency = async () =>  {
+  function makeDataPoints(newData) {
     const newDataPoints = [];
-    const response = await fetch('/server/metrics?metric=responseRate');
-    const newData = await response.json();
     for (let i = 0; i < newData.length; i++) {
       newDataPoints.push({x: newData[i].x, y: newData[i].y});
     }
     setDataPoints(newDataPoints);
-    localStorage.setItem('ResponseRate', JSON.stringify(newDataPoints));
+    // localStorage.setItem('Request Rate', JSON.stringify(newDataPoints));
   }
   
 
@@ -72,7 +58,7 @@ const ResponseRate = () => {
     <Box>
       <Line
         data={{
-          datasets: resRate,
+          datasets: resRateSets,
     
         }}
         options={{
@@ -81,6 +67,7 @@ const ResponseRate = () => {
                 radius: 0
             }
           },
+          animation: true,
           plugins: {
             title: {
               display: true,
