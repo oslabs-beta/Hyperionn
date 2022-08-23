@@ -1,7 +1,7 @@
 import React,{useEffect, useContext, useState, createContext} from "react";
 import { Grid, Box } from '@mui/material';
 import NavBar from '../Components/NavBar';
-import SideNav from '../Components/SideNav';
+//import SideNav from '../Components/SideNav';
 import ErrorLogContainer from '../Components/ErrorLogContainer';
 
 export function ErrorLogDisplay () {
@@ -24,14 +24,14 @@ export function ErrorLogDisplay () {
             <Grid container sx={outerGridContainer}>
               {/* <InfoContext.Provider value={[kafkaData, setKafkaData]}> */}
                 <Box sx={{gridArea:"SideNav"}}>
-                  <SideNav />
+                  {/* <SideNav /> */}
                 </Box>
                 <Box item sx={{ gridArea: "NavBar"}}>
                   <NavBar />
                 </Box>
-                <Box item sx={{gridArea:"ErrorLogContainer"}}>
+                {/* <Box item sx={{gridArea:"ErrorLogContainer"}}>
                   <ErrorLogContainer />
-                </Box>
+                </Box> */}
               {/* </InfoContext.Provider> */}
             </Grid>
           </>

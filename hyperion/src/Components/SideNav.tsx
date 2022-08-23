@@ -3,7 +3,7 @@ import { Button, TextField, Drawer } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-const SideNav = () => {
+const SideNav = (props) => {
 
   const [connectButton, setConnectButton] = React.useState(false);
   const navigate = useNavigate();
@@ -14,22 +14,23 @@ const SideNav = () => {
     width: "150px"
   }
 
-  interface ConnectionModel {
-    port: number;
-    domain: string;
-  }
+  // interface ConnectionModel {
+  //   port: number;
+  //   domain: string;
+  // }
 
-  const handleSubmit = async () => {
-    //get the values of the needed imputs to send to server
+  const handleSubmit = () => {
     const port = (document.getElementById('port') as HTMLInputElement).value;
     const domain = (document.getElementById('domain') as HTMLInputElement).value;
-    try{
-      axios.post<ConnectionModel>('/server/metrics', { port: port, domain: domain })
-      setConnectButton(false);
-    }
-    catch(error){
-      console.log('error sending data')
-    }
+    props.handlePortAndDomain(port, domain);
+    //get the values of the needed imputs to send to server
+    // try{
+    //   axios.post<ConnectionModel>('/server/metrics', { port: port, domain: domain })
+    //   setConnectButton(false);
+    // }
+    // catch(error){
+    //   console.log('error sending data')
+    // }
   }
 
     return (

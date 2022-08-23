@@ -44,16 +44,17 @@ const DataContainer = (props) => {
     //   // 'responseRate': [],
     //   // 'avgReqLatency': []
     // })
-    const [socket, setSocket] = useState(null)
-    const [fetched, setFetched] = useState(false)
-    const [underReplicated, setUnderReplicated] = useState({});
-    const [email, setEmail] = useState(null);
+    // const [socket, setSocket] = useState(null)
+    // const [fetched, setFetched] = useState(false)
+    // const [underReplicated, setUnderReplicated] = useState({});
+    // const [email, setEmail] = useState(null);
     // const [offlinePartitions, setOfflinePartitions] = useState([])
     // const [activeControllers, setActiveControllers] = useState([])
     // const [requestRate, setRequestRate] = useState([])
     // const [responseRate, setResponseRate] = useState([])
     // const [avgReqLatency, setAvgReqLatency] = useState([])
-    
+
+
     function fetchData(){
       const email = localStorage.getItem('email');
       fetch('/server/isConnected',{
@@ -93,22 +94,27 @@ const DataContainer = (props) => {
     setFetched(true);
   } 
 
-  useEffect(()=>{
-    console.log('use effect triggered');
-    if (fetched) return;
-    else if (!fetched) {
-      setFetchState();
-      fetchData();
-    }
+  // useEffect(()=>{
+  //   console.log('use effect triggered');
+  //   if (fetched) return;
+  //   else if (!fetched) {
+  //     setFetchState();
+  //     fetchData();
+  //   }
     
-   },[socket])
+  //  },[socket])
 
 
 
 return(
   <>
       <Grid container sx={dataGrid}>
-        {/* <SimpleKeyMetrics underReplicated = {underReplicated}  sx={{gridArea:"SimpleKeyMetrics", minWidth: "100px"}}/>  */}
+        <SimpleKeyMetrics 
+          // connected={props.connected}
+        underReplicated = {props.underReplicated} 
+        offlinePartitions = {props.offlinePartitions} 
+        activeControllers = {props.activeControllers} 
+        sx={{gridArea:"SimpleKeyMetrics", minWidth: "100px"}}/> 
         {/* <Paper className="paper"  sx={{gridArea:"FirstGraph", boxShadow:"none"}}>
           <AvgRequestLatency avgRequestLatency = {avgRequestLatency}/>
         </Paper> */}

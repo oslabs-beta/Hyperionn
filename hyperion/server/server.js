@@ -3,8 +3,10 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const router = require('./routers/Router');
+// const getDataAndEmit = require('./routers/Router');
 const PORT = 3001;
-const axios = require('axios')
+const axios = require('axios');
+//const { SocketAddress } = require('net');
 // var firebase = require('firebase');
 // var firebaseui = require('firebaseui');
 // const { auth } = require('express-openid-connect');
@@ -17,12 +19,126 @@ const queryStringDictionary = {
   avgReqLatency: '/api/v1/query?query=kafka_producer_producer_metrics_request_latency_avg',
   avgReqLatencyZookeepers: '/api/v1/query?query=zookeeper_avgrequestlatency',
 };
-const prometheusServerHostname = 'http://localhost:';
-const prometheusPort = '9090';
-const url = prometheusServerHostname + prometheusPort;
+// const prometheusServerHostname = 'http://localhost:';
+// const prometheusPort = '9090';
+// const url = prometheusServerHostname + prometheusPort;
 //import { Server } from "socket.io";
 
 // const io = new Server(3500);
+const parseData = (data, metric) => {
+  // if (res.locals.connected === true) {
+  const queryString = `INSERT INTO errors 
+  (name, instance, env, value, time, user_id) 
+  VALUES ($1, $2, $3, $4, $5, $6)`;
+  const dataArray = data.data.data.result;
+  // console.log('dataArray: ', dataArray);
+  if(metric === 'underReplicated' || metric === 'offlinePartitions'){
+      // console.log('inside logic for underReplicated/offlinePartitions');
+      // console.log('metricData to be parsed: ', res.locals.metricData);
+      // console.log(Date.now());
+      try {
+        dataArray.forEach((metricObj, ind, arr) => {
+            if (Number(metricObj.value[1]) > 0) {
+                const name = dataArray[ind].metric.__name__;
+                const instance = dataArray[ind].metric.instance;
+                const env = dataArray[ind].metric.env;
+                const value = Number(dataArray[ind].value[1]);
+                const dateObj = new Date(dataArray[ind].value[0]);
+                const time = dateObj.toLocaleString(); //human readable timestamp
+                const user_id = 1;
+                const queryParameter = [name, instance, env, value, time, user_id];
+                pg.query(queryString, queryParameter)
+                .then((result) => {
+                    console.log('inserted out of range metric into db: ', result);
+                    return dataArray;
+                })
+                .catch(err => {throw new Error('ERROR LOGGING OUT OF RANGE METRIC')});
+            } 
+          });
+          return dataArray;
+        } catch(error) {
+        console.log('Error in parseData underReplicated and offlinePartitions: ', error);
+        throw new Error('Error setting data metrics')
+      }
+  } else if (metric === 'activeControllers') {
+    try {
+      const sum = dataArray.reduce((acc, curr) => 
+          Number(acc) + Number(curr.value[1])
+      , 0);
+      // console.log('sum: ', sum);
+      if (sum !== 1) {
+          const name = dataArray[0].metric.__name__;
+          const instance = dataArray[0].metric.instance;
+          const env = dataArray[0].metric.env;
+          const value = sum;
+          const time = dataArray[0].value[0]
+          const user_id = 1;
+          const queryParameter = [name, instance, env, value, time, user_id];
+          pg.query(queryString, queryParameter)
+          .then((result) => {
+              console.log('inserted out of range metric into db: ', result);
+              return dataArray;
+          })
+          .catch(err =>{ throw new Error('ERROR LOGGING OUT OF RANGE METRIC')});
+      }
+      return dataArray;
+    } catch(error) {
+      console.log('Error in parseData activeControllers: ', error);
+      throw new Error('Error setting data metrics')
+    }
+
+    } else {
+        //grab Metric data out of res.locals
+        try{
+          // console.log('data for tempMetricData: ', data)
+        const tempMetricData = dataArray;
+        //create a new date object
+        // const today = new Date();
+        //Get CURRENT TIME from the date object
+        // const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        //create an array to hold data needed by Anoish on the front end
+        const arrayWithDataForAnish = []
+        //iterate through our metric data, pushing relevant data into the array to be sent to the front end
+        tempMetricData.forEach(dataObj => {
+            arrayWithDataForAnish.push({x: Date.now(), y: dataObj.value[1], instance: dataObj.metric.instance});
+        });
+        // const objWithDataForAnish = {'x': Math.floor(Date.now() / 1000), 'y': averageLatency};
+        // console.log('arrayWithDataForAnish: ', arrayWithDataForAnish);
+        //send data to the front end on res.locals
+        return arrayWithDataForAnish;
+      }catch(error){
+        console.log('error in setting metric data: ', error)
+        throw new Error('Error setting data metrics')
+      }
+        // parse out data to conform to an object with an x value (timestamp) and a y value (data value)
+        // res.locals.metricData = 
+
+    } 
+ }
+ const allMetrics = [ 'underReplicated', 'offlinePartitions', 'activeControllers']; 
+
+const getDataAndEmit = (url) => {
+  //  for (let key in queryStringDictionary){
+    // allMetrics.forEach(metric => {
+      console.log('trying to get data SOS')
+      allMetrics.forEach( async (metric) => {
+    try{
+      const queryString = queryStringDictionary[metric]
+      const data = await axios.get(`${url}${queryString}`);
+      const parsedData = parseData(data, metric)
+              //Create a property on res.locals with the data to be sent back to the client
+      // const emittedData  = data.data.data.result;
+      // console.log(key);
+      console.log('back end sending this data through socket: ', metric, parsedData)
+      // io.emit(metric, parsedData);
+      io.emit(metric, parsedData);
+    }catch(error){
+      console.log('error in get data and emit', error)
+      throw new Error('Error in get Data and Emit')
+    }
+  }) 
+}
+
 
 const http = require('http').createServer();
 
@@ -30,6 +146,38 @@ const io = require('socket.io')(http, {
     cors: { origin: "*" }
 });
 global.io = io;
+
+
+io.on('connection', socket => {
+  console.log('client connected');  
+
+  // socket.on("range", range => {
+    
+  //   //passing down ip using closure in the queries.js file
+  //   query_chart(socket, ipInCache, range);
+    
+    
+  // })
+
+  socket.on("ip", ip => {
+    console.log('IN HERE')
+    // for testing 
+    // query(socket,ip);
+    //setTimeout(callTransporter, 3000, {to: 'sendFromMetricCard@yay.com', subject: 'FAKE Underreplicated Partitions'});
+    
+    // uncomment after test for normal use
+    setInterval(getDataAndEmit, 5000, ip); //ip = domain:port
+  })
+
+  // socket.on("alert", data => {
+  //   throttled_callTransport(data);
+
+  // })
+})
+
+
+
+
 //const count = 0;
 // let data = Date.now()
 // let data = 1;
