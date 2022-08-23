@@ -121,7 +121,7 @@ const AvgRequestLatency = ({avgReqLatency}) => {
           }
         }}
       />
-      <ReadMoreIcon fontSize='small' onClick={handleClick} sx={{color:'#f6f6f6'}}></ReadMoreIcon>
+      <ReadMoreIcon fontSize='small' onClick={handleClick} sx={{color:'#a4a4a4'}}></ReadMoreIcon>
             <Popover
               id={id}
               open={open}

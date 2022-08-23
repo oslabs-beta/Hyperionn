@@ -30,7 +30,7 @@ const queryStringDictionary = {
 // const io = new Server(3500);
 const parseData = (data, metric, email) => {
   const queryString = `INSERT INTO errors 
-  (name, instance, env, value, time, user_id) 
+  (name, instance, env, value, time, email) 
   VALUES ($1, $2, $3, $4, $5, $6)`;
   const dataArray = data.data.data.result;
   if(metric === 'underReplicated' || metric === 'offlinePartitions'){
@@ -51,7 +51,7 @@ const parseData = (data, metric, email) => {
                     console.log('inserted out of range metric into db: ', result);
                     return dataArray;
                 })
-                .catch(err => {throw new Error('ERROR LOGGING OUT OF RANGE METRIC')});
+                .catch(err => {throw new Error('ERROR LOGGING OUT OF RANGE METRIC OFFLINE AND UNDER')});
             } 
           });
           return dataArray;
@@ -64,7 +64,7 @@ const parseData = (data, metric, email) => {
       const sum = dataArray.reduce((acc, curr) => 
           Number(acc) + Number(curr.value[1])
       , 0);
-      if (sum !== 1) {
+      if (sum === 1) {
           const name = dataArray[0].metric.__name__;
           const instance = dataArray[0].metric.instance;
           const env = dataArray[0].metric.env;
@@ -79,7 +79,7 @@ const parseData = (data, metric, email) => {
               console.log('inserted out of range metric into db: ', result);
               return dataArray;
           })
-          .catch(err =>{ throw new Error('ERROR LOGGING OUT OF RANGE METRIC')});
+          .catch(err =>{ throw new Error('ERROR LOGGING OUT OF RANGE METRIC ACTIVE')});
       }
       return dataArray;
     } catch(error) {
@@ -92,7 +92,7 @@ const parseData = (data, metric, email) => {
         try{
           // console.log('data for tempMetricData: ', data)
         const tempMetricData = dataArray;
-        console.log('tempMetricData: ', tempMetricData)
+        // console.log('tempMetricData: ', tempMetricData)
         //create a new date object
         // const today = new Date();
         //Get CURRENT TIME from the date object
@@ -167,6 +167,7 @@ io.on('connection', socket => {
     //setTimeout(callTransporter, 3000, {to: 'sendFromMetricCard@yay.com', subject: 'FAKE Underreplicated Partitions'});
     
     // uncomment after test for normal use
+    console.log('backend email in socket: ', email)
     setInterval(getDataAndEmit, 5000, ip, email); //ip = domain:port
   })
 
