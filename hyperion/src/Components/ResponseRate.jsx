@@ -10,7 +10,7 @@ import StreamingPlugin from 'chartjs-plugin-streaming';
 Chart.register(StreamingPlugin);
   
 
-const pollingInterval = 5000;
+// const pollingInterval = 5000;
 
 const ResponseRate = ({responseRate}) => {
 //ResponseRate = An average number of responses received per producer.

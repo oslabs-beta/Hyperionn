@@ -60,6 +60,7 @@ const RequestRate = ({requestRate}) => {
   
   return (
     <Box>
+      <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Request Rate</Typography>
       <Line
         data={{
           datasets: reqRateSets,
@@ -96,6 +97,20 @@ const RequestRate = ({requestRate}) => {
           }
         }}
       />
+      <ReadMoreIcon fontSize='small' onClick={handleClick} sx={{color:'#f6f6f6'}}></ReadMoreIcon>
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+        vertical: 'bottom',
+          horizontal: 'left',
+              }}
+            >
+              <Typography sx={{ p: 2 }}>The average request latency is a measure of the amount of time between when KafkaProducer.send() was called until the producer receives a response from the broker. </Typography>
+              <Typography sx={{ p: 1, color: '#f366dc' }}>Source: https://www.datadoghq.com/blog/monitoring-kafka-performance-metrics/</Typography>
+             </Popover>
     </Box>
   )
 }

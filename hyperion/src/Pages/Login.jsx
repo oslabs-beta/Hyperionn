@@ -25,7 +25,7 @@ const Login = () => {
       console.log(email);
       localStorage.setItem(
         'email',
-        JSON.stringify({ email })
+        JSON.stringify( email )
       );
       navigate("/dashboard")
     } catch {
@@ -46,7 +46,7 @@ const Login = () => {
       console.log(email);
       localStorage.setItem(
         'email',
-        JSON.stringify({ email })
+        JSON.stringify( email )
       );
       navigate("/dashboard")
     // setTimeout(()=>navigate("/dashboard"),5000)
