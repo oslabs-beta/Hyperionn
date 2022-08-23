@@ -15,6 +15,8 @@ function MainDisplay () {
   const [activeControllers, setActiveControllers] = useState({});
   const [offlinePartitions, setOfflinePartitions] = useState({});
   const [avgReqLatency, setAvgReqLatency] = useState({});
+  const [responseRate, setResponseRate] = useState({});
+  const [requestRate, setRequestRate] = useState({});
   // const [avgDataSets, setAvgDataSets] = useState([]);
 
   // function makeDataSets (incomingDataArray) {
@@ -65,6 +67,8 @@ function MainDisplay () {
         if (metric === 'offlinePartitions') setOfflinePartitions(data);
         if (metric === 'activeControllers') setActiveControllers(data);
         if (metric === 'avgReqLatency') setAvgReqLatency(data);
+        if (metric === 'responseRate') setResponseRate(data);
+        if (metric === 'requestRate') setRequestRate(data);
       })
       // if (JSON.stringify(avgReqLatency) !== '{}'){
       //   makeDataSets(avgReqLatency)
@@ -112,10 +116,11 @@ function MainDisplay () {
                   offlinePartitions={offlinePartitions}
                   underReplicated={underReplicated}
                   avgReqLatency={avgReqLatency}
+                  responseRate={responseRate}
+                  requestRate={requestRate}
                   // avgDataSets={avgDataSets}
                   
                 />
-                {/* <DataContainer props={ dataProps }/> */}
               </Box>
             </Grid>
         </>

@@ -116,7 +116,7 @@ const parseData = (data, metric) => {
 
     } 
  }
- const allMetrics = [ 'underReplicated', 'offlinePartitions', 'activeControllers', 'avgReqLatency']; 
+ const allMetrics = [ 'underReplicated', 'offlinePartitions', 'activeControllers', 'avgReqLatency', 'responseRate', 'requestRate']; 
 
 const getDataAndEmit = (url) => {
   //  for (let key in queryStringDictionary){

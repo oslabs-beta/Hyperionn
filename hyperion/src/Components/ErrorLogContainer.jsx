@@ -40,18 +40,20 @@ export default function ErrorLogContainer() {
     ]
   );
 
-  // useEffect(()=> {
-  //   // make Initial Fetch on Component Did Mount that returns the data that will be passed into makeDataSets function
-  //   getErrorData();
+  useEffect(()=> {
+    // make Initial Fetch on Component Did Mount that returns the data that will be passed into makeDataSets function
+    getErrorData();
 
-  // }, [])
+  }, [])
 
   
-  // const getErrorData = async () => {
-  //   const result = await axios.get('/server/errors')
-  //   console.log('get request', result);
-  //   setErrorData(result.data);
-  // }
+  const getErrorData = async () => {
+    
+    const email = localStorage.getItem('email');
+    const result = await axios.post('/server/errors', { email })
+    console.log('get request', result);
+    setErrorData(result.data);
+  }
 
 
 

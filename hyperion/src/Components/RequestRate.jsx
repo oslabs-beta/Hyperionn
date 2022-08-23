@@ -5,8 +5,6 @@ import Chart from 'chart.js/auto';
 import { Line} from "react-chartjs-2";
 import 'chartjs-adapter-luxon';
 import StreamingPlugin from 'chartjs-plugin-streaming';
-// import { queryDictionary } from '../Containers/DataContainer.jsx';
-//const { avgReqLatencyQuery } = queryDictionary;
 
 
 Chart.register(StreamingPlugin);
@@ -14,22 +12,26 @@ Chart.register(StreamingPlugin);
 
 const pollingInterval = 5000;
 
-const RequestRate = () => {
+const RequestRate = ({requestRate}) => {
 //request rate is An average number of responses sent per producer.
-  let count = 0; 
-  const [reqRate, setReqRate] = useState([]);
+
+  const [reqRateSets, setReqRateSets] = useState([]);
   const [dataPoints, setDataPoints] = useState([]);
 
   
-  // make Initial Fetch on Component Did Mount
+
   useEffect(()=> {
-    initialFetch();
-    count++;
-  }, [])
+    if (!reqRateSets.length){
+      makeDataSets(requestRate);
+    }
+    makeDataPoints(requestRate);
+    console.log('requestRate sets: ', reqRateSets)
+    console.log('requestRate: ', requestRate)
+  }, [requestRate])
   
 
-  const output = [];
-  const makeDataSets = reqData => {
+  function makeDataSets(reqData) {
+    const output = [];
     for (let i = 0; i < reqData.length; i++){
       let colorVal = Math.floor(Math.random() * 255)
       const obj = {
@@ -41,32 +43,18 @@ const RequestRate = () => {
        }
       output.push(obj);
     }
-    setReqRate(output);
+    setReqRateSets(output);
   }
   
-  const initialFetch = async () => {
-    const response = await fetch('/server/metrics?metric=requestRate');
-    const data = await response.json();
-    makeDataSets(data);
-  }
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      fetchReqRate();
-    }, pollingInterval);
-    return () => clearInterval(interval);
-  },[count])
   
-  
-  const fetchReqRate = async () =>  {
+  function makeDataPoints(newData) {
     const newDataPoints = [];
-    const response = await fetch('/server/metrics?metric=requestRate');
-    const newData = await response.json();
     for (let i = 0; i < newData.length; i++) {
       newDataPoints.push({x: newData[i].x, y: newData[i].y});
     }
     setDataPoints(newDataPoints);
-    localStorage.setItem('Request Rate', JSON.stringify(newDataPoints));
+    // localStorage.setItem('Request Rate', JSON.stringify(newDataPoints));
   }
 
   
@@ -74,7 +62,7 @@ const RequestRate = () => {
     <Box>
       <Line
         data={{
-          datasets: reqRate,
+          datasets: reqRateSets,
         }}
         options={{
           elements: {
@@ -82,6 +70,7 @@ const RequestRate = () => {
                 radius: 0
             }
           },
+          animation: true,
           plugins: {
             title: {
               display: true,
