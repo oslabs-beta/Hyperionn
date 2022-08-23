@@ -14,8 +14,27 @@ function MainDisplay () {
   const [underReplicated, setUnderReplicated] = useState({});
   const [activeControllers, setActiveControllers] = useState({});
   const [offlinePartitions, setOfflinePartitions] = useState({});
+  const [avgReqLatency, setAvgReqLatency] = useState({});
+  // const [avgDataSets, setAvgDataSets] = useState([]);
 
-
+  // function makeDataSets (incomingDataArray) {
+  //   const colorArray = ['#f3be66', '#f39566', '#f366dc', '#ce10fa', '#63489b'];
+  //   const output = [];
+  //   for (let i = 0; i < incomingDataArray.length; i++){
+  //     let colorVal = Math.floor(Math.random() * 255)
+  //     const obj = {
+  //       label: incomingDataArray[i].instance,
+  //       //backgroundColor: `rgba(${colorVal}, ${colorVal}, ${colorVal}, 0.5)`,
+  //      backgroundColor: `#f39566`,
+  //       borderColor: `#f39566`,
+  //       fill: false,
+  //       data: [],
+  //      }
+  //     output.push(obj);
+  //   }
+  //   //update zookeepers state with the output array that contains the correct # of objects
+  //   setAvgDataSets(output);
+  // }
 
   function handlePortAndDomain(port, domain){
     console.log('inHandlePortAndDomain SOS')
@@ -42,10 +61,14 @@ function MainDisplay () {
       //   setOfflinePartitions(data)
       // });
       socket.onAny((metric, data) => {
-        if (metric ==='underReplicated') setUnderReplicated(data);
-        if (metric ==='offlinePartitions') setOfflinePartitions(data);
-        if (metric ==='activeControllers') setActiveControllers(data);
+        if (metric === 'underReplicated') setUnderReplicated(data);
+        if (metric === 'offlinePartitions') setOfflinePartitions(data);
+        if (metric === 'activeControllers') setActiveControllers(data);
+        if (metric === 'avgReqLatency') setAvgReqLatency(data);
       })
+      // if (JSON.stringify(avgReqLatency) !== '{}'){
+      //   makeDataSets(avgReqLatency)
+      // }
     }
   }
 
@@ -63,7 +86,7 @@ function MainDisplay () {
     // console.log('state offlinepart', offlinePartitions);
     // console.log('state activecont', activeControllers);
     // console.log('state underrep', underReplicated);
-
+    // console.log('state avgreqlatency', avgReqLatency);
 
     // useEffect(()=>{
     // }, [underReplicated, offlinePartitions, activeControllers])
@@ -77,7 +100,7 @@ function MainDisplay () {
         <>
             <Grid container sx={outerGridContainer}>
               <Box sx={{gridArea:"SideNav"}}>
-                <SideNav handlePortAndDomain = {handlePortAndDomain}/>
+                <SideNav handlePortAndDomain = {handlePortAndDomain} />
               </Box>
               <Box sx={{ gridArea: "NavBar"}}>
                 <NavBar />
@@ -88,6 +111,9 @@ function MainDisplay () {
                   activeControllers={activeControllers} 
                   offlinePartitions={offlinePartitions}
                   underReplicated={underReplicated}
+                  avgReqLatency={avgReqLatency}
+                  // avgDataSets={avgDataSets}
+                  
                 />
                 {/* <DataContainer props={ dataProps }/> */}
               </Box>

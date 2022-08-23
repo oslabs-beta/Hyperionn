@@ -92,6 +92,7 @@ const parseData = (data, metric) => {
         try{
           // console.log('data for tempMetricData: ', data)
         const tempMetricData = dataArray;
+        console.log('tempMetricData: ', tempMetricData)
         //create a new date object
         // const today = new Date();
         //Get CURRENT TIME from the date object
@@ -100,7 +101,7 @@ const parseData = (data, metric) => {
         const arrayWithDataForAnish = []
         //iterate through our metric data, pushing relevant data into the array to be sent to the front end
         tempMetricData.forEach(dataObj => {
-            arrayWithDataForAnish.push({x: Date.now(), y: dataObj.value[1], instance: dataObj.metric.instance});
+            arrayWithDataForAnish.push({x: Date.now(), y: Number(dataObj.value[1]), instance: dataObj.metric.instance});
         });
         // const objWithDataForAnish = {'x': Math.floor(Date.now() / 1000), 'y': averageLatency};
         // console.log('arrayWithDataForAnish: ', arrayWithDataForAnish);
@@ -115,7 +116,7 @@ const parseData = (data, metric) => {
 
     } 
  }
- const allMetrics = [ 'underReplicated', 'offlinePartitions', 'activeControllers']; 
+ const allMetrics = [ 'underReplicated', 'offlinePartitions', 'activeControllers', 'avgReqLatency']; 
 
 const getDataAndEmit = (url) => {
   //  for (let key in queryStringDictionary){

@@ -9,14 +9,6 @@ import RequestRate from '../Components/RequestRate.jsx';
 
 
 
-// const queryEndpoint = '/server/metrics?metric=';
-
-// export const queryDictionary = {
-//   offlinePartitionsQuery: `${queryEndpoint}offlinePartition`,
-//   activeControllersQuery: `${queryEndpoint}activeControllers`,
-//   underreplicatedControllersQuery: `${queryEndpoint}underReplicated`,
-//   avgReqLatencyQuery: `${queryEndpoint}avgReqLatency`
-// }
 
 // const allMetrics = ['underReplicated']; // ,'activeControllers', 'offlinePartitions', 'avgReqLatency', 'responseRate', 'requestRate'
 // socket.on('message', text => {
@@ -115,9 +107,12 @@ return(
         offlinePartitions = {props.offlinePartitions} 
         activeControllers = {props.activeControllers} 
         sx={{gridArea:"SimpleKeyMetrics", minWidth: "100px"}}/> 
-        {/* <Paper className="paper"  sx={{gridArea:"FirstGraph", boxShadow:"none"}}>
-          <AvgRequestLatency avgRequestLatency = {avgRequestLatency}/>
-        </Paper> */}
+        <Paper className="paper"  sx={{gridArea:"FirstGraph", boxShadow:"none"}}>
+          <AvgRequestLatency 
+            avgReqLatency = {props.avgReqLatency}
+            // avgDataSets = {props.avgDataSets}
+          />
+        </Paper>
         {/* <Paper className="paper" sx={{gridArea:"FirstGraph", boxShadow:"none"}}>
           <BrokenRequestRate/>
         </Paper> */}

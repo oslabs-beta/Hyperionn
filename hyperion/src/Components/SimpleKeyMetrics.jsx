@@ -35,6 +35,9 @@ const SimpleKeyMetrics = ({ underReplicated, activeControllers, offlinePartition
       console.log('activeControllers: ', activeControllers);
       console.log('offlinePartitions: ', offlinePartitions);
     }
+    // console.log('underReplicated: ', underReplicated);
+    // console.log('activeControllers: ', activeControllers);
+    // console.log('offlinePartitions: ', offlinePartitions);
   });
   
 
