@@ -215,7 +215,7 @@ let hasBeenCalled = false;
 
 
 
-router.get('/errors', 
+router.post('/errors', 
   metricController.getErrors, 
   (req, res) => {
     return res.status(200).json(res.locals.errorData);

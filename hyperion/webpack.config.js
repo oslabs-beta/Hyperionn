@@ -13,12 +13,21 @@ const config = {
   },
   module: {
     rules: [
+      // {
+      //   test: /\.jsx?$/,
+      //   exclude: /node_modules/,
+      //   loader: 'babel-loader',
+      //   options: {
+      //     presets: ['@babel/preset-env', '@babel/react'],
+      //     plugins: ['@babel/plugin-transform-runtime', '@babel/transform-async-to-generator'],
+      //   },
+      // },
       {
-        test: /\.jsx?$/,
+        test: /jsx?$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          presets: ['@babel/preset-env', '@babel/preset-react'],
+          presets: ['@babel/env', '@babel/react'],
           plugins: ['@babel/plugin-transform-runtime', '@babel/transform-async-to-generator'],
         },
       },
@@ -69,3 +78,4 @@ const config = {
 
 module.exports = config;
 
+//, '@babel/preset-react'

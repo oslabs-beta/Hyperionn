@@ -6,11 +6,11 @@ import { Box, Button, TextField } from '@mui/material';
 import GitHubIcon from "@mui/icons-material/GitHub";
 import GoogleIcon from "@mui/icons-material/Google";
 import logo from '../assets/Hyperion.png';
-
-export default function Login() {
+ 
+const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { login, loginWithGoogle, loginWithGithub } = useAuth();
+  const { login, loginWithGoogle, loginWithGithub } = useAuth() || {};
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -129,11 +129,11 @@ export default function Login() {
                 />
             </div>
             <div className="form-button">
-              <Button className="button" id="login-button" disabled={loading} type="submit" sx={{color: "#f39566", width: "195px", border: "1px solid #ececec", margin:"10px"}}>Log In</Button>
-              <Button className="button" id="google-button" sx={{color: "#f39566", width: "195px" }} onClick={handleGoogle}>
+              <Button className="button" id="login-button" role="login-button" disabled={loading} type="submit" sx={{color: "#f39566", width: "195px", border: "1px solid #ececec", margin:"10px"}}>Log In</Button>
+              <Button className="button" id="google-button" role="google-button" sx={{color: "#f39566", width: "195px" }} onClick={handleGoogle}>
                 <GoogleIcon></GoogleIcon>
               </Button>
-              <Button className="button" id="github-button" sx={{color: "#f39566", width: "190px" }} onClick={handleGithub}>
+              <Button className="button" id="github-button" role="github-button" sx={{color: "#f39566", width: "190px" }} onClick={handleGithub}>
                 <GitHubIcon></GitHubIcon>
               </Button>
             </div>
@@ -149,3 +149,5 @@ export default function Login() {
     </div>
   )
 }
+
+export default Login;
