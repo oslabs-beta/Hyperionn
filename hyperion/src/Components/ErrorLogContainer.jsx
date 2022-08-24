@@ -101,7 +101,7 @@ export default function ErrorLogContainer() {
         rows={rows}
         columns={columns}
         pageSize={5}
-        rowsPerPageOptions={[5]}
+        rowsPerPageOptions={[10]}
         checkboxSelection
       />
     </div>
