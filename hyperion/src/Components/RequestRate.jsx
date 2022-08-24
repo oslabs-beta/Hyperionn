@@ -108,7 +108,15 @@ const RequestRate = ({requestRate}) => {
           }
         }}
       />
-      <ReadMoreIcon fontSize='small' onClick={handleClick} sx={{color:'#ececec'}}></ReadMoreIcon>
+      <ReadMoreIcon 
+        fontSize='small' 
+        onClick={handleClick} 
+        sx={{
+          color:'#a4a4a4',
+          '&:hover': {
+            color: '#ce10fa',
+         },
+        }}></ReadMoreIcon>
       <Popover
         id={id}
         open={open}
@@ -118,7 +126,7 @@ const RequestRate = ({requestRate}) => {
         vertical: 'bottom',
           horizontal: 'left',
               }}
-            >
+      >
               <Typography sx={{ p: 2 }}>The request rate is the rate at which producers send data to brokers. Of course, what constitutes a healthy request rate will vary drastically depending on the use case. Keeping an eye on peaks and drops is essential to ensure continuous service availability. If rate-limiting is not enabled, in the event of a traffic spike, brokers could slow to a crawl as they struggle to process a rapid influx of data.</Typography>
               <Typography sx={{ p: 1, color: '#f366dc' }}>Source: https://www.datadoghq.com/blog/monitoring-kafka-performance-metrics/</Typography>
              </Popover>
