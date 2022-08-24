@@ -66,7 +66,7 @@ const parseData = (data, metric, email) => {
       const sum = dataArray.reduce((acc, curr) => 
           Number(acc) + Number(curr.value[1])
       , 0);
-      if (sum === 1) {
+      if (sum !== 1) {
           const name = dataArray[0].metric.__name__;
           const instance = dataArray[0].metric.instance;
           const env = dataArray[0].metric.env;
