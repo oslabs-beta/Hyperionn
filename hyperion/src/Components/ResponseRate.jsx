@@ -107,7 +107,15 @@ const ResponseRate = ({responseRate}) => {
           }
         }}
       />
-      <ReadMoreIcon fontSize='small' onClick={handleClick} sx={{color:'#ececec'}}></ReadMoreIcon>
+      <ReadMoreIcon 
+        fontSize='small' 
+        onClick={handleClick} 
+        sx={{
+          color:'#a4a4a4',
+          '&:hover': {
+            color: '#ce10fa',
+         },
+        }}></ReadMoreIcon>
       <Popover
         id={id}
         open={open}

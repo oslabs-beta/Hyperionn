@@ -133,18 +133,33 @@ const SimpleKeyMetrics = ({ underReplicated, activeControllers, offlinePartition
   // const open = Boolean(anchorEl);
   // const id = open ? 'simple-popover' : undefined;
 
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElUnderRep, setAnchorElUnderRep] = useState(null);
+  const [anchorElActiveCont, setAnchorElActiveCont] = useState(null);
+  const [anchorElOffPart, setAnchorElOffPart] = useState(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleClickUnderRep = (event) => {
+    setAnchorElUnderRep(event.currentTarget);
+  };
+
+  const handleClickActiveCont = (event) => {
+    setAnchorElActiveCont(event.currentTarget);
+  };
+
+  const handleClickOffPart = (event) => {
+    setAnchorElOffPart(event.currentTarget);
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setAnchorElOffPart(null);
+    setAnchorElActiveCont(null);
+    setAnchorElUnderRep(null);
   };
 
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  const openOff = Boolean(anchorElOffPart);
+  const openActive = Boolean(anchorElActiveCont);
+  const openUnder = Boolean(anchorElUnderRep);
+
+  const id = (openOff || openActive || openUnder) ? 'simple-popover' : undefined;
 
   const { offlinePartitionsParsed, activeControllersParsed, underReplicatedParsed } = kafkaData;
 
@@ -158,11 +173,11 @@ const SimpleKeyMetrics = ({ underReplicated, activeControllers, offlinePartition
             <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase' }}>Offline Partitions</Typography>
             <Box sx={{ display:'flex', justifyContent:'space-between', alignContent:'flex-end'}}>
               <Typography className="big-number" sx={{ fontSize: '3rem'}}>{offlinePartitionsParsed}</Typography>
-              <ReadMoreIcon fontSize='small' onClick={handleClick} sx={{color:'#a4a4a4'}}></ReadMoreIcon>
+              <ReadMoreIcon fontSize='small' onClick={handleClickOffPart} sx={{color:'#a4a4a4'}}></ReadMoreIcon>
               <Popover
                 id={id}
-                open={open}
-                anchorEl={anchorEl}
+                open={openOff}
+                anchorElOffPart={anchorElOffPart}
                 onClose={handleClose}
                 anchorOrigin={{
                   vertical: 'bottom',
@@ -182,11 +197,11 @@ const SimpleKeyMetrics = ({ underReplicated, activeControllers, offlinePartition
             <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Active Controllers</Typography>
             <Box sx={{ display:'flex', justifyContent:'space-between', alignContent:'flex-end'}}>
               <Typography className="big-number" sx={{ fontSize: '3rem'}}>{activeControllersParsed}</Typography>
-              <ReadMoreIcon fontSize='small' onClick={handleClick} sx={{color:'#a4a4a4'}}></ReadMoreIcon>
+              <ReadMoreIcon fontSize='small' onClick={handleClickActiveCont} sx={{color:'#a4a4a4'}}></ReadMoreIcon>
               <Popover
                 id={id}
-                open={open}
-                anchorEl={anchorEl}
+                open={openActive}
+                anchorElActiveCont={anchorElActiveCont}
                 onClose={handleClose}
                 anchorOrigin={{
                   vertical: 'bottom',
@@ -206,11 +221,11 @@ const SimpleKeyMetrics = ({ underReplicated, activeControllers, offlinePartition
             <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Underreplicated Partitions</Typography>
             <Box sx={{ display:'flex', justifyContent:'space-between', alignContent:'flex-end'}}>
               <Typography className="big-number" sx={{ fontSize: '3rem'}}>{underReplicatedParsed}</Typography>
-              <ReadMoreIcon fontSize='small' onClick={handleClick} sx={{color:'#a4a4a4'}}></ReadMoreIcon>
+              <ReadMoreIcon fontSize='small' onClick={handleClickUnderRep} sx={{color:'#a4a4a4'}}></ReadMoreIcon>
               <Popover
                 id={id}
-                open={open}
-                anchorEl={anchorEl}
+                open={openUnder}
+                anchorElUnderRep={anchorElUnderRep}
                 onClose={handleClose}
                 anchorOrigin={{
                   vertical: 'bottom',
@@ -226,6 +241,5 @@ const SimpleKeyMetrics = ({ underReplicated, activeControllers, offlinePartition
       </Grid>
     </Container>
   )
-
 }
 export default SimpleKeyMetrics;

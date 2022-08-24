@@ -1,90 +1,60 @@
 import React, { useState, useEffect } from 'react';  
 import { Grid, Box, Paper, TextField, Autocomplete, Container, Card,  CardContent, CardActionArea } from '@mui/material';
-import SimpleKeyMetrics from '../Components/SimpleKeyMetrics.jsx';
-import AvgRequestLatency from '../Components/AvgRequestLatency.jsx';
-// import BrokenRequestRate from '../Components/BrokenRequestRate.jsx';
-import ResponseRate from '../Components/ResponseRate.jsx';
-import RequestRate from '../Components/RequestRate.jsx';
+//import SimpleKeyMetrics from '../Components/SimpleKeyMetrics.jsx';
+import AvgRequestLatency from './AvgRequestLatency.jsx';
+import ResponseRate from './ResponseRate.jsx';
+import RequestRate from './RequestRate.jsx';
+import UnderReplicated from './UnderReplicated.jsx';
+import OfflinePartitions from './OfflinePartitions.jsx';
+import ActiveControllers from './ActiveControllers.jsx';
+import DiskUsage from './DiskUsage.jsx';
 
 
 const DataContainer = (props) => {
-  // const [metrics, setMetrics] = useState({
-    //   'underReplicated': [],
-    //   // 'offlinePartitions' : [],
-    //   // 'activeControllers': [],
-    //   // 'requestRate': [],
-    //   // 'responseRate': [],
-    //   // 'avgReqLatency': []
-    // })
-
-
-
-    // function fetchData(){
-    //   const email = localStorage.getItem('email');
-    //   fetch('/server/isConnected',{
-    //     method: 'POST',
-    //     headers: {'Content-Type': 'application/json'},
-    //     body: JSON.stringify({ email })
-    //   })
-    //   //with the a const data = nswer that comes back, set isConnected to true. 
-    //   if (socket === null){
-    //     setSocket(io('ws://localhost:3500'));
-    //   }
-    //   if (socket){
-    //     socket.onAny((metric, data) =>{
-    //       console.log("Here's your data: ", data); //is an object with a metric property
-    //       setUnderReplicated(data)
-    //     });
-    //   }
-    // }
-  
-
-  
-  //create state for isConnected, and upon component did mount, make request to back end to check 
-  // const dataGrid = {
-  //   padding: "20px",
-  //   display: "grid", 
-  //   gridTemplateColumns: "40vw 40vw", 
-  //   gridTemplateRows: "1fr 1fr",
-  //   gap: "15px 15px", 
-  //   gridTemplateAreas:`
-  //     "SimpleKeyMetrics FirstGraph"
-  //     "SecondGraph ThirdGraph"
-  //     `,
-  //   gridArea: "DataContainer",
-  // }
-  
+ 
   function setFetchState() {
     setFetched(true);
   } 
 
-  // useEffect(()=>{
-  //   console.log('use effect triggered');
-  //   if (fetched) return;
-  //   else if (!fetched) {
-  //     setFetchState();
-  //     fetchData();
-  //   }
-    
-  //  },[socket])
-
-
-
 return(
   <>
     <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
-        <Card>
+        <Card sx={{boxShadow:"none"}}>
           <Grid container spacing={3}>
 
-            {/* Simple Key Metrics */}
-            <Grid item xs={12}>
+            {/* UnderReplicated */}
+            <Grid item xs={12} sm={4}>
               <CardActionArea>
                 <CardContent className="paper" sx={{boxShadow:"none", backgroundColor:'#f6f6f6'}}>
-                  <SimpleKeyMetrics 
+                  {/* <SimpleKeyMetrics 
                     underReplicated = {props.underReplicated} 
                     offlinePartitions = {props.offlinePartitions} 
                     activeControllers = {props.activeControllers} 
-                  />
+                  /> */}
+                  <UnderReplicated underReplicated = {props.underReplicated}/>
+                </CardContent>
+              </CardActionArea>
+            </Grid>
+
+            {/* Active Controllers */}
+            <Grid item xs={12} sm={4}>
+              <CardActionArea>
+                <CardContent className="paper" sx={{boxShadow:"none", backgroundColor:'#f6f6f6'}}>
+                  {/* <SimpleKeyMetrics 
+                    underReplicated = {props.underReplicated} 
+                    offlinePartitions = {props.offlinePartitions} 
+                    activeControllers = {props.activeControllers} 
+                  /> */}
+                  <ActiveControllers activeControllers = {props.activeControllers}/>
+                </CardContent>
+              </CardActionArea>
+            </Grid>
+
+            {/* Offline Partitions*/}
+            <Grid item xs={12} sm={4}>
+              <CardActionArea>
+                <CardContent className="paper" sx={{boxShadow:"none", backgroundColor:'#f6f6f6'}}>
+                  <OfflinePartitions offlinePartitions = {props.offlinePartitions}/>
                 </CardContent>
               </CardActionArea>
             </Grid>
@@ -100,30 +70,38 @@ return(
 
             {/* Request Rate Graph */}
             <Grid item xs={12} sm={4}>
-              <Paper className="paper" sx={{boxShadow:"none"}}>
-                <RequestRate requestRate = {props.requestRate}/>
-              </Paper>
+              <CardActionArea>
+                <CardContent className="paper" sx={{boxShadow:"none"}}>
+                  <RequestRate requestRate = {props.requestRate}/>
+                  </CardContent>
+              </CardActionArea>
             </Grid>
 
             {/* Response Rate Graph */}
             <Grid item xs={12} sm={4}>
-              <Paper className="paper" sx={{boxShadow:"none", cursor: "move"}}>
-                <ResponseRate responseRate = {props.responseRate}/>
-              </Paper>
+              <CardActionArea>
+                <CardContent className="paper" sx={{boxShadow:"none"}}>
+                  <ResponseRate responseRate = {props.responseRate}/>
+                  </CardContent>
+              </CardActionArea>
             </Grid>
 
             {/* User Designated Graph #1 */}
             <Grid item xs={12} sm={6}>
-              <Paper className="paper" sx={{boxShadow:"none", cursor: "move"}}>
-                <ResponseRate responseRate = {props.responseRate}/>
-              </Paper>
+              <CardActionArea>
+                <CardContent className="paper" sx={{boxShadow:"none"}}>
+                  <DiskUsage avgReqLatency = {props.avgReqLatency}/>
+                </CardContent>
+              </CardActionArea>
             </Grid>
 
             {/* User Designated Graph #2 */}
             <Grid item xs={12} sm={6}>
-              <Paper className="paper" sx={{boxShadow:"none", cursor: "move"}}>
-                <ResponseRate responseRate = {props.responseRate}/>
-              </Paper>
+              <CardActionArea>
+                <CardContent className="paper" sx={{boxShadow:"none"}}>
+                  <ResponseRate responseRate = {props.responseRate}/>
+                </CardContent>
+              </CardActionArea>
             </Grid>
           </Grid>
         </Card>
