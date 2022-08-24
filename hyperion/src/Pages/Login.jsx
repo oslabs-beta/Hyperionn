@@ -23,10 +23,7 @@ const Login = () => {
       const result = await login(emailRef.current.value, passwordRef.current.value)
       const email = result.user.email;
       console.log(email);
-      localStorage.setItem(
-        'email',
-        JSON.stringify( email )
-      );
+      localStorage.setItem('email', email );
       navigate("/dashboard")
     } catch {
       setError("Failed to log in")
@@ -44,10 +41,7 @@ const Login = () => {
       const result = await loginWithGoogle();
       const email = result.user.email;
       console.log(email);
-      localStorage.setItem(
-        'email',
-        JSON.stringify( email )
-      );
+      localStorage.setItem('email',email);
       navigate("/dashboard")
     // setTimeout(()=>navigate("/dashboard"),5000)
 

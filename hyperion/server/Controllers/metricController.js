@@ -139,7 +139,8 @@ metricController.getMetricData = async (req, res, next) => {
 
 metricController.getErrors = async (req, res, next) => {
     const {email} = req.body;
-    const queryString = `SELECT * FROM errors WHERE email = ${email} LIMIT 100`;
+    console.log('getErrors email from req.body: ', email)
+    const queryString = `SELECT * FROM errors WHERE email = '${email}' LIMIT 100`;
     const result = await pg.query(queryString);
     console.log('result: ', result);
     res.locals.errorData = result.rows;

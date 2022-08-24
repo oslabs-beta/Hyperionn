@@ -10,20 +10,20 @@ import StreamingPlugin from 'chartjs-plugin-streaming';
 Chart.register(StreamingPlugin);
   
 
-const DiskUsage = ({avgReqLatency}) => {
+const BytesConsumedRate = ({bytesConsumedRate}) => {
 
-  const [avgDataSets, setDataSets] = useState([]);
+  const [byteDataSets, setDataSets] = useState([]);
   const [dataPoints, setDataPoints] = useState([]);
+  const [anchorEl, setAnchorEl] = useState(null);
 
-  // let previousValues = useRef({avgReqLatency})
   useEffect(()=> {
-    if (!avgDataSets.length) {
-      makeDataSets(avgReqLatency);
+    if (!byteDataSets.length) {
+      makeDataSets(bytesConsumedRate);
     }
-    makeDataPoints(avgReqLatency)
-    console.log('sets: ', avgDataSets)
-    console.log('props avgreq: ', avgReqLatency)
-  }, [avgReqLatency])
+    makeDataPoints(bytesConsumedRate)
+    console.log('sets: ', byteDataSets)
+    console.log('props byterate: ', bytesConsumedRate)
+  }, [bytesConsumedRate])
   
   // iterate through the returned data in order to determine # of producers. 
   const makeDataSets = incomingDataArray => {
@@ -43,16 +43,14 @@ const DiskUsage = ({avgReqLatency}) => {
     setDataSets(output);
   }
   
-  function makeDataPoints(avgReqLat) {
+  function makeDataPoints(byteData) {
     const newDataPoints = [];
-    for (let i = 0; i < avgReqLat.length; i++) {
-      newDataPoints.push({x: avgReqLat[i].x, y: avgReqLat[i].y});
+    for (let i = 0; i < byteData.length; i++) {
+      newDataPoints.push({x: byteData[i].x, y: byteData[i].y});
     }
     //state is updated with the new data points
     setDataPoints(newDataPoints);
   }
-
-  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -69,11 +67,11 @@ const DiskUsage = ({avgReqLatency}) => {
 
   return (
     <Box>
-      <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Disk Usage</Typography>
+      <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Bytes Consumed Rate</Typography>
       <Line
-        //datasets is the state avgDataSets array
+        //datasets is the state byteDataSets array
         data={{
-          datasets: avgDataSets,
+          datasets: byteDataSets,
         }}
         options={{
           elements: {
@@ -132,10 +130,10 @@ const DiskUsage = ({avgReqLatency}) => {
             horizontal: 'left',
           }}
           >
-          <Typography sx={{ p: 2 }}>Because Kafka persists all data to disk, it is necessary to monitor the amount of free disk space available to Kafka. Kafka will fail should its disk become full, so it’s very important that you keep track of disk growth over time, and set alerts to inform administrators at an appropriate amount of time before disk space is all but used up.</Typography>
+          <Typography sx={{ p: 2 }}>As with Kafka brokers, you will want to monitor your producer network throughput. Observing traffic volume over time is essential for determining whether you need to make changes to your network infrastructure. Monitoring producer network traffic will help to inform decisions on infrastructure changes, as well as to provide a window into the production rate of producers and identify sources of excessive traffic.</Typography>
           <Typography sx={{ p: 1, color: '#f366dc' }}>Source: https://www.datadoghq.com/blog/monitoring-kafka-performance-metrics/</Typography>
         </Popover>
     </Box>
   )
 }
-export default DiskUsage;
+export default BytesConsumedRate;
