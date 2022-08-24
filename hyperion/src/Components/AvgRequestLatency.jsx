@@ -83,13 +83,6 @@ const AvgRequestLatency = ({avgReqLatency}) => {
             }
           },
           animation: true,
-          plugins: {
-          //   title:
-          //  {
-          //     display: true,
-          //     text: 'Average Request Latency'
-          //   }
-        },
           scales: {
             y: {
                 display: true,
@@ -121,20 +114,28 @@ const AvgRequestLatency = ({avgReqLatency}) => {
           }
         }}
       />
-      <ReadMoreIcon fontSize='small' onClick={handleClick} sx={{color:'#a4a4a4'}}></ReadMoreIcon>
-            <Popover
-              id={id}
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-            >
-              <Typography sx={{ p: 2 }}>The average request latency is a measure of the amount of time between when KafkaProducer.send() was called until the producer receives a response from the broker. </Typography>
-              <Typography sx={{ p: 1, color: '#f366dc' }}>Source: https://www.datadoghq.com/blog/monitoring-kafka-performance-metrics/</Typography>
-             </Popover>
+      <ReadMoreIcon 
+        fontSize='small' 
+        onClick={handleClick} 
+        sx={{
+          color:'#a4a4a4',
+          '&:hover': {
+            color: '#ce10fa',
+         },
+        }}>
+        </ReadMoreIcon>
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}>
+            <Typography sx={{ p: 2 }}>The average request latency is a measure of the amount of time between when KafkaProducer.send() was called until the producer receives a response from the broker. </Typography>
+            <Typography sx={{ p: 1, color: '#f366dc' }}>Source: https://www.datadoghq.com/blog/monitoring-kafka-performance-metrics/</Typography>
+        </Popover>
     </Box>
   )
 }
