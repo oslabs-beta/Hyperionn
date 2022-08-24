@@ -20,7 +20,8 @@ const queryStringDictionary = {
   requestRate: '/api/v1/query?query=kafka_connect_connect_metrics_request_rate',
   avgReqLatency: '/api/v1/query?query=kafka_producer_producer_metrics_request_latency_avg',
   avgReqLatencyZookeepers: '/api/v1/query?query=zookeeper_avgrequestlatency',
-  
+  producerByteRate: '/api/v1/query?query=kafka_producer_producer_metrics_outgoing_byte_rate',
+  bytesConsumedRate: '/api/v1/query?query=kafka_consumer_consumer_fetch_manager_metrics_bytes_consumed_rate'
 };
 // const prometheusServerHostname = 'http://localhost:';
 // const prometheusPort = '9090';
@@ -29,6 +30,7 @@ const queryStringDictionary = {
 
 // const io = new Server(3500);
 const parseData = (data, metric, email) => {
+  console.log('parse data email: ', email)
   const queryString = `INSERT INTO errors 
   (name, instance, env, value, time, email) 
   VALUES ($1, $2, $3, $4, $5, $6)`;
@@ -116,7 +118,7 @@ const parseData = (data, metric, email) => {
 
     } 
  }
- const allMetrics = [ 'underReplicated', 'offlinePartitions', 'activeControllers', 'avgReqLatency', 'responseRate', 'requestRate']; 
+ const allMetrics = [ 'underReplicated', 'offlinePartitions', 'activeControllers', 'avgReqLatency', 'responseRate', 'requestRate', 'producerByteRate', 'bytesConsumedRate']; 
 
 const getDataAndEmit = (url, email) => {
   //  for (let key in queryStringDictionary){

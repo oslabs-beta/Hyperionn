@@ -18,54 +18,26 @@ function MainDisplay () {
   const [avgReqLatency, setAvgReqLatency] = useState({});
   const [responseRate, setResponseRate] = useState({});
   const [requestRate, setRequestRate] = useState({});
+  const [producerByteRate, setProducerByteRate] = useState({});
+  const [bytesConsumedRate, setBytesConsumedRate] = useState({});
   // const [avgDataSets, setAvgDataSets] = useState([]);
-
-  // function makeDataSets (incomingDataArray) {
-  //   const colorArray = ['#f3be66', '#f39566', '#f366dc', '#ce10fa', '#63489b'];
-  //   const output = [];
-  //   for (let i = 0; i < incomingDataArray.length; i++){
-  //     let colorVal = Math.floor(Math.random() * 255)
-  //     const obj = {
-  //       label: incomingDataArray[i].instance,
-  //       //backgroundColor: `rgba(${colorVal}, ${colorVal}, ${colorVal}, 0.5)`,
-  //      backgroundColor: `#f39566`,
-  //       borderColor: `#f39566`,
-  //       fill: false,
-  //       data: [],
-  //      }
-  //     output.push(obj);
-  //   }
-  //   //update zookeepers state with the output array that contains the correct # of objects
-  //   setAvgDataSets(output);
-  // }
+  const email = localStorage.getItem('email');
 
   function handlePortAndDomain(port, domain){
+    const domainLocal = localStorage.getItem('domain');
+    const portLocal = localStorage.getItem('port');
+    //To implement: display a message for a user that they have a port connected already, if the if statement is truthy
+    if (domainLocal === domain && portLocal === port) return; //this will avoid making duplicate sockets for already existing domain port
+    //To implement: we need logic for closing old sockets when user connects a brand new port 
     console.log('inHandlePortAndDomain SOS')
     setDomain(domain);
     setPort(port);
-    const email = localStorage.getItem('email');
+    
     if (domain && port) {
       const socket = (io('ws://localhost:3500'));
-      // socket.on("data", (data)=>{
-      //   if(data) dispatch(connectAddress({ipaddress, port}));
-      // });
       const ip = `${domain}:${port}`
       socket.emit("ip&email", ip, email);
 
-      // setConnected(true);
-
-      // socket.on('underReplicated', (data) =>{
-      //   console.log("Here's your underRep data: ", data); //is an object with a metric property
-      //   setUnderReplicated(data)
-      // });
-      // socket.on('activeControllers', (data) =>{
-      //   console.log("Here's your activeCont data: ", data); //is an object with a metric property
-      //   setActiveControllers(data)
-      // });
-      // socket.on('offlinePartitions', (data) =>{
-      //   console.log("Here's your offPart data: ", data); //is an object with a metric property
-      //   setOfflinePartitions(data)
-      // });
       socket.onAny((metric, data) => {
         if (metric === 'underReplicated') setUnderReplicated(data);
         if (metric === 'offlinePartitions') setOfflinePartitions(data);
@@ -73,12 +45,36 @@ function MainDisplay () {
         if (metric === 'avgReqLatency') setAvgReqLatency(data);
         if (metric === 'responseRate') setResponseRate(data);
         if (metric === 'requestRate') setRequestRate(data);
+        if (metric === 'producerByteRate') setProducerByteRate(data);
+        if (metric === 'bytesConsumedRate') setBytesConsumedRate(data);
       })
       // if (JSON.stringify(avgReqLatency) !== '{}'){
       //   makeDataSets(avgReqLatency)
       // }
     }
   }
+
+  useEffect(()=> {
+    const domainLocal = localStorage.getItem('domain');
+    const portLocal = localStorage.getItem('port');
+
+    if (domainLocal && portLocal) {
+      const socket = (io('ws://localhost:3500'));
+      const ip = `${domainLocal}:${portLocal}`
+      socket.emit("ip&email", ip, email);
+      
+      socket.onAny((metric, data) => {
+        if (metric === 'underReplicated') setUnderReplicated(data);
+        if (metric === 'offlinePartitions') setOfflinePartitions(data);
+        if (metric === 'activeControllers') setActiveControllers(data);
+        if (metric === 'avgReqLatency') setAvgReqLatency(data);
+        if (metric === 'responseRate') setResponseRate(data);
+        if (metric === 'requestRate') setRequestRate(data);
+        if (metric === 'producerByteRate') setProducerByteRate(data);
+        if (metric === 'bytesConsumedRate') setBytesConsumedRate(data);
+      })
+    }
+  }, [])
 
     const outerGridContainer = {
         display: "grid",
@@ -122,6 +118,8 @@ function MainDisplay () {
                   avgReqLatency={avgReqLatency}
                   responseRate={responseRate}
                   requestRate={requestRate}
+                  producerByteRate={producerByteRate}
+                  bytesConsumedRate={bytesConsumedRate}
                   // avgDataSets={avgDataSets}
                   
                 />

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';  
 import { Grid, Box, Paper, TextField, Autocomplete, Container, Card,  CardContent, CardActionArea } from '@mui/material';
 //import SimpleKeyMetrics from '../Components/SimpleKeyMetrics.jsx';
-import AvgRequestLatency from './AvgRequestLatency.jsx';
-import ResponseRate from './ResponseRate.jsx';
-import RequestRate from './RequestRate.jsx';
-import UnderReplicated from './UnderReplicated.jsx';
-import OfflinePartitions from './OfflinePartitions.jsx';
-import ActiveControllers from './ActiveControllers.jsx';
-import DiskUsage from './DiskUsage.jsx';
+import AvgRequestLatency from './AvgRequestLatency';
+import ResponseRate from './ResponseRate';
+import RequestRate from './RequestRate';
+import UnderReplicated from './UnderReplicated';
+import OfflinePartitions from './OfflinePartitions';
+import ActiveControllers from './ActiveControllers';
+import OutgoingByteRate from './OutgoingByteRate';
+import BytesConsumedRate from './BytesConsumedRate';
 
 
 const DataContainer = (props) => {
@@ -86,20 +87,20 @@ return(
               </CardActionArea>
             </Grid>
 
-            {/* User Designated Graph #1 */}
+            {/* Producer Outgoing Byte Rate */}
             <Grid item xs={12} sm={6}>
               <CardActionArea>
                 <CardContent className="paper" sx={{boxShadow:"none"}}>
-                  <DiskUsage avgReqLatency = {props.avgReqLatency}/>
+                  <OutgoingByteRate producerByteRate = {props.producerByteRate}/>
                 </CardContent>
               </CardActionArea>
             </Grid>
 
-            {/* User Designated Graph #2 */}
+            {/* Bytes Consumed Rate */}
             <Grid item xs={12} sm={6}>
               <CardActionArea>
                 <CardContent className="paper" sx={{boxShadow:"none"}}>
-                  <ResponseRate responseRate = {props.responseRate}/>
+                  <BytesConsumedRate bytesConsumedRate={props.bytesConsumedRate}/>
                 </CardContent>
               </CardActionArea>
             </Grid>
