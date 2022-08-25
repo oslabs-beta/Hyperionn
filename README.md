@@ -83,7 +83,7 @@ npm run build
 npm start
 ```
 
-2. Hyperion defaults to running on port 3000. Simply go to http://localhost:3500 to view your metrics and start managing your Kafka cluster!
+2. Hyperion defaults to running on port 3000. Simply go to http://localhost:3000 to view your metrics and start managing your Kafka cluster!
 
 3. After you log in, click ‘connect’ in the side navbar. Input the port number and the domain where your prometheus instance is running for your Kafka cluster and click ‘submit’. 
 
@@ -142,6 +142,7 @@ Contributions are welcomed and appreciated. You can do the following to support 
 - Star this repository 
 - Raise new issues
 - Fork, clone, and make a PR to solve an issue
+- Check out our Medium article
 
 
 ## License
