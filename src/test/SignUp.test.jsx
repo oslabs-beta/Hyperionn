@@ -4,7 +4,7 @@ import Signup from '../Pages/Signup.jsx'
 import { describe, expect, it, vi, beforeEach, afterEach, test} from 'vitest';
 import { BrowserRouter} from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
-
+import "@testing-library/jest-dom";
 
 //const submitTest = vi.fn(() => 0)
 

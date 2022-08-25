@@ -48,7 +48,7 @@ const OfflinePartitions = ({ offlinePartitions }) => {
   return (
     <Card>
           <Paper className="paper" sx={{boxShadow:"none"}}>
-            <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase' }}>Offline Partitions</Typography>
+            <Typography role='title' className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase' }}>Offline Partitions</Typography>
             <Box sx={{ display:'flex', justifyContent:'space-between', alignContent:'flex-end'}}>
               <Typography className="big-number" sx={{ fontSize: '3rem'}}>{offlinePartitionsParsed}</Typography>
               <ReadMoreIcon 

@@ -24,7 +24,7 @@ const SideNav = (props) => {
     const domain = (document.getElementById('domain') as HTMLInputElement).value;
     localStorage.setItem('port', port);
     localStorage.setItem('domain', domain);
-    props.handlePortAndDomain(port, domain);
+    props.handlePortAndDomain(domain, port);
     setConnectButton(false)
     //get the values of the needed imputs to send to server
     // try{

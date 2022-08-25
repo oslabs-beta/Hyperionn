@@ -24,6 +24,8 @@ const Login = () => {
       const email = result.user.email;
       console.log(email);
       localStorage.setItem('email', email );
+      localStorage.removeItem("port")
+      localStorage.removeItem("domain")
       navigate("/dashboard")
     } catch {
       setError("Failed to log in")
@@ -42,6 +44,8 @@ const Login = () => {
       const email = result.user.email;
       console.log(email);
       localStorage.setItem('email',email);
+      localStorage.removeItem("port")
+      localStorage.removeItem("domain")
       navigate("/dashboard")
     // setTimeout(()=>navigate("/dashboard"),5000)
 
