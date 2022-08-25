@@ -1,7 +1,7 @@
 # GitHub Tutorial
 <div align="center">
   <a href="https://https://github.com/oslabs-beta/hyperionn">
-    <img src="./assets/Hyperion.png" alt="Logo" height="300px" width="300px"/> 
+    <img src="./src/assets/Hyperion.png" alt="Logo" height="200px" width="200px"/> 
   </a>
   <h1>Hyperion</h1>
   <p>An open-source Kafka monitoring tool built for developers<p>
@@ -93,18 +93,26 @@ Note: When the simple key metrics (active controllers, under-replicated partitio
 
 
 ## Demo
+<div>
+<img src="./src/assets/login.png" alt="LoginScreenshot" height="500px" width="900px"/> 
+</div>
+1. Login with traditional sign up or Google/Github SDK authentication.
 
-<img src="./assets/login.png" alt="LoginScreenshot" height="300px" width="300px"/> 
-Login with traditional sign up or Google/Github SDK authentication.
+<div>
+<img src="./src/assets/connect.png" alt="ConnectScreenshot" height="500px" width="900px"/> 
+</div>
+2. Connect to your Prometheus domain/IP and port.
 
-<img src="./assets/connect.png" alt="ConnectScreenshot" height="300px" width="300px"/> 
-Connect to your Prometheus domain/IP and port.
+<div>
+<img src="./src/assets/moredash.png" alt="DashboardScreenshot" height="500px" width="900px"/> 
+</div>
+3. Your dashboard will populate with the metrics after connecting.
 
-<img src="./assets/moredash.png" alt="DashboardScreenshot" height="300px" width="300px"/> 
-Your dashboard will populate with the metrics after connecting.
+<div>
+<img src="./src/assets/errorlog.png" alt="ErrorLogScreenshot" height="500px" width="900px"/> 
+</div>
+4. Utilize the Error Logs to view occurences of out of range metrics.
 
-<img src="./assets/errorlog.png" alt="ErrorLogScreenshot" height="300px" width="300px"/> 
-Utilize the Error Logs to view occurences of out of range metrics.
 
 
 ## Roadmap
