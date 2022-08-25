@@ -23,19 +23,26 @@ function MainDisplay () {
   // const [avgDataSets, setAvgDataSets] = useState([]);
   const email = localStorage.getItem('email');
 
-  function handlePortAndDomain(port, domain){
-    const domainLocal = localStorage.getItem('domain');
-    const portLocal = localStorage.getItem('port');
+  function handlePortAndDomain(newdomain, newport){
+    // const domainLocal = localStorage.getItem('domain');
+    // const portLocal = localStorage.getItem('port');
     //To implement: display a message for a user that they have a port connected already, if the if statement is truthy
-    if (domainLocal === domain && portLocal === port) return; //this will avoid making duplicate sockets for already existing domain port
+    // if (domainLocal === domain && portLocal === port) return; //this will avoid making duplicate sockets for already existing domain port
     //To implement: we need logic for closing old sockets when user connects a brand new port 
     console.log('inHandlePortAndDomain SOS')
-    setDomain(domain);
-    setPort(port);
-    
-    if (domain && port) {
+    console.log('domainLocal: ', newdomain)
+    console.log('portLocal: ', newport)
+    setDomain(newdomain);
+    setPort(newport);
+    setSocket()
+  }
+
+  function setSocket(){
+    const domainLocal = localStorage.getItem('domain');
+    const portLocal = localStorage.getItem('port');
+    if (domainLocal && portLocal) {
       const socket = (io('ws://localhost:3500'));
-      const ip = `${domain}:${port}`
+      const ip = `${domainLocal}:${portLocal}`
       socket.emit("ip&email", ip, email);
 
       socket.onAny((metric, data) => {
@@ -53,7 +60,46 @@ function MainDisplay () {
       // }
     }
   }
+  
+  // function handlePortAndDomain(newPort, newDomain){
+  //   const domainLocal = localStorage.getItem('domain'); //old domain in storage
+  //   const portLocal = localStorage.getItem('port'); //old port in storage
+  //   //To implement: display a message for a user that they have a port connected already, if the if statement is truthy
+  //   if (domainLocal === domain && portLocal === port) return; //this will avoid making duplicate sockets for already existing domain port
+  //   //To implement: we need logic for closing old sockets when user connects a brand new port 
+  //   console.log('inHandlePortAndDomain SOS')
+  //   if ((!domain && !port) || (domain !== newdomain && port !== newPort)) {
+  //     setDomain(newDomain);
+  //     setPort(newPort);
+  //     startSocket()
+  //   }
+  // }
+  
+  // // function stopSocket(){
+  // //   socket.removeAllListeners()
+  // //   socket.off("ip&email")
+  // // }
+  // function startSocket(domain, port) {
+  //   if (domain && port) {
+  //     const socket = (io('ws://localhost:3500'));
+  //     const ip = `${domain}:${port}`
+  //     socket.emit("ip&email", ip, email);
 
+  //     socket.onAny((metric, data) => {
+  //       if (metric === 'underReplicated') setUnderReplicated(data);
+  //       if (metric === 'offlinePartitions') setOfflinePartitions(data);
+  //       if (metric === 'activeControllers') setActiveControllers(data);
+  //       if (metric === 'avgReqLatency') setAvgReqLatency(data);
+  //       if (metric === 'responseRate') setResponseRate(data);
+  //       if (metric === 'requestRate') setRequestRate(data);
+  //       if (metric === 'producerByteRate') setProducerByteRate(data);
+  //       if (metric === 'bytesConsumedRate') setBytesConsumedRate(data);
+  //     })
+  //     // if (JSON.stringify(avgReqLatency) !== '{}'){
+  //     //   makeDataSets(avgReqLatency)
+  //     // }
+  //   }
+  // }
   useEffect(()=> {
     const domainLocal = localStorage.getItem('domain');
     const portLocal = localStorage.getItem('port');

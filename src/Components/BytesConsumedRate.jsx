@@ -26,15 +26,34 @@ const BytesConsumedRate = ({bytesConsumedRate}) => {
   }, [bytesConsumedRate])
   
   // iterate through the returned data in order to determine # of producers. 
+  // const makeDataSets = incomingDataArray => {
+  //   const colorArray = ['#f3be66', '#f39566', '#f366dc', '#ce10fa', '#63489b'];
+  //   const output = [];
+  //   for (let i = 0; i < incomingDataArray.length; i++){
+  //     let colorVal = Math.floor(Math.random() * 255)
+  //     const obj = {
+  //       label: incomingDataArray[i].instance,
+  //       backgroundColor: `#f39566`,
+  //       borderColor: `#f39566`,
+  //       fill: false,
+  //       data: [],
+  //      }
+  //     output.push(obj);
+  //   }
+  //   setDataSets(output);
+  // }
+  
   const makeDataSets = incomingDataArray => {
-    const colorArray = ['#f3be66', '#f39566', '#f366dc', '#ce10fa', '#63489b'];
+    
+
+    const colorArray = ['#f3be66', '#f6f6f6', '#ececec', '#2d2d2d', '#f3be66', '#f39566', '#f366dc', '#ce10fa', '#63489b', '#120a27'];
     const output = [];
     for (let i = 0; i < incomingDataArray.length; i++){
       let colorVal = Math.floor(Math.random() * 255)
       const obj = {
         label: incomingDataArray[i].instance,
-        backgroundColor: `#f39566`,
-        borderColor: `#f39566`,
+        backgroundColor: `${colorArray[i]}`,
+        borderColor: `${colorArray[i]}`,
         fill: false,
         data: [],
        }
@@ -43,6 +62,11 @@ const BytesConsumedRate = ({bytesConsumedRate}) => {
     setDataSets(output);
   }
   
+
+
+
+
+
   function makeDataPoints(byteData) {
     const newDataPoints = [];
     for (let i = 0; i < byteData.length; i++) {

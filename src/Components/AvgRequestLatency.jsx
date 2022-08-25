@@ -70,7 +70,7 @@ const AvgRequestLatency = ({avgReqLatency}) => {
 
   return (
     <Box>
-      <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Average Request Latency</Typography>
+      <Typography role='name' className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Average Request Latency</Typography>
       <Line
         //datasets is the state avgDataSets array
         data={{

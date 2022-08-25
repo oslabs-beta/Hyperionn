@@ -164,6 +164,7 @@ io.on('connection', socket => {
 
   socket.on("ip&email", (ip, email) => {
     console.log('IN HERE')
+    console.log('ip from front end to back end: ', ip)
     // for testing 
     // query(socket,ip);
     //setTimeout(callTransporter, 3000, {to: 'sendFromMetricCard@yay.com', subject: 'FAKE Underreplicated Partitions'});

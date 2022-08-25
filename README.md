@@ -10,7 +10,7 @@
   <a href="https://github.com/oslabs-beta/ksqljs/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/oslabs-beta/hyperionn"></a>
   <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/oslabs-beta/hyperionn">
   
-  <a href=""><strong>hyperion.com</strong></a>
+  <a href=""><strong>hyperionapp.dev</strong></a>
 </div>
 
 ## Table of Contents
@@ -20,60 +20,50 @@
 1. [Getting Started](#getting-started)
    - [Requirements](#requirements)
    - [Installation](#installation)
-   - [When you're ready to use FranzView](#when-youre-ready-to-use-Hyperion)
-1. [Contributors](#contributors)
+   - [Usage](#when-you're-ready-to-use-hyperion)
+1. [Demo](#demo)
 1. [Roadmap](#roadmap)
-1. [Prometheus Server and Demo Cluster](#prometheus-server-and-demo-cluster)
+1. [Contributors](#contributors)
+1. [Support the  Project](#support-the-project)
 1. [License](#license)
 
 ## About the Project
 
-<!-- FranzView is an open-source web application to help small teams with monitoring and management of Apache Kafka clusters. With FranzView you can monitor key metrics related to broker and topic performance and take actions around them. Through the UI you are able to:
+Hyperion is an open-source visualization tool for monitoring crucial health metrics of your Kafka cluster. This tool allows developers to quickly assess the functionality of their Kafka cluster, as well as identify metrics that become out of the appropriate range. Real-time metrics are consolidated in one dashboard for easy access, and developers have access to an error log where instances of out-of-range metrics are displayed. This application can be deployed on your local network.
 
-- Monitor key performance metrics in real time by broker or topic and diagnose any issues through different views
-- Create and delete topics within a cluster
-- Reassign partition replicas to support with load balancing, change replication factor for a topic, and solve for underreplication issues
-
-These features are supported by a GraphQL API for improved performance, for abstraction of PromQL queries, and is easily extendable based on the nuances of your cluster. -->
+Featured metrics include: under-replicated partitions, offline partitions, active controller count, producer average request latency, request rate, response rate, bytes consumed rate, and producer outgoing byte rate. 
 
 ### Built With
 
 - [Chart.js](https://www.chartjs.org/)
 - [React](https://reactjs.org/)
 - [Material-UI](https://mui.com/)
-- [FireBase SDK](https://firebase.google.com/docs/auth)
-- [Chart.js](https://www.chartjs.org/docs/latest/)
-- [Jest](https://jestjs.io/)
-- [Prometheus](https://prometheus.io/)
-- [KafkaJS](https://kafka.js.org/)
+- [FireBase SDK Authentication](https://firebase.google.com/docs/auth)
+- [PromQL](https://prometheus.io/)
+- [Node.js/Express](https://expressjs.com/)
+- [Socket.io](https://socket.io/)
+- [Vite.js](https://vitejs.dev/)
+
 
 ## Getting Started
 
 ### Requirements
 
-<!-- Before starting setup you'll need to take the following steps:
+1. You will need npm and the latest version of Node.js.
 
-- Have node installed. FranzView is tested to work on Node 14+.
-- If you'd like to use our demo cluster, make sure you have Docker Desktop and Docker Compose installed and then check the [demo instructions](#prometheus-server-and-demo-cluster).
-- Set up [JMX exporter](https://github.com/prometheus/jmx_exporter) on your cluster. You can find the configuration files and a copy of the JMX exporter jar file in the `configs/jmx_exporter` folder in this repo.
-  1. If you're starting your Kafka cluster from the CLI you can set up JMX exporter following these commands:
-  ```
-  export KAFKA_OPTS='-javaagent:{PATH_TO_JMX_EXPORTER}/jmx-exporter.jar={PORT}:{PATH_TO_JMX_EXPORTER_KAFKA.yml}/kafka.yml'
-  ```
-  2. Launch or restart your broker as you normally would.
-- Have a Prometheus metric server set up with targets setup for each of your brokers. You should use the `prometheus.template.yml` as a template.
+2. Ports 3001 and 8080 need to be available to run this application. 
 
-Please check the docker-compose files in this repo as examples or to spin up a demo cluster. -->
+3. Make sure you have a running Kafka cluster with a configured Prometheus instance (you will need the domain and port of where Prometheus is running)
 
 ### Installation
 
-1. Clone down this repository:
+1. Clone this repository in your local machine:
 
 ```
 git clone https://github.com/oslabs-beta/hyperionn
 ```
 
-2. In the Hyperion root directory to install all dependencies:
+2. Install all dependencies:
 
 ```
 npm install
@@ -93,14 +83,28 @@ npm run build
 npm start
 ```
 
-2. Hyperion defaults to running on port 3000. So simply go to http://localhost:3500. You can view your metrics and start managing your Kafka cluster!
+2. Hyperion defaults to running on port 3000. Simply go to http://localhost:3500 to view your metrics and start managing your Kafka cluster!
 
-## Contributors
+3. After you log in, click ‘connect’ in the side navbar. Input the port number and the domain where your prometheus instance is running for your Kafka cluster and click ‘submit’. 
 
-- Anish Patel | [GitHub](https://github.com/justanotherguyonline) | [Linkedin](https://www.linkedin.com/in/anish-patel-759545123/)
-- Kristin Green | [GitHub](https://github.com/kngreen) | [Linkedin](https://www.linkedin.com/in/kristin-green-101902a4/)
-- Joey Friedman | [GitHub](https://github.com/fried-jo) | [Linkedin](https://www.linkedin.com/in/joseph-friedman-803803149/)
-- Anita Duong | [GitHub](https://github.com/anitaduong98) | [Linkedin](https://www.linkedin.com/in/anita-duong/)
+4. Congratulations! You can now view live streaming of data. 
+
+Note: When the simple key metrics (active controllers, under-replicated partitions, offline partitions) are not their expected values, the app will store the occurrence and display them in the error log found on the side navbar.
+
+
+## Demo
+
+<img src="./assets/login.png" alt="LoginScreenshot" height="300px" width="300px"/> 
+Login with traditional sign up or Google/Github SDK authentication.
+
+<img src="./assets/connect.png" alt="ConnectScreenshot" height="300px" width="300px"/> 
+Connect to your Prometheus domain/IP and port.
+
+<img src="./assets/moredash.png" alt="DashboardScreenshot" height="300px" width="300px"/> 
+Your dashboard will populate with the metrics after connecting.
+
+<img src="./assets/errorlog.png" alt="ErrorLogScreenshot" height="300px" width="300px"/> 
+Utilize the Error Logs to view occurences of out of range metrics.
 
 
 ## Roadmap
@@ -110,31 +114,27 @@ Here are some features the Hyperion team is working on adding to the application
 - Additional metrics to view monitor performance
 - Ability to customize dashboard with metrics that are important to your Kafka cluster
 - End-to-end testing with Cypress
-- Refactoring codebase to Typescript for 
+- Refactoring codebase to Typescript for static testing
 
-If there is a feature you think would be useful to you and your team, or if you find any bugs, please [open an issue](https://github.com/oslabs-beta/hyperionn/issues). We are 
+If there is a feature you think would be useful to you and your team, or if you find any bugs, please [open an issue](https://github.com/oslabs-beta/hyperionn/issues). 
 
-## Prometheus Server and Demo Cluster
 
-<!-- We have a few different docker-compose files depending on your needs.
+## Contributors
 
-- If you just need a Kafka cluster (this will spin up a cluster with one zookeeper instance and three brokers ([localhost:9092](localhost:9092), [localhost:9093](localhost:9093), [localhost:9094](localhost:9094)):
-  ```
-  docker-compose -f docker-compose-kafka-only.yml up -d
-  ```
-- If you just need a Prometheus server:
-  1. Create a `prometheus.yml` file from the template `prometheus.template.yml`
-  1. Save it in the `configs/prometheus` folder
-  1. Run the following command to spin up a Prometheus server running at http://localhost:9090:
-  ```
-  docker-compose -f docker-compose-prom-only.yml up -d
-  ```
-- If you just need want to spin up a Prometheus server + Kafka Cluster.:
-  1. We already have a Prometheus config set up, so don't worry about it!
-  1. Run the following command to spin up a Prometheus server running at http://localhost:9090 and 3 brokers ([localhost:9092](localhost:9092), [localhost:9093](localhost:9093), [localhost:9094](localhost:9094)):
-  ```
-  docker-compose -f docker-compose-kafka-prom.yml up -d
-  ``` -->
+- Anish Patel | [GitHub](https://github.com/justanotherguyonline) | [Linkedin](https://www.linkedin.com/in/anish-patel-759545123/)
+- Kristin Green | [GitHub](https://github.com/kngreen) | [Linkedin](https://www.linkedin.com/in/kristin-green-101902a4/)
+- Joey Friedman | [GitHub](https://github.com/fried-jo) | [Linkedin](https://www.linkedin.com/in/joseph-friedman-803803149/)
+- Anita Duong | [GitHub](https://github.com/anitaduong98) | [Linkedin](https://www.linkedin.com/in/anita-duong/)
+
+
+## Support the Project
+
+Contributions are welcomed and appreciated. You can do the following to support the project!
+
+- Star this repository 
+- Raise new issues
+- Fork, clone, and make a PR to solve an issue
+
 
 ## License
 
