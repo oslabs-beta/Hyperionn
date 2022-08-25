@@ -142,7 +142,7 @@ Contributions are welcomed and appreciated. You can do the following to support 
 - Star this repository 
 - Raise new issues
 - Fork, clone, and make a PR to solve an issue
-- Check out our Medium article
+- Check out our [Medium article](https://medium.com/@friedman.joey/hyperion-take-control-over-the-health-of-your-kafka-clusters-796eb061b53c)
 
 
 ## License
