@@ -14,8 +14,5 @@ describe ('offline Partitions', () => {
       <OfflinePartitions/>,  
       )
       expect(await screen.getByRole('title')).toHaveTextContent('Offline Partitions');
-      //expect(await screen.findByRole('readMoreIcon')).toBeInTheDocument();
-      //expect(await screen.findByRole('number')).toBe(1)
-      //screen.debug()
   })
 })

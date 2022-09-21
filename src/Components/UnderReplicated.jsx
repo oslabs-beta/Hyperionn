@@ -23,13 +23,10 @@ const UnderReplicated = ({ underReplicated }) => {
   function parseSimpleKeyMetrics(underRep) {   
     let underRepSum = 0;
     if (JSON.stringify(underRep) === '{}') return;
-  
-    //loop through data and sum all values
     for (const metricChunk of underRep) {
       underRepSum += Number(metricChunk.value[1]);
     }
 
-  //set state of kafkaData
     setKafkaData({ underReplicatedParsed: underRepSum });
   }
 

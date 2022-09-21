@@ -24,24 +24,7 @@ const BytesConsumedRate = ({bytesConsumedRate}) => {
     console.log('sets: ', byteDataSets)
     console.log('props byterate: ', bytesConsumedRate)
   }, [bytesConsumedRate])
-  
-  // iterate through the returned data in order to determine # of producers. 
-  // const makeDataSets = incomingDataArray => {
-  //   const colorArray = ['#f3be66', '#f39566', '#f366dc', '#ce10fa', '#63489b'];
-  //   const output = [];
-  //   for (let i = 0; i < incomingDataArray.length; i++){
-  //     let colorVal = Math.floor(Math.random() * 255)
-  //     const obj = {
-  //       label: incomingDataArray[i].instance,
-  //       backgroundColor: `#f39566`,
-  //       borderColor: `#f39566`,
-  //       fill: false,
-  //       data: [],
-  //      }
-  //     output.push(obj);
-  //   }
-  //   setDataSets(output);
-  // }
+
   
   const makeDataSets = incomingDataArray => {
     
@@ -62,17 +45,12 @@ const BytesConsumedRate = ({bytesConsumedRate}) => {
     setDataSets(output);
   }
   
-
-
-
-
-
+  
   function makeDataPoints(byteData) {
     const newDataPoints = [];
     for (let i = 0; i < byteData.length; i++) {
       newDataPoints.push({x: byteData[i].x, y: byteData[i].y});
     }
-    //state is updated with the new data points
     setDataPoints(newDataPoints);
   }
 
@@ -93,7 +71,6 @@ const BytesConsumedRate = ({bytesConsumedRate}) => {
     <Box>
       <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Bytes Consumed Rate</Typography>
       <Line
-        //datasets is the state byteDataSets array
         data={{
           datasets: byteDataSets,
         }}
@@ -113,9 +90,8 @@ const BytesConsumedRate = ({bytesConsumedRate}) => {
             x: {
               type: 'realtime',
               realtime: {
-                duration : 200000, //duration = x-axis maximum
+                duration : 200000, 
                 refresh: 5000,
-                //chart will refresh every 5 seconds, pushing in the new data points from state into the datasets.data property
                 onRefresh: chart => {
                   chart.data.datasets.forEach((instance, index, array) => {
                     instance.data.push({

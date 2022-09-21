@@ -12,12 +12,9 @@ Chart.register(StreamingPlugin);
 const pollingInterval = 5000;
 
 const RequestRate = ({requestRate}) => {
-//request rate is An average number of responses sent per producer.
 
   const [reqRateSets, setReqRateSets] = useState([]);
   const [dataPoints, setDataPoints] = useState([]);
-
-  
 
   useEffect(()=> {
     if (!reqRateSets.length){
@@ -53,7 +50,6 @@ const RequestRate = ({requestRate}) => {
       newDataPoints.push({x: newData[i].x, y: newData[i].y});
     }
     setDataPoints(newDataPoints);
-    // localStorage.setItem('Request Rate', JSON.stringify(newDataPoints));
   }
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -83,12 +79,6 @@ const RequestRate = ({requestRate}) => {
             }
           },
           animation: true,
-        //   plugins: {
-        //     title: {
-        //       display: true,
-        //       text: 'Request Rate'
-        //     }
-        // },
           scales: {
             x: {
               type: 'realtime',
