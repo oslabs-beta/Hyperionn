@@ -47,7 +47,6 @@ const Login = () => {
       localStorage.removeItem("port")
       localStorage.removeItem("domain")
       navigate("/dashboard")
-    // setTimeout(()=>navigate("/dashboard"),5000)
 
     } catch {
       setError("Failed to log in")
@@ -63,7 +62,6 @@ const Login = () => {
       setLoading(true)
       
       const result = await loginWithGithub();
-    //   setTimeout(()=>navigate("/dashboard"),5000)
       navigate('/dashboard')
     } catch {
       setError("Failed to log in")
@@ -71,18 +69,6 @@ const Login = () => {
 
     setLoading(false)
   }
-
-  // localStorage.setItem(
-  //   'user',
-  //   JSON.stringify({ ...response.data, password: "" })
-  // );
-    //to check if user is already logged in, navigate to homepage
-
-    // useEffect(() => {
-    //   if (localStorage.getItem('email')) {
-    //     navigate("/dashboard");
-    //   }
-    // }, []);
 
   return (
     <div className="login-page">

@@ -12,18 +12,15 @@ import {
 import { useAuth } from "../Pages/AuthContext";
 import { useNavigate } from "react-router-dom"
 import LogoutIcon from '@mui/icons-material/Logout';
-//import logo from '../assets/whitelogo.png';
 
 
 
 const NavBar = (): JSX.Element => {
 
-
   interface errorMsg { result: string }
 
   const [error, setError] = useState <errorMsg>({ result: '' })
   const navigate = useNavigate()
-
   const { logout } = useAuth()
 
   const button: { backgroundColor: string, color: string, margin: string, boxShadow: string, '&:hover': {backgroundColor: string, color: string }} = {
@@ -38,9 +35,7 @@ const NavBar = (): JSX.Element => {
   }
 
   async function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
-
     e.preventDefault()
-
     try {
       await logout()
       navigate("/")
@@ -50,14 +45,9 @@ const NavBar = (): JSX.Element => {
   }
 
 
-
-
   return(
     <AppBar id="NavBar" position="absolute">
       <Box>
-        {/* <Box id="leftSide">
-          <img src={logo} width="50px" height="50px"></img>
-        </Box> */}
         <Box id="rightSide">
           <Button variant="contained" sx={button} onClick={handleSubmit}>
             <LogoutIcon></LogoutIcon>

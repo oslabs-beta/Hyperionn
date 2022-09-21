@@ -20,12 +20,10 @@ const OfflinePartitions = ({ offlinePartitions }) => {
     let offlinePartSum = 0;
     if (JSON.stringify(offPart) === '{}') return;
 
-    //loop through data and sum all values
     for (const metricChunk of offPart) {
       offlinePartSum += Number(metricChunk.value[1]);
     }
 
-  //set state of kafkaData
     setKafkaData({ offlinePartitionsParsed: offlinePartSum });
   }
 

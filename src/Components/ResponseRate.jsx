@@ -6,15 +6,9 @@ import { Line} from "react-chartjs-2";
 import 'chartjs-adapter-luxon';
 import StreamingPlugin from 'chartjs-plugin-streaming';
 
-
-
 Chart.register(StreamingPlugin);
   
-
-// const pollingInterval = 5000;
-
 const ResponseRate = ({responseRate}) => {
-//ResponseRate = An average number of responses received per producer.
 
   const [resRateSets, setResRateSets] = useState([]);
   const [dataPoints, setDataPoints] = useState([]);
@@ -51,7 +45,6 @@ const ResponseRate = ({responseRate}) => {
       newDataPoints.push({x: newData[i].x, y: newData[i].y});
     }
     setDataPoints(newDataPoints);
-    // localStorage.setItem('Request Rate', JSON.stringify(newDataPoints));
   }
   
   const [anchorEl, setAnchorEl] = useState(null);
@@ -82,12 +75,6 @@ const ResponseRate = ({responseRate}) => {
             }
           },
           animation: true,
-        //   plugins: {
-        //     title: {
-        //       display: true,
-        //       text: 'Response Rate'
-        //     }
-        // },
           scales: {
             x: {
               type: 'realtime',
