@@ -22,7 +22,6 @@ export function ErrorLogDisplay () {
       return (
           <>
             <Grid container sx={outerGridContainer}>
-              {/* <InfoContext.Provider value={[kafkaData, setKafkaData]}> */}
                 <Box sx={{gridArea:"SideNav"}}>
                   <SideNav />
                 </Box>
@@ -32,7 +31,6 @@ export function ErrorLogDisplay () {
                 <Box item sx={{gridArea:"ErrorLogContainer"}}>
                   <ErrorLogContainer />
                 </Box>
-              {/* </InfoContext.Provider> */}
             </Grid>
           </>
       )

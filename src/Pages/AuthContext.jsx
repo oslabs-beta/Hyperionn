@@ -3,21 +3,20 @@ import { auth } from "../../firebase.js"
 import app from '../../firebase.js';
 import { ConstructionOutlined, Google } from "@mui/icons-material";
 import { getAuth, 
-    createUserWithEmailAndPassword, 
-    signInWithEmailAndPassword,
+     createUserWithEmailAndPassword, 
+     signInWithEmailAndPassword,
      signOut, 
      sendPasswordResetEmail,
      updateEmail,
      updatePassword,
      onAuthStateChanged,
-    GoogleAuthProvider,
-    signInWithPopup,
-    GithubAuthProvider
-     } from "firebase/auth"
+     GoogleAuthProvider,
+     signInWithPopup,
+     GithubAuthProvider
+    } from "firebase/auth"
 const goog = new GoogleAuthProvider()
 const github = new GithubAuthProvider();
 const AuthContext = React.createContext()
-//const auth = getAuth()
 export function useAuth() {
   return useContext(AuthContext)
 }

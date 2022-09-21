@@ -24,8 +24,7 @@ const OutgoingByteRate = ({producerByteRate}) => {
     console.log('sets: ', byteDataSets)
     console.log('props byterate: ', producerByteRate)
   }, [producerByteRate])
-  
-  // iterate through the returned data in order to determine # of producers. 
+
   const makeDataSets = incomingDataArray => {
     const colorArray = ['#f3be66', '#f39566', '#f366dc', '#ce10fa', '#63489b'];
     const output = [];
@@ -48,7 +47,6 @@ const OutgoingByteRate = ({producerByteRate}) => {
     for (let i = 0; i < byteData.length; i++) {
       newDataPoints.push({x: byteData[i].x, y: byteData[i].y});
     }
-    //state is updated with the new data points
     setDataPoints(newDataPoints);
   }
 
@@ -69,7 +67,6 @@ const OutgoingByteRate = ({producerByteRate}) => {
     <Box>
       <Typography className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Producer Outgoing Byte Rate</Typography>
       <Line
-        //datasets is the state byteDataSets array
         data={{
           datasets: byteDataSets,
         }}
@@ -89,9 +86,8 @@ const OutgoingByteRate = ({producerByteRate}) => {
             x: {
               type: 'realtime',
               realtime: {
-                duration : 200000, //duration = x-axis maximum
+                duration : 200000, 
                 refresh: 5000,
-                //chart will refresh every 5 seconds, pushing in the new data points from state into the datasets.data property
                 onRefresh: chart => {
                   chart.data.datasets.forEach((instance, index, array) => {
                     instance.data.push({

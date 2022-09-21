@@ -11,7 +11,6 @@ export default function Signup() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  //  "const { signup } = useAuth() || {}" may not be best practice, but is needed to run our tests as of right now
   const { signup } = useAuth() || {}
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);

@@ -14,11 +14,6 @@ const SideNav = (props) => {
     width: "150px"
   }
 
-  // interface ConnectionModel {
-  //   port: number;
-  //   domain: string;
-  // }
-
   const handleSubmit = () => {
     const port = (document.getElementById('port') as HTMLInputElement).value;
     const domain = (document.getElementById('domain') as HTMLInputElement).value;
@@ -26,14 +21,6 @@ const SideNav = (props) => {
     localStorage.setItem('domain', domain);
     props.handlePortAndDomain(domain, port);
     setConnectButton(false)
-    //get the values of the needed imputs to send to server
-    // try{
-    //   axios.post<ConnectionModel>('/server/metrics', { port: port, domain: domain })
-    //   setConnectButton(false);
-    // }
-    // catch(error){
-    //   console.log('error sending data')
-    // }
   }
 
     return (

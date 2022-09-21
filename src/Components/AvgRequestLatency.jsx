@@ -15,7 +15,6 @@ const AvgRequestLatency = ({avgReqLatency}) => {
   const [avgDataSets, setDataSets] = useState([]);
   const [dataPoints, setDataPoints] = useState([]);
 
-  // let previousValues = useRef({avgReqLatency})
   useEffect(()=> {
     if (!avgDataSets.length) {
       makeDataSets(avgReqLatency);
@@ -25,7 +24,6 @@ const AvgRequestLatency = ({avgReqLatency}) => {
     console.log('props avgreq: ', avgReqLatency)
   }, [avgReqLatency])
   
-  // iterate through the returned data in order to determine # of producers. 
   const makeDataSets = incomingDataArray => {
     const colorArray = ['#f3be66', '#f39566', '#f366dc', '#ce10fa', '#63489b'];
     const output = [];
@@ -33,8 +31,7 @@ const AvgRequestLatency = ({avgReqLatency}) => {
       let colorVal = Math.floor(Math.random() * 255)
       const obj = {
         label: incomingDataArray[i].instance,
-        //backgroundColor: `rgba(${colorVal}, ${colorVal}, ${colorVal}, 0.5)`,
-       backgroundColor: `#f39566`,
+        backgroundColor: `#f39566`,
         borderColor: `#f39566`,
         fill: false,
         data: [],
@@ -49,7 +46,6 @@ const AvgRequestLatency = ({avgReqLatency}) => {
     for (let i = 0; i < avgReqLat.length; i++) {
       newDataPoints.push({x: avgReqLat[i].x, y: avgReqLat[i].y});
     }
-    //state is updated with the new data points
     setDataPoints(newDataPoints);
   }
 
@@ -72,7 +68,6 @@ const AvgRequestLatency = ({avgReqLatency}) => {
     <Box>
       <Typography role='name' className="data-label" sx={{ fontSize: '0.8rem', letterSpacing: '1.5px', textTransform: 'uppercase'}}>Average Request Latency</Typography>
       <Line
-        //datasets is the state avgDataSets array
         data={{
           datasets: avgDataSets,
         }}
@@ -92,9 +87,8 @@ const AvgRequestLatency = ({avgReqLatency}) => {
             x: {
               type: 'realtime',
               realtime: {
-                duration : 200000, //duration = x-axis maximum
+                duration : 200000, 
                 refresh: 5000,
-                //chart will refresh every 5 seconds, pushing in the new data points from state into the datasets.data property
                 onRefresh: chart => {
                   chart.data.datasets.forEach((instance, index, array) => {
                     instance.data.push({
